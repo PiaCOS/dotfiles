@@ -1,0 +1,18 @@
+# Ignore temporary and backup files
+*.swp
+*.bak
+*.tmp
+
+# Ignore logs
+*.log
+
+# Ignore compiled files
+*.o
+*.a
+*.so
+
+# Ignore Neovim swap files
+*.nvim
+
+# Ignore mac annoying files
+*.DS_Store
