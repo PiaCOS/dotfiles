@@ -1,1 +1,0 @@
-/Users/elliot/.config/fish
