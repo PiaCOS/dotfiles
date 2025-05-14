@@ -4,7 +4,9 @@ source $VIMRUNTIME/defaults.vim
 " ------------------------------------------------------------------
 " theme stuff
 " ------------------------------------------------------------------
-set background=light " or 'dark', depending on your terminal's theme
+" set background=light " or 'dark', depending on your terminal's theme
+set background=dark " or 'light', depending on your terminal's theme
+
 set t_Co=256
 
 " Enable syntax highlighting.
