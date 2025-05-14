@@ -7,6 +7,19 @@ if status is-interactive
     
     alias ll="ls -lsa"
 
+    # ODOO STUFFS
+    alias odooe="./odoo-bin --addons-path="addons/,../enterprise/" -d rd-master --dev xml"
+    alias odoot="./odoo-bin --addons-path="addons,../enterprise/,../tutorials" -d rd-demo -u estate,estate_account --dev xml"
+
+    # ABBREVIATIONS
+    abbr !! --position anywhere --function last_history_item
+
+    # ---------------------------------------------------
+    # DEFAULT
+    # ---------------------------------------------------
+    
+    set -gx EDITOiR vim
+
     # ---------------------------------------------------
     # PATH STUFF
     # ---------------------------------------------------
