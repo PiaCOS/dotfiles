@@ -1,6 +1,9 @@
 " Sets the default vim settings. 
 source $VIMRUNTIME/defaults.vim
 
+let mapleader=" "
+nnoremap <Space> <Nop>
+
 " ------------------------------------------------------------------
 " theme stuff
 " ------------------------------------------------------------------
@@ -25,7 +28,6 @@ autocmd FileType c setlocal tabstop=4 shiftwidth=4 noexpandtab
 " ------------------------------------------------------------------
 " keymaps
 " ------------------------------------------------------------------
-let mapleader = " "
 
 " Comment and uncomment selection in visual mode (only c-like stuff)
 xnoremap <leader>c :s/^/\/\/ /<CR>
