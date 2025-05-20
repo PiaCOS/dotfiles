@@ -3,6 +3,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.cmd("set number")
+vim.cmd("set relativenumber")
+
 require("pia_conf.options")
 require("pia_conf.autocmds")
 require("pia_conf.plugins")
