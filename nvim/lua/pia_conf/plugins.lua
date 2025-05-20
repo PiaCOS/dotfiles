@@ -16,7 +16,12 @@ vim.opt.rtp:prepend(lazypath)
 -- PLUGINS
 
 require("lazy").setup({
-	-- Theme
+	
+	-- Themes
+	{
+		"nyoom-engineering/oxocarbon.nvim",
+		priority = 1000,
+	},
 	{
 		"xero/evangelion.nvim",
 		lazy = false,
@@ -38,10 +43,11 @@ require("lazy").setup({
 	end
 	},
 
-  -- Comment plugin
-  {
-    "numToStr/Comment.nvim",
-    opts = {},
-    lazy = false,
-  },
+	-- Comment plugin
+	{
+		"numToStr/Comment.nvim",
+		opts = {},
+		lazy = false,
+	},
 })
+
