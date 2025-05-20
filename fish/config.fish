@@ -7,12 +7,12 @@ if status is-interactive
     
     alias ll="ls -lsa"
 
-    # ODOO STUFFS
-    alias odooe="./odoo-bin --addons-path="addons/,../enterprise/" -d rd-master --dev xml"
-    alias odoot="./odoo-bin --addons-path="addons,../enterprise/,../tutorials" -d rd-demo -u estate,estate_account --dev xml"
-
-    # ABBREVIATIONS
-    abbr !! --position anywhere --function last_history_item
+	# clipboard stuff
+	alias claptrap="pwd | xclip -selection clipboard"
+	abbr --add clap "xclip -selection clipboard"
+    
+	# used to sudo last command
+	abbr !! --position anywhere --function last_history_item
 
     # ---------------------------------------------------
     # DEFAULT
