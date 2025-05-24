@@ -36,12 +36,29 @@ require("lazy").setup({
 
 	-- Telescope
 	{
-	"nvim-telescope/telescope.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-	config = function()
-	require("telescope").setup()
-	end
+		"nvim-telescope/telescope.nvim",
+			dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+		require("telescope").setup()
+		end
 	},
+
+	-- Treesitter
+	{
+		'nvim-treesitter/nvim-treesitter',
+		build = ':TSUpdate',
+		config = function()
+			require'nvim-treesitter.configs'.setup {
+				ensure_installed = { "javascript", "typescript", "lua", "json" }, -- add more if needed
+				highlight = {
+					enable = true,
+					disable = { "markdown", },
+					additional_vim_regex_highlighting = false, -- usually leave this false unless you need legacy stuff
+				},
+			}
+		end
+	},
+
 
 	-- Comment plugin
 	{
