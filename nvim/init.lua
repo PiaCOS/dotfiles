@@ -11,3 +11,5 @@ require("pia_conf.autocmds")
 require("pia_conf.plugins")
 require("pia_conf.theme")
 require("pia_conf.keymaps")
+
+require("pia_conf.livegrep")

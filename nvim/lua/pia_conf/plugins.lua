@@ -73,12 +73,12 @@ require("lazy").setup({
 
 		keys = {
 			{
-				"<leader>ff",
+				"<leader>fF",
 				function() require("telescope.builtin").find_files() end,
 				desc = "Find files",
 			},
 			{
-				"<leader>fg",
+				"<leader>fG",
 				function() require("telescope").extensions.live_grep_args.live_grep_args() end,
 				desc = "Grep (live with args)"
 			},
@@ -90,6 +90,45 @@ require("lazy").setup({
 			tele.load_extension("live_grep_args")
 		end,
 	},
+
+	--fzf-lua
+	{
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" }, -- optional, icons~
+		keys = {
+			{
+				"<leader>fg",
+				function()
+					require("fzf-lua").live_grep_glob()
+				end,
+				desc = "FZF-Lua Grep"
+			},
+			{
+				"<leader>ff",
+				function()
+					require("fzf-lua").files()
+				end,
+				desc = "FZF-Lua Files"
+			},
+		},
+		config = function()
+			require("fzf-lua").setup({
+				"default", -- or "telescope" for telescope-like theme
+				winopts = {
+					height = 0.85,
+					width = 0.80,
+					preview = {
+						layout = "vertical",
+					},
+				},
+				grep = {
+					rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case -e",
+					prompt = '🔍> ',
+				},
+			})
+		end,
+	},
+
 
 	-- Treesitter
 	{
