@@ -7,6 +7,7 @@ fzf.setup({
 		width = 0.80,
 		preview = {
 			layout = "vertical",
+			vertical = "down:60%",
 		},
 	},
 	grep = {
