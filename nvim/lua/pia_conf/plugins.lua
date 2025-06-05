@@ -53,5 +53,13 @@ require("lazy").setup({
 			require("pia_conf.plugins.treesitter")
 		end,
 	},
+
+	-- Visual Whitespace
+	{
+    'mcauley-penney/visual-whitespace.nvim',
+    config = true,
+    event = "ModeChanged *:[vV\22]", -- optionally, lazy load on entering visual mode
+    opts = {},
+  },
 })
 
