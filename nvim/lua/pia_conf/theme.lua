@@ -1,4 +1,7 @@
 -- lua/user/theme.lua
 
--- vim.cmd.colorscheme("evangelion")
-vim.cmd.colorscheme("oxocarbon")
+vim.o.background = "dark"
+-- vim.o.background = "light"
+
+vim.cmd.colorscheme("evergarden")
+

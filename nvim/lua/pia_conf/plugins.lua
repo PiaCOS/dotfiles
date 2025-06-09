@@ -17,12 +17,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	
-	-- Themes
-	{
-		"nyoom-engineering/oxocarbon.nvim",
-		priority = 1000,
-	},
-
 	-- Telescope
 	{
 		"nvim-telescope/telescope.nvim",
@@ -61,5 +55,46 @@ require("lazy").setup({
     event = "ModeChanged *:[vV\22]", -- optionally, lazy load on entering visual mode
     opts = {},
   },
+
+	-- THEMES !!!!!!!!!
+		-- Themes
+	{
+    "zenbones-theme/zenbones.nvim",
+    dependencies = "rktjmp/lush.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+    	vim.g.zenbones_darken_comments = 45
+    	vim.cmd.colorscheme('zenbones')
+    end
+	},
+
+	{
+		'everviolet/nvim', name = 'evergarden',
+		priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
+		opts = {
+			theme = {
+				variant = 'fall', -- 'winter'|'fall'|'spring'|'summer'
+				accent = 'green',
+			},
+			editor = {
+				transparent_background = false,
+				sign = { color = 'none' },
+				float = {
+					color = 'mantle',
+					invert_border = false,
+				},
+				completion = {
+					color = 'surface0',
+				},
+			},
+		}
+	},
+
+	{ 'metalelf0/black-metal-theme-neovim', priority = 1000 },
+	{ 'aliqyan-21/darkvoid.nvim', priority = 1000 },
+	{ 'rebelot/kanagawa.nvim', priority = 1000 },
+	{ 'nyoom-engineering/oxocarbon.nvim', priority = 1000 },
+	{ 'diegoulloao/neofusion.nvim', priority = 1000 },
 })
 
