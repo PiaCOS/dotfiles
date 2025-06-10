@@ -43,7 +43,6 @@ end, { desc = "FZF: Modified files in nested repos" })
 
 
 
-
 -- LEGACY THING BUT IT WAS FUNNY
 -- check inside git diff IN CHILD FOLDERS
 -- FIRST we find all .git/ dirs

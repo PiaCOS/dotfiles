@@ -19,10 +19,8 @@ require("lazy").setup({
 	-- LSP STUFF
 	{
 		"neovim/nvim-lspconfig",
-		config = function()
-			require("pia_conf.plugins.lsp").setup()
-		end,
 	},
+
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
@@ -49,6 +47,24 @@ require("lazy").setup({
   	config = function()
     	require("mason").setup()
   	end,
+	},
+
+	{
+		"williamboman/mason-lspconfig.nvim",
+		dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
+		config = function()
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"ts_ls",
+					"pyright",
+					"rust_analyzer",
+					"lua_ls",
+					"lemminx",
+				},
+			})
+
+			require("pia_conf.plugins.lsp").setup()
+		end,
 	},
 
 	--fzf-lua

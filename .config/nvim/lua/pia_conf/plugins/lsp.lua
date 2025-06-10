@@ -1,54 +1,47 @@
 local M = {}
 
-local on_attach = function(client, bufnr)
-  -- Enable diagnostic visuals
-  vim.diagnostic.config({
-    virtual_text = true,
-    signs = true,
-    underline = true,
-    update_in_insert = false,
-    severity_sort = true,
-  })
-
-  local opts = { noremap=true, silent=true }
+local on_attach = function(_, bufnr)
   local keymap = vim.api.nvim_buf_set_keymap
+  local opts = { noremap = true, silent = true }
+  
+	keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 
-  keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-  keymap(bufnr, "i", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-  keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-  keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.lsp.buf.format{ async = true }<CR>", opts)
 end
+
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
 
 function M.setup()
   local lspconfig = require("lspconfig")
+  local mason_lspconfig = require("mason-lspconfig")
 
-  local servers = {
-    "ts_ls",
-    "pyright",
-    "rust_analyzer",
-    "lua_ls",
-		"lemminx",
-  }
+  mason_lspconfig.setup({
+		handlers = {
+			function(server_name)
+				lspconfig[server_name].setup({
+					on_attach = on_attach,
+				})
+			end,
 
-  for _, server in ipairs(servers) do
-    if server == "lua_ls" then
-      lspconfig.lua_ls.setup {
-        on_attach = on_attach,
-        settings = {
-          Lua = {
-            diagnostics = { globals = { "vim" } },
-          },
-        },
-      }
-    else
-      lspconfig[server].setup {
-        on_attach = on_attach,
-      }
-    end
-  end
+			["lua_ls"] = function() -- it's an overide of lua_ls because of "undefined global 'vim'"
+				lspconfig.lua_ls.setup({
+					on_attach = on_attach,
+					settings = {
+						Lua = {
+							diagnostics = {
+								globals = { "vim" },
+							},
+						},
+					},
+				})
+			end,
+  	}
+	})
 end
 
 return M
