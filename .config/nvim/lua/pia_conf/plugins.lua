@@ -22,6 +22,25 @@ require("lazy").setup({
 	},
 
 	{
+		"williamboman/mason-lspconfig.nvim",
+		dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
+		config = function()
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"ts_ls",
+					"pyright",
+					"rust_analyzer",
+					"lua_ls",
+					"lemminx",
+					"eslint",
+				},
+			})
+
+			require("pia_conf.plugins.lsp").setup()
+		end,
+	},
+
+	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
@@ -47,24 +66,6 @@ require("lazy").setup({
   	config = function()
     	require("mason").setup()
   	end,
-	},
-
-	{
-		"williamboman/mason-lspconfig.nvim",
-		dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"ts_ls",
-					"pyright",
-					"rust_analyzer",
-					"lua_ls",
-					"lemminx",
-				},
-			})
-
-			require("pia_conf.plugins.lsp").setup()
-		end,
 	},
 
 	--fzf-lua
@@ -93,6 +94,14 @@ require("lazy").setup({
     event = "ModeChanged *:[vV\22]", -- optionally, lazy load on entering visual mode
     opts = {},
   },
+
+	-- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   main = "ibl",
+  --   ---@module "ibl"
+  --   ---@type ibl.config
+  --   opts = {},
+	-- },
 
 	-- THEMES !!!!!!!!!
 		-- Themes
