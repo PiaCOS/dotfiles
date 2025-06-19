@@ -41,25 +41,6 @@ require("lazy").setup({
 		end,
 	},
 
-	--[[
-	-- LSP ZERO, Used for Odoo
-	{
-		"VonHeikemen/lsp-zero.nvim",
-		branch = "v2.x",
-		dependencies = {
-			"neovim/nvim-lspconfig",
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-			"hrsh7th/nvim-cmp",
-			"hrsh7th/cmp-nvim-lsp",
-			"L3MON4D3/LuaSnip",
-		},
-		config = function()
-			require("pia_conf.plugins.lsp_zero").setup()
-		end,
-	},
-	--]]
-
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
@@ -87,22 +68,7 @@ require("lazy").setup({
     	require("mason").setup()
   	end,
 	},
-	
-	--[[
-	- Vgit
-  {
-    'tanvirtin/vgit.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-    config = function()
-      local vgit = require('vgit')
-      vgit.setup()
-      vim.keymap.set('n', '<leader>hu', ':VGit hunk_down<CR>', { desc = 'Next Git hunk' })
-      vim.keymap.set('n', '<leader>hd', ':VGit hunk_up<CR>', { desc = 'Previous Git hunk' })
-    end,
-  },
-	--]]
+
 	--fzf-lua
 	{
 		"ibhagwan/fzf-lua",

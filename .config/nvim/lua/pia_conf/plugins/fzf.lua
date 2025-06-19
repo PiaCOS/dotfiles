@@ -32,7 +32,7 @@ end, { desc = "fzf: Grep" })
 local diff = require("pia_conf.plugins.fzf_git_diff")
 
 vim.keymap.set("n", "<leader>gg", function()
-	local files = diff.search_repo()
+	local files = diff.search_repo({ maxdepth = 2})
   fzf.fzf_exec(files, {
     prompt = "Modified in Repos> ",
     actions = fzf.defaults.actions.files,
