@@ -88,6 +88,20 @@ require("lazy").setup({
 		end,
 	},
 
+	{
+		"nvim-treesitter/playground",
+		cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
+		config = function()
+			require("nvim-treesitter.configs").setup {
+				playground = {
+					enable = true,
+					updatetime = 25,
+					persist_queries = false,
+				},
+			}
+		end
+	},
+
 	-- Visual Whitespace
 	{
     'mcauley-penney/visual-whitespace.nvim',
@@ -99,35 +113,47 @@ require("lazy").setup({
 	-- THEMES !!!!!!!!!
 		-- Themes
 	{
-		'everviolet/nvim', name = 'evergarden',
-		priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
-		opts = {
-			theme = {
-				variant = 'spring', -- 'winter'|'fall'|'spring'|'summer'
-				accent = 'green',
-			},
-			editor = {
-				transparent_background = false,
-				override_terminal = true,
-				sign = { color = 'none' },
-				float = {
-					color = 'mantle',
-					invert_border = false,
+  'everviolet/nvim',
+		name = 'evergarden',
+		priority = 1000,
+		config = function()
+			local colors = require("evergarden.colors").colors
+
+			require('evergarden').setup {
+				theme = {
+					variant = 'spring',
+					accent = 'green',
 				},
-				completion = {
-					color = 'surface0',
+				editor = {
+					transparent_background = false,
+					override_terminal = true,
+					sign = { color = 'none' },
+					float = {
+						color = 'mantle',
+						invert_border = false,
+					},
+					completion = {
+						color = 'surface0',
+					},
 				},
-			},
-			style = {
-				tabline = { 'reverse' },
-				search = { 'italic', 'reverse' },
-				incsearch = { 'italic', 'reverse' },
-				types = { 'italic' },
-				keyword = { 'italic' },
-				comment = { 'italic' },
-			},
-		}
+				style = {
+					tabline = { 'reverse' },
+					search = { 'italic', 'reverse' },
+					incsearch = { 'italic', 'reverse' },
+					types = { 'italic' },
+					keyword = { 'italic' },
+					comment = { 'italic' },
+				},
+				overrides = {
+					["@string"] = { fg = colors.lime, italic = true },
+					["@function"] = { fg = colors.green, italic = true },
+				},
+			}
+
+			vim.cmd.colorscheme("evergarden")
+		end
 	},
+
 
 	{ 'nyoom-engineering/oxocarbon.nvim', priority = 1000 },
 })
