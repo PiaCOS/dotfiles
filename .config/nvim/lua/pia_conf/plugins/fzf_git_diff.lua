@@ -36,18 +36,29 @@ local function git_diff(git_dir, repo_dir)
 	return run_cmd(diff_cmd) .. run_cmd(staged_cmd) .. run_cmd(untracked_cmd)
 end
 
+-- Get files from previous commit
+local function git_show(git_dir, repo_dir)
+	local base_cmd = "git --git-dir='%s'"
+	local show_cmd = string.format(base_cmd .. "show --name-only --pretty='format:'", git_dir)
+	vim.notify("CMD:", show_cmd)
+	return run_cmd(show_cmd)
+end
+
 -- Main: find all repos and return list of modified/untracked files
 function M.search_repo(opts)
 	opts = opts or {}
 	local maxdepth = tonumber(opts.maxdepth) or 3
+	local diff_mode = tonumber(opts.diff_mode) or 1
 
 	local find_cmd = string.format("find . -maxdepth %d -type d -name '.git'", maxdepth)
 	local git_dirs = split(run_cmd(find_cmd), "\n")
 	local files = {}
 
+	local selected_fn = (diff_mode == 1) and git_diff or git_show
+
 	for _, git_dir in ipairs(git_dirs) do
 		local repo_root = parent_folder(git_dir)
-		for _, file in ipairs(split(git_diff(git_dir, repo_root), "\n")) do
+		for _, file in ipairs(split(selected_fn(git_dir, repo_root), "\n")) do
 			if file ~= "" then
 				table.insert(files, repo_root .. "/" .. file)
 			end

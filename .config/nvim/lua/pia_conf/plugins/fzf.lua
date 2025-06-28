@@ -13,18 +13,21 @@ fzf.setup({
 	grep = {
 		rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case -e",
 		prompt = '-> ',
+		rg_glob = true, -- Enable Glob parsing
+		glob_separator = "%s%-%-", -- Separator pattern
+		cmd = "rg --vimgrep --hidden --glob '!**/*.po' --glob '!**/*.pot'", --exclude these weird files
 	},
 
 })
 
 -- keymaps 
 vim.keymap.set("n", "<leader>ff", function() 
-	require("fzf-lua").files() 
+	require("fzf-lua").files()
 end, { desc = "fzf: Find files" })
 
 
 vim.keymap.set("n", "<leader>fg", function() 
-	require("fzf-lua").live_grep_glob() 
+	require("fzf-lua").live_grep_glob()
 end, { desc = "fzf: Grep" })
 
 
@@ -32,7 +35,12 @@ end, { desc = "fzf: Grep" })
 local diff = require("pia_conf.plugins.fzf_git_diff")
 
 vim.keymap.set("n", "<leader>gg", function()
-	local files = diff.search_repo({ maxdepth = 2})
+	local files = diff.search_repo(
+		{
+			maxdepth = 2,
+			diff_mode = 1,
+		}
+	)
   fzf.fzf_exec(files, {
     prompt = "Modified in Repos> ",
     actions = fzf.defaults.actions.files,
@@ -40,7 +48,19 @@ vim.keymap.set("n", "<leader>gg", function()
   })
 end, { desc = "FZF: Modified files in nested repos" })
 
-
+vim.keymap.set("n", "<leader>gh", function()
+	local files = diff.search_repo(
+		{
+			maxdepth = 2,
+			diff_mode = 0,
+		}
+	)
+  fzf.fzf_exec(files, {
+    prompt = "Modified in Previous Commit> ",
+    actions = fzf.defaults.actions.files,
+		preview = "batcat --style=numbers --color=always --line-range=:500 {}",
+  })
+end, { desc = "FZF: Modified files during previous commit in nested repos" })
 
 
 -- LEGACY THING BUT IT WAS FUNNY
