@@ -1,7 +1,7 @@
 # Evergarden-inspired Helix Theme (Spring Variant)
 # Syntax highlighting
 # -------------------
-inherits = "evergarden_spring"
+inherits = "evergarden_fall"
 
 [palette]
 surface1 = '#3E4A4F'
