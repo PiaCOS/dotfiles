@@ -1,6 +1,7 @@
 # PYTHON
 
 [[language]]
+indent = { tab-width = 4, unit = "    " }
 name = "python"
 language-servers = ["pyright", "ruff"]
 
@@ -13,7 +14,8 @@ command = "ruff-lsp"
 args = []
 
 # RUST
- 
+[[language]]
+name = "rust" 
 [language-server.rust-analyzer.config.check]
 command = "clippy"
 
@@ -24,6 +26,7 @@ features = "all"
 
 [[language]]
 name = "javascript"
+indent = { tab-width = 4, unit = "    " }
 language-servers = [
   "typescript-language-server", # optional
   "vscode-eslint-language-server",
@@ -47,3 +50,14 @@ language-servers = [
   "typescript-language-server",
   "vscode-eslint-language-server",
 ]
+
+# TOML AND STUFF
+
+[[language]]
+name = "toml"
+scope = "source.toml"
+injection-regex = "toml"
+file-types = ["toml", { glob = "pdm.lock" }, { glob = "poetry.lock" }, { glob = "Cargo.lock" }, { glob = "uv.lock" }]
+comment-token = "#"
+language-servers = [ "taplo", "tombi" ]
+indent = { tab-width = 2, unit = "  " }
