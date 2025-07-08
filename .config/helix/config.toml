@@ -3,3 +3,6 @@ theme = "boo_berry_but_cuter"
 [editor]
 line-number = "relative"
 bufferline = "always"
+
+[keys.normal]
+"X" = "extend_line_above"

@@ -16,3 +16,6 @@
 
 # Ignore mac annoying files
 *.DS_Store
+
+# fish variable file shouldn't be in repo
+.config/fish/fish_variables
