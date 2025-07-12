@@ -14,8 +14,14 @@ command = "ruff-lsp"
 args = []
 
 # RUST
+
 [[language]]
-name = "rust" 
+name = "rust"
+language-servers = ["rust-analyzer"]
+
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
 [language-server.rust-analyzer.config.check]
 command = "clippy"
 
