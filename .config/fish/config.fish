@@ -1,29 +1,29 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
-    
+
     # ---------------------------------------------------
     # ALIAS STUFF
     # ---------------------------------------------------
-    
+
     alias ll="ls -lsa"
 
-	# clipboard stuff
-	alias claptrap="pwd | xclip -selection clipboard"
-	abbr --add clap "xclip -selection clipboard"
-    
-	# used to sudo last command
-	abbr !! --position anywhere --function last_history_item
+    # clipboard stuff
+    alias claptrap="pwd | xclip -selection clipboard"
+    abbr --add clap "xclip -selection clipboard"
+
+    # used to sudo last command
+    abbr !! --position anywhere --function last_history_item
 
     # ---------------------------------------------------
     # DEFAULT
     # ---------------------------------------------------
-    
-    set -gx EDITOiR vim
+
+    set -gx EDITOR hx
 
     # ---------------------------------------------------
     # PATH STUFF
     # ---------------------------------------------------
-    
+
     # Add cargo to path
     # set -x PATH $HOME/.cargo/bin
     set PATH $PATH ~/.cargo/bin
