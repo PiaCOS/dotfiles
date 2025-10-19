@@ -1,0 +1,20 @@
+[general]
+import = [
+    "~/Dev/nix-dotfiles/home-manager/alacritty/themes/themes/hatsunemiku.toml"
+]
+
+[window]
+# blur = true
+opacity = 0.95
+decorations = "full"
+padding = { x = 5, y = 1 }
+
+[terminal]
+shell = "/usr/bin/fish"
+
+[font]
+size = 6.5
+normal = { family = "MapleMono NF", style = "Regular"}
+italic = { family = "MapleMono NF", style = "Italic"}
+bold = { family = "MapleMono NF", style = "Bold"}
+bold_italic = { family = "MapleMono NF", style = "BoldItalic"}

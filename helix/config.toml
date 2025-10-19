@@ -1,0 +1,24 @@
+# theme = "ashen_dlc"
+# theme = "boo_berry_but_cuter"
+theme = "trans_theme"
+
+[keys.normal]
+"X" = "extend_line_above"
+
+[keys.normal.g]
+"g" = "goto_word"
+"G" = "goto_file_start"
+
+[editor]
+line-number = "relative"
+bufferline = "never" # always, never, multiple
+true-color = true
+
+[editor.statusline]
+left = ["mode", "file-name", "spinner"]
+center = ["position", "separator", "total-line-numbers", "spacer", "diagnostics"]
+right = ["position-percentage", "file-type", "separator", "selections", "file-encoding"]
+separator = "|"
+mode.insert = "INSERT"
+mode.normal = "NORMAL"
+mode.select = "SELECT"

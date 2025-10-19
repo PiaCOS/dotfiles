@@ -1,0 +1,14 @@
+# BEGIN_KITTY_THEME
+# evergarden winter purple
+include current-theme.conf
+# END_KITTY_THEME
+
+
+# BEGIN_KITTY_FONTS
+font_family      family='Maple Mono NF' postscript_name=MapleMono-NF-Medium
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+# END_KITTY_FONTS
+
+macos_option_as_alt left

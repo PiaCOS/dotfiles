@@ -1,0 +1,26 @@
+layout {
+    tab {
+        pane split_direction="vertical" {
+            pane size="60%" command="python3" {
+                args "reload_helix.py"
+            }
+            pane split_direction="horizontal" size="40%" {
+                pane size="60%"
+                pane size="40%"
+            }
+        }
+        pane size=1 borderless=true {
+            plugin location="zellij:compact-bar"
+        }
+    }
+    tab {
+        pane command="lazygit" {
+            args "--path" "~/Dev/odoo/community"
+        }
+    }
+    tab {
+        pane command="lazygit" {
+            args "--path" "~/Dev/odoo/enterprise"
+        }
+    }
+}
