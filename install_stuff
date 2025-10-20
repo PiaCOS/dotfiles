@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+sudo pacman -S archlinux-keyring \
+&& sudo pacman -Syu \
+&& sudo pacman -S \
+	alacritty \
+	autorandr \
+	arandr \
+	dunst \
+	fastfetch \
+	feh \
+	fish \
+	fzf \
+	github-cli \
+	helix \
+	hyfetch \
+	i3blocks \
+	i3lock \
+	i3status \
+	i3-wm \
+	lazygit \
+	lxappearance \
+	nm-applet \
+	picom \
+	ripgrep \
+	rofi \
+	rustup \
+	uv \
+	vim \
+	xorg-xrandr \
+	xorg-xinit \
+	xorg-xsetroot \
+	zellij \
+	zoxide
+	
