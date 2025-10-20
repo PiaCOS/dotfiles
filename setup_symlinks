@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+ln -sf ~/Dev/dotfiles/alacritty/ ~/.config/ \
+&& ln -sf ~/Dev/dotfiles/fish/ ~/.config/ \
+&& ln -sf ~/Dev/dotfiles/helix/ ~/.config/ \
+&& ln -sf ~/Dev/dotfiles/i3/ ~/.config/ \
+&& ln -sf ~/Dev/dotfiles/kitty/ ~/.config/ \
+&& ln -sf ~/Dev/dotfiles/zellij/ ~/.config/ \
+&& ln -sf ~/Dev/dotfiles/.gitconfig ~/
