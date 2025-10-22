@@ -400,7 +400,7 @@ exec_always $HOME/.config/i3/scripts/import-gsettings
 # install picom package (sudo pacman -Syu picom)
 
 # start using default config
-#exec_always --no-startup-id picom -b
+exec_always --no-startup-id picom -b
 
 # for custom config:
 #exec_always --no-startup-id picom --config  ~/.config/picom.conf

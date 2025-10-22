@@ -1,6 +1,6 @@
 [general]
 import = [
-    "~/Dev/nix-dotfiles/home-manager/alacritty/themes/themes/hatsunemiku.toml"
+    "~/.config/alacritty/themes/themes/hatsunemiku.toml"
 ]
 
 [window]
