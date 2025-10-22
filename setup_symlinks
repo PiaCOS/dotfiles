@@ -1,9 +1,22 @@
 #!/usr/bin/env bash
+set -e
 
-ln -sf ~/Dev/dotfiles/alacritty/ ~/.config/ \
-&& ln -sf ~/Dev/dotfiles/fish/ ~/.config/ \
-&& ln -sf ~/Dev/dotfiles/helix/ ~/.config/ \
-&& ln -sf ~/Dev/dotfiles/i3/ ~/.config/ \
-&& ln -sf ~/Dev/dotfiles/kitty/ ~/.config/ \
-&& ln -sf ~/Dev/dotfiles/zellij/ ~/.config/ \
-&& ln -sf ~/Dev/dotfiles/.gitconfig ~/
+DOTFILES_DIR="$HOME/Dev/dotfiles"
+CONFIG_DIR="$HOME/.config"
+
+echo "Setting up symbolic links..."
+
+# '-sfn': s=symlink, f=force (overwrite), n=no-dereference (safer for directories)
+
+# ----------------- .config/ Directories -----------------
+ln -sfn $DOTFILES_DIR/alacritty/ $CONFIG_DIR/alacritty
+ln -sfn $DOTFILES_DIR/fish/ $CONFIG_DIR/fish
+ln -sfn $DOTFILES_DIR/helix/ $CONFIG_DIR/helix
+ln -sfn $DOTFILES_DIR/i3/ $CONFIG_DIR/i3
+ln -sfn $DOTFILES_DIR/kitty/ $CONFIG_DIR/kitty
+ln -sfn $DOTFILES_DIR/zellij/ $CONFIG_DIR/zellij
+
+# ----------------- Home Directory Files -----------------
+ln -sf $DOTFILES_DIR/.gitconfig $HOME/.gitconfig
+
+echo "Symbolic links are ready!!"

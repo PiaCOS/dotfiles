@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 
-from argparse import Namespace, ArgumentParser, BooleanOptionalAction
+import shlex
+import signal
 import subprocess
 import sys
 import time
+from argparse import ArgumentParser, BooleanOptionalAction, Namespace
 from dataclasses import dataclass
 from typing import Optional
 
@@ -60,6 +62,25 @@ def parse(args: list[ArgField|ArgFlag]) -> Namespace:
 args = parse(arg_list)
 
 
+# -------- EXEC --------
+
+def run_command(command, args):
+    proc = subprocess.Popen(shlex.split(command), cwd=args.cwd)
+    try:
+        proc.wait()
+    except KeyboardInterrupt:
+        print("-- KeyboardInterrupt --")
+        try:
+            proc.send_signal(signal.SIGINT)
+        except ProcessLookupError:
+            pass
+        try:
+            proc.wait(timeout=2)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+        time.sleep(0.2)
+        sys.exit(130)
+
 # -------- MAIN --------
 
 def main():
@@ -67,7 +88,7 @@ def main():
 
     if not args.need_help:
         print(f"Running on port {args.port}...")
-        command = f"/usr/bin/python3 ./odoo-bin --addons-path={args.addons} {mode} --dev={args.dev} --http-port={args.port} -d {args.db} --log-level={args.log}"
+        command = f"./odoo-bin --addons-path={args.addons} {mode} --dev={args.dev} --http-port={args.port} -d {args.db} --log-level={args.log}"
         if args.to_install:
             command += f" -i {args.to_install}"
         if args.to_update:
@@ -82,15 +103,12 @@ def main():
         if args.dry_run:
             print(f"DRY-RUN:\n> cd {args.cwd}\n> {command}\n")
             user_input = input("Do you want to continue? ([y]es, [n]o):\n")
-            if user_input.lower() in ["yes", "y"]:
-                print("Continuing...")
-                proc = subprocess.Popen(command.split(), cwd=args.cwd)
-                proc.wait()
-            else:
+            if user_input.lower() not in ["yes", "y"]:
                 print("Exiting...")
-        else:
-            proc = subprocess.Popen(command.split(), cwd=args.cwd)
-            proc.wait()
+                return
+            else:
+                print("Continuing...")
+        run_command(command, args)
     else:
         print(
             """
@@ -113,9 +131,4 @@ COMMANDS:
         )
 
 if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-       time.sleep(1)
-       print("-- KeyboardInterrupt --")
-       sys.exit(0)
+    main()
