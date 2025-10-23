@@ -1,21 +1,4 @@
 if status is-interactive
-
-    # ---------------------------------------------------
-    # ALIAS STUFF
-    # ---------------------------------------------------
-
-    abbr ll "ls -lah"
-    abbr z zoxide
-    abbr hx helix
-
-    # clipboard stuff
-    abbr claptrap "pwd | xclip -selection clipboard"
-    abbr --add clap "xclip -selection clipboard"
-
-    # used to sudo last command
-    abbr !! --position anywhere --function last_history_item
-    abbr --add --position anywhere -- !! 'history --max 1 | string match -r " (.*)" | string trim --left'
-
     # ---------------------------------------------------
     # PATH STUFF
     # ---------------------------------------------------
@@ -32,6 +15,52 @@ if status is-interactive
 
     # No idea what it does (prob. doing a setup with fish compatibility)
     zoxide init fish | source
+
+    if not set -q BOBAPATH
+        set -gx BOBAPATH $HOME/Dev/boba
+    end
+
+    set -gx EDITOR helix
+
+    # ---------------------------------------------------
+    # ALIAS STUFF
+    # ---------------------------------------------------
+
+    abbr ll "ls -lah"
+    abbr z zoxide
+    abbr hx helix
+
+    # used to sudo last command
+    abbr !! --position anywhere --function last_history_item
+    abbr --add --position anywhere -- !! 'history --max 1 | string match -r " (.*)" | string trim --left'
+
+    # clipboard stuff
+    abbr claptrap "pwd | xclip -selection clipboard"
+    abbr --add clap "xclip -selection clipboard"
+
+    alias creepy "xclip -selection clipboard"
+    alias pasta "xclip -o -selection clipboard"
+
+    alias deathnote "ps -ef | fzf -m | awk '{print \$2}' | creepy"
+    alias instakill "pasta | xargs -p kill -9; xclip -selection clipboard /dev/null"
+
+    # cool stuff
+    function choco
+        set arg $argv[1]
+        mkdir $arg
+        cd $arg
+    end
+
+    function boba
+        set dt (date '+%Y%m%d_%H%M%S.md')
+        $EDITOR $BOBAPATH/$dt
+    end
+
+    function when
+        date '+%Y-%m-%d %H:%M:%S'
+        printf '\n'
+        cal
+    end
 
     # ---------------------------------------------------
     # SSH Agent (start once per session)
