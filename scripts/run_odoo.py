@@ -26,7 +26,7 @@ class ArgFlag:
 # -------- ARGS --------
 
 addons =     "addons/,../enterprise/"
-dev =        "xml,qweb,access"
+dev =        "xml,qweb"
 port =       8869
 db =         "default_db"
 cwd =        "./community"
@@ -114,7 +114,7 @@ def main():
             """
 COMMANDS:
     --addons "addons/,../enterprise"   <-- default = "addons/,../enterprise/"
-    --dev all                          <-- default = xml,qweb,access (= all w/o 'reload')
+    --dev all                          <-- default = xml,qweb (= all w/o 'reload' and 'access')
     -p 8869                            <-- default = 8869
     -c "./community"                   <-- default = "./community" 
     -d default_db                      <-- default = default_db
