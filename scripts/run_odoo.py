@@ -49,6 +49,7 @@ arg_list = [
     ArgFlag( "--log_sql",   "log_sql",    False ),
     ArgFlag( "--shell",     "shell_mode", False ),
     ArgFlag( "--dry",       "dry_run",    False ),
+    ArgFlag( "--out",       "out",    False ),
     ArgFlag( "--need_help", "need_help",  False ),
 ]
 
@@ -87,7 +88,6 @@ def main():
     mode = "shell" if args.shell_mode else "server"
 
     if not args.need_help:
-        print(f"Running on port {args.port}...")
         command = f"./odoo-bin --addons-path={args.addons} {mode} --dev={args.dev} --http-port={args.port} -d {args.db} --log-level={args.log}"
         if args.to_install:
             command += f" -i {args.to_install}"
@@ -108,6 +108,12 @@ def main():
                 return
             else:
                 print("Continuing...")
+
+        if args.out:
+            print(command)
+            return
+
+        print(f"Running on port {args.port}...")
         run_command(command, args)
     else:
         print(
@@ -126,6 +132,7 @@ COMMANDS:
     --log_sql                          => activate SQL log
     --shell                            => activate shell mode
     --dry                              => activate dry run mode
+    --out                              => return the full command (useful to copy paste)
     --need_help                        => guess you already found this one
             """
         )

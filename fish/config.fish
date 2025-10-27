@@ -27,7 +27,7 @@ if status is-interactive
     # ---------------------------------------------------
 
     abbr ll "ls -lah"
-    abbr z zoxide
+    # abbr z zoxide
     abbr hx helix
 
     # used to sudo last command
