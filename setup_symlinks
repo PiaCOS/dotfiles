@@ -19,4 +19,8 @@ ln -sfn $DOTFILES_DIR/zellij/ $CONFIG_DIR/zellij
 # ----------------- Home Directory Files -----------------
 ln -sf $DOTFILES_DIR/.gitconfig $HOME/.gitconfig
 
+# ---------------------- Executables ---------------------
+ln -sf $DOTFILES_DIR/scripts/reset_ssh_agent $HOME/bin/reset_ssh_agent
+
+
 echo "Symbolic links are ready!!"

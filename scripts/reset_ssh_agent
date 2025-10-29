@@ -1,0 +1,7 @@
+#!/usr/bin/env fish
+
+if test -f ~/.ssh/agent_env_fish
+	set -lx SSH_AGENT_PID (grep SSH_AGENT_PID ~/.ssh/agent_env_fish | awk '{ print $3 }' | tr -d ';')
+	kill $SSH_AGENT_PID
+	rm -f ~/.ssh/agent_env_fish
+end

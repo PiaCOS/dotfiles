@@ -25,7 +25,7 @@ sudo pacman -S --needed \
     # Terminal & Utils
     alacritty fish zellij \
     # Dev Tools
-    rustup uv helix lazygit ripgrep github-cli \
+    rustup uv helix lazygit ripgrep github-cli fcron \
     # Quality of Life
     fzf rofi xclip fastfetch hyfetch zoxide vim
 
