@@ -14,7 +14,7 @@ shell = "/usr/bin/fish"
 
 [font]
 size = 6.5
-normal = { family = "MapleMono NF", style = "Regular"}
-italic = { family = "MapleMono NF", style = "Italic"}
-bold = { family = "MapleMono NF", style = "Bold"}
-bold_italic = { family = "MapleMono NF", style = "BoldItalic"}
+normal = { family = "MapleMono", style = "Regular"}
+italic = { family = "MapleMono", style = "Italic"}
+bold = { family = "MapleMono", style = "Bold"}
+bold_italic = { family = "MapleMono", style = "BoldItalic"}

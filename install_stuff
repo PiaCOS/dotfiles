@@ -23,9 +23,9 @@ sudo pacman -S --needed \
     picom dunst feh lxappearance \
     arandr autorandr xorg-xrandr xorg-xinit xorg-xsetroot \
     # Terminal & Utils
-    alacritty fish zellij \
+    wezterm fish zellij fcron tree bat \
     # Dev Tools
-    rustup uv helix lazygit ripgrep github-cli fcron \
+    rustup uv helix lazygit ripgrep github-cli \
     # Quality of Life
     fzf rofi xclip fastfetch hyfetch zoxide vim
 
@@ -47,7 +47,10 @@ fi
 
 # Enable the ly Display Manager Service (might need to remove GDM or idk)
 echo "Enabling ly Display Manager..."
-sudo systemctl enable ly.service
+sudo systemctl enable --now ly.service
+
+echo "Enabling fcron ..."
+sudo systemctl enable --now fcron.service
 
 # Symlink setup
 if test -f "$DOTFILES_DIR/setup_symlinks.sh"; then

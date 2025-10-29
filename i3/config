@@ -172,7 +172,7 @@ bindsym $mod+r mode "resize"
 ######################################
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id alacritty
+bindsym $mod+Return exec --no-startup-id wezterm
 
 # kill focused window
 bindsym $mod+q kill

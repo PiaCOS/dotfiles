@@ -3,6 +3,7 @@ set -e
 
 DOTFILES_DIR="$HOME/Dev/dotfiles"
 CONFIG_DIR="$HOME/.config"
+FONT_DIR="$HOME/.local/share/fonts"
 
 echo "Setting up symbolic links..."
 
@@ -14,6 +15,7 @@ ln -sfn $DOTFILES_DIR/fish/ $CONFIG_DIR/fish
 ln -sfn $DOTFILES_DIR/helix/ $CONFIG_DIR/helix
 ln -sfn $DOTFILES_DIR/i3/ $CONFIG_DIR/i3
 ln -sfn $DOTFILES_DIR/kitty/ $CONFIG_DIR/kitty
+ln -sfn $DOTFILES_DIR/wezterm/ $CONFIG_DIR/wezterm
 ln -sfn $DOTFILES_DIR/zellij/ $CONFIG_DIR/zellij
 
 # ----------------- Home Directory Files -----------------
@@ -22,5 +24,7 @@ ln -sf $DOTFILES_DIR/.gitconfig $HOME/.gitconfig
 # ---------------------- Executables ---------------------
 ln -sf $DOTFILES_DIR/scripts/reset_ssh_agent $HOME/bin/reset_ssh_agent
 
+# ------------------------- Fonts ------------------------
+ln -sf $DOTFILES_DIR/fonts/MapleMono-NF-patch/* $FONT_DIR
 
 echo "Symbolic links are ready!!"
