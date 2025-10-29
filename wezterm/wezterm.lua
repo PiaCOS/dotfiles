@@ -30,6 +30,7 @@ config.color_scheme = 'rose-pine'
 config.default_prog = { "/usr/bin/fish" }
 
 config.keys = {
+  -- was conflicting with lazygit commit keymap
   {
     key = 'Enter',
     mods = 'ALT',

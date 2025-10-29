@@ -3,9 +3,7 @@ function fish_prompt
         set -g VIRTUAL_ENV_DISABLE_PROMPT true
     end
 
-    # ----------------------------------------
     # ---------------- Line 1 ----------------
-    # ----------------------------------------
 
     set_color normal
     printf 'λ '
@@ -25,9 +23,7 @@ function fish_prompt
     printf '%s' (prompt_pwd)
     set_color normal
 
-    # ----------------------------------------
     # ---------------- Line 2 ----------------
-    # ----------------------------------------
 
     # New line
     echo
