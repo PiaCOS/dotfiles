@@ -51,13 +51,12 @@ if status is-interactive
         cd $arg
     end
 
-    # If i need more arg i just have to add like 'f/first' after last
-    # and add an 'else if' scope on '_flag_first'.
+    # Not sure wtf happens inside the 'if' but it works
     function boba
         argparse l/last -- $argv
         or return
         if set -q _flag_last
-            $EDITOR (ls -Art $BOBAPATH | tail -n 1)
+            $EDITOR (ls -Art -d -1 "$BOBAPATH"/{*,.*} | tail -n 1)
         else
             set dt (date '+%Y%m%d_%H%M%S.md')
             $EDITOR $BOBAPATH/$dt
