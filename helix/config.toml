@@ -1,18 +1,36 @@
-# theme = "ashen_dlc"
-# theme = "boo_berry_but_cuter"
 theme = "trans_theme"
+
 
 [keys.normal]
 "X" = "extend_line_above"
+
+
+[keys.normal.space.z]
+"z" = "rotate_view"
+"v" = "vsplit"
+"s" = "hsplit"
+"up" = "jump_view_up"
+"down" = "jump_view_down"
+"right" = "jump_view_right"
+"left" = "jump_view_left"
+
 
 [keys.normal.g]
 "g" = "goto_word"
 "G" = "goto_file_start"
 
+
 [editor]
 line-number = "relative"
 bufferline = "never" # always, never, multiple
 true-color = true
+
+
+[editor.cursor-shape]
+normal = "block" # block, bar, underline, hidden
+insert = "bar"
+select = "underline"
+
 
 [editor.statusline]
 left = ["mode", "file-name", "spinner"]
@@ -22,3 +40,18 @@ separator = "|"
 mode.insert = "INSERT"
 mode.normal = "NORMAL"
 mode.select = "SELECT"
+
+
+[editor.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+# '`' = '`'
+'<' = '>'
+
+
+[editor.indent-guides]
+render = true
+character = "╎" # Some characters that work well: "▏", "┆", "┊", "⸽"
+skip-levels = 1

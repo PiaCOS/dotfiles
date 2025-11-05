@@ -1,22 +1,12 @@
-# PYTHON
+
+# -------------------------------------------------------------
+#                              PYTHON
+# -------------------------------------------------------------
 
 [[language]]
 indent = { tab-width = 4, unit = "    " }
 name = "python"
-# language-servers = ["odoo-ls"]
-# language-servers = ["pyright", "ruff", "odoo-ls"]
 language-servers = ["pyright", "ruff"]
-
-# [language-server.odoo-ls]
-# command = "/home/odoo/Dev/odoo-ls/server/target/debug/odoo_ls_server"
-# args = [
-#   # "--parse",
-#   # "-o", "~/Dev/output.json",
-#   # "-c", "~/Dev/odoo/community",
-#   # "-a", "~/Dev/odoo/enterprise",
-#   "-s", "/home/odoo/Dev/odoo-ls/server/typeshed/stubs",
-#   "--stdlib", "/home/odoo/Dev/odoo-ls/server/typeshed/stdlib",
-# ]
 
 [language-server.pyright]
 command = "pyright-langserver"
@@ -26,7 +16,10 @@ args = ["--stdio"]
 command = "ruff-lsp"
 args = []
 
-# RUST
+# -------------------------------------------------------------
+#                              RUST
+# -------------------------------------------------------------
+
 [[language]]
 name = "rust" 
 [language-server.rust-analyzer.config.check]
@@ -35,7 +28,9 @@ command = "clippy"
 [language-server.rust-analyzer.config.cargo]
 features = "all"
 
-# JAVASCRIPT / TYPESCRIPT
+# -------------------------------------------------------------
+#                    JAVASCRIPT / TYPESCRIPT
+# -------------------------------------------------------------
 
 [[language]]
 name = "javascript"
@@ -64,21 +59,42 @@ language-servers = [
   "vscode-eslint-language-server",
 ]
 
-# TOML AND STUFF
+# -------------------------------------------------------------
+#                             TOML
+# -------------------------------------------------------------
 
 [[language]]
 name = "toml"
 scope = "source.toml"
 injection-regex = "toml"
-file-types = ["toml", { glob = "pdm.lock" }, { glob = "poetry.lock" }, { glob = "Cargo.lock" }, { glob = "uv.lock" }]
+file-types = [
+  "toml",
+  { glob = "pdm.lock" },
+  { glob = "poetry.lock" },
+  { glob = "Cargo.lock" },
+  { glob = "uv.lock" }
+]
 comment-token = "#"
 language-servers = [ "taplo", "tombi" ]
 indent = { tab-width = 2, unit = "  " }
+
+# -------------------------------------------------------------
+#                          CSS + SCSS
+# -------------------------------------------------------------
 
 [[language]]
 name = "css"
 auto-format = false
 # indent = { tab-width = 4, unit = "    " }
+
+[[language]]
+name = "scss"
+auto-format = false
+indent = { tab-width = 4, unit = "    " }
+
+# -------------------------------------------------------------
+#                             XML
+# -------------------------------------------------------------
 
 [[language]]
 name = "xml"
