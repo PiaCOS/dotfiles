@@ -9,6 +9,32 @@ from argparse import ArgumentParser, BooleanOptionalAction, Namespace
 from dataclasses import dataclass
 from typing import Optional
 
+COMMUNITY_PATH = "./community"
+COMMUNITY_ADDONS_PATH = "addons/"
+ENTERPRISE_PATH = "../enterprise"
+
+HELPER = """
+COMMANDS:
+    --addons "addons/,../enterprise"   <-- default = "addons/"
+    -e                                 <-- loads enterprise addons
+    --dev all                          <-- default = xml,qweb (= all w/o 'reload' and 'access')
+    -p 8869                            <-- default = 8869
+    -c "./community"                   <-- default = "COMMUNITY_PATH"
+    -d default_db                      <-- default = default_db
+    -i 'marketing_automation,sign'     <-- default = None
+    -u 'marketing_automation,sign'     <-- default = None
+    --test [/module][:class][.method]  <-- default = None
+    --log                              <-- default = info (warn, critical, error, test, debug, debug_sql)
+    --demo                             => load demo data
+    --log_sql                          => activate SQL log
+    --shell                            => activate shell mode
+    --dry                              => activate dry run mode
+    --out                              => return the full command (useful to copy paste)
+    --need_help                        => guess you already found this one
+"""
+
+
+# -------- FLAGS --------
 
 @dataclass
 class ArgField:
@@ -25,32 +51,33 @@ class ArgFlag:
 
 # -------- ARGS --------
 
-addons =     "addons/,../enterprise/"
+addons =     COMMUNITY_ADDONS_PATH
 dev =        "xml,qweb"
 port =       8869
 db =         "default_db"
-cwd =        "./community"
+cwd =        COMMUNITY_PATH
 log =        "info"
 to_install = None
 to_update =  None
 to_test =    None
 
 arg_list = [
-    ArgField( "--addons",   "addons",     addons ),
-    ArgField( "--dev",      "dev",        dev ),
-    ArgField( "-p",         "port",       port ),
-    ArgField( "-d",         "db",         db ),
-    ArgField( "-c",         "cwd",        cwd ),
-    ArgField( "-i",         "to_install", to_install ),
-    ArgField( "-u",         "to_update",  to_update ),
-    ArgField( "--test",     "to_test",    to_test ),
-    ArgField( "--log",      "log"    ,    log ),
-    ArgFlag( "--demo",      "with_demo",  False ),
-    ArgFlag( "--log_sql",   "log_sql",    False ),
-    ArgFlag( "--shell",     "shell_mode", False ),
-    ArgFlag( "--dry",       "dry_run",    False ),
-    ArgFlag( "--out",       "out",    False ),
-    ArgFlag( "--need_help", "need_help",  False ),
+    ArgField( "--addons",   "addons",          None ),
+    ArgField( "--dev",      "dev",             dev ),
+    ArgField( "-p",         "port",            port ),
+    ArgField( "-d",         "db",              db ),
+    ArgField( "-c",         "cwd",             cwd ),
+    ArgField( "-i",         "to_install",      to_install ),
+    ArgField( "-u",         "to_update",       to_update ),
+    ArgField( "--test",     "to_test",         to_test ),
+    ArgField( "--log",      "log",             log ),
+    ArgFlag( "-e",          "use_enterprise",  False ),
+    ArgFlag( "--demo",      "with_demo",       False ),
+    ArgFlag( "--log_sql",   "log_sql",         False ),
+    ArgFlag( "--shell",     "shell_mode",      False ),
+    ArgFlag( "--dry",       "dry_run",         False ),
+    ArgFlag( "--out",       "out",             False ),
+    ArgFlag( "--need_help", "need_help",       False ),
 ]
 
 def parse(args: list[ArgField|ArgFlag]) -> Namespace:
@@ -82,13 +109,23 @@ def run_command(command, args):
         time.sleep(0.2)
         sys.exit(130)
 
+
 # -------- MAIN --------
+
+def addons_path(args):
+    addons_path = addons
+    if args.addons:
+        return args.addons
+    elif args.use_enterprise:
+        addons_path += f",{ENTERPRISE_PATH}"
+    return addons_path
+
 
 def main():
     mode = "shell" if args.shell_mode else "server"
 
     if not args.need_help:
-        command = f"./odoo-bin --addons-path={args.addons} {mode} --dev={args.dev} --http-port={args.port} -d {args.db} --log-level={args.log}"
+        command = f"./odoo-bin --addons-path={addons_path(args)} {mode} --dev={args.dev} --http-port={args.port} -d {args.db} --log-level={args.log}"
         if args.to_install:
             command += f" -i {args.to_install}"
         if args.to_update:
@@ -116,26 +153,7 @@ def main():
         print(f"Running on port {args.port}...")
         run_command(command, args)
     else:
-        print(
-            """
-COMMANDS:
-    --addons "addons/,../enterprise"   <-- default = "addons/,../enterprise/"
-    --dev all                          <-- default = xml,qweb (= all w/o 'reload' and 'access')
-    -p 8869                            <-- default = 8869
-    -c "./community"                   <-- default = "./community" 
-    -d default_db                      <-- default = default_db
-    -i 'marketing_automation,sign'     <-- default = None
-    -u 'marketing_automation,sign'     <-- default = None
-    --test [/module][:class][.method]  <-- default = None
-    --log                              <-- default = info (warn, critical, error, test, debug, debug_sql)
-    --demo                             => load demo data
-    --log_sql                          => activate SQL log
-    --shell                            => activate shell mode
-    --dry                              => activate dry run mode
-    --out                              => return the full command (useful to copy paste)
-    --need_help                        => guess you already found this one
-            """
-        )
+        print(HELPER)
 
 if __name__ == "__main__":
     main()
