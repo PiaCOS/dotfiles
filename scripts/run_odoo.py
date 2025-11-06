@@ -7,7 +7,8 @@ import sys
 import time
 from argparse import ArgumentParser, BooleanOptionalAction, Namespace
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, TypeAlias
+from pathlib import Path
 
 COMMUNITY_PATH = "./community"
 COMMUNITY_ADDONS_PATH = "addons/"
@@ -34,7 +35,9 @@ COMMANDS:
 """
 
 
-# -------- FLAGS --------
+# -------- TYPES --------
+
+Args: TypeAlias = Namespace
 
 @dataclass
 class ArgField:
@@ -80,7 +83,8 @@ arg_list = [
     ArgFlag( "--need_help", "need_help",       False ),
 ]
 
-def parse(args: list[ArgField|ArgFlag]) -> Namespace:
+
+def parse(args: list[ArgField|ArgFlag]) -> Args:
     parser = ArgumentParser(description="odoo tooling")
     for arg in args:
         action = BooleanOptionalAction if isinstance(arg, ArgFlag) else "store"
@@ -92,7 +96,7 @@ args = parse(arg_list)
 
 # -------- EXEC --------
 
-def run_command(command, args):
+def run_command(command: str, args: Args) -> None:
     proc = subprocess.Popen(shlex.split(command), cwd=args.cwd)
     try:
         proc.wait()
@@ -112,13 +116,13 @@ def run_command(command, args):
 
 # -------- MAIN --------
 
-def addons_path(args):
+def addons_path(args: Args) -> Path:
     addons_path = addons
     if args.addons:
-        return args.addons
+        return Path(args.addons)
     elif args.use_enterprise:
         addons_path += f",{ENTERPRISE_PATH}"
-    return addons_path
+    return Path(addons_path)
 
 
 def main():
