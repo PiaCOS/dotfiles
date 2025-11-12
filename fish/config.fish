@@ -73,15 +73,38 @@ if status is-interactive
     # SSH Agent (start once per session)
     # ---------------------------------------------------
 
+    function start_agent
+        ssh-agent -c | tee ~/.ssh/agent_env_fish | source
+    end
+
+    # set -l agent_env_file ~/.ssh/agent_env_fish
+    # if not set -q SSH_AUTH_SOCK; or not test -S "$SSH_AUTH_SOCK"
+    #     if test -f $agent_env_file
+    #         source $agent_env_file
+    #     end
+    #     if not set -q SSH_AUTH_SOCK; or not test -S "$SSH_AUTH_SOCK"
+    #         ssh-agent -c | tee $agent_env_file | source
+    #     end
+    # end
+    # ssh-add -l >/dev/null 2>&1
+    # or ssh-add ~/.ssh/id_ed25519 >/dev/null
+
     set -l agent_env_file ~/.ssh/agent_env_fish
-    if not set -q SSH_AUTH_SOCK; or not test -S "$SSH_AUTH_SOCK"
-        if test -f $agent_env_file
-            source $agent_env_file
-        end
-        if not set -q SSH_AUTH_SOCK; or not test -S "$SSH_AUTH_SOCK"
-            ssh-agent -c | tee $agent_env_file | source
+
+    if test -f $agent_env_file
+        source $agent_env_file 2>/dev/null
+    end
+
+    if not set -q SSH_AGENT_PID; or not kill -0 $SSH_AGENT_PID 2>/dev/null; or not test -S "$SSH_AUTH_SOCK"
+        echo "Starting new ssh-agent..."
+        ssh-agent -c | tee $agent_env_file | source
+    end
+
+    if status is-interactive
+        ssh-add -l >/dev/null 2>&1
+        or begin
+            echo "Adding SSH key..."
+            ssh-add ~/.ssh/id_ed25519
         end
     end
-    ssh-add -l >/dev/null 2>&1
-    or ssh-add ~/.ssh/id_ed25519 >/dev/null
 end
