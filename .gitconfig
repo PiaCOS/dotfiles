@@ -4,11 +4,14 @@
 [core]
 	editor = vim
 [alias]
-	tree1 = log --graph --oneline --decorate --all
-	log1 = log --graph --pretty=oneline --abbrev-commit
+	cp = cherry-pick
+
 	head5 = log --oneline -n 5
 	head10 = log --oneline -n 10
 	head20 = log --oneline -n 20
+
+	tree1 = log --graph --oneline --decorate --all
+	log1 = log --graph --pretty=oneline --abbrev-commit
 [credential]
 	helper = !/usr/bin/gh auth git-credential
 	# helper = !/home/odoo/.nix-profile/bin/gh auth git-credential
