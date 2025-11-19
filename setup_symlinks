@@ -13,6 +13,7 @@ echo "Setting up symbolic links..."
 ln -sfn $DOTFILES_DIR/fish $CONFIG_DIR/fish
 ln -sfn $DOTFILES_DIR/helix $CONFIG_DIR/helix
 ln -sfn $DOTFILES_DIR/i3 $CONFIG_DIR/i3
+ln -sfn $DOTFILES_DIR/lazygit $CONFIG_DIR/lazygit
 ln -sfn $DOTFILES_DIR/wezterm $CONFIG_DIR/wezterm
 ln -sfn $DOTFILES_DIR/zellij $CONFIG_DIR/zellij
 

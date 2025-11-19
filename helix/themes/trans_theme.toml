@@ -1,6 +1,3 @@
-# inherits = "carbon"
 inherits = "poimandres"
-# inherits = "bogster"
-# inherits = "dracula"
 
 "ui.background" = {}
