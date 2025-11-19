@@ -21,7 +21,9 @@ args = []
 # -------------------------------------------------------------
 
 [[language]]
-name = "rust" 
+name = "rust"
+indent = { tab-width = 4, unit = "    " }
+
 [language-server.rust-analyzer.config.check]
 command = "clippy"
 
@@ -85,7 +87,7 @@ indent = { tab-width = 2, unit = "  " }
 [[language]]
 name = "css"
 auto-format = false
-# indent = { tab-width = 4, unit = "    " }
+indent = { tab-width = 4, unit = "    " }
 
 [[language]]
 name = "scss"
@@ -101,3 +103,4 @@ name = "xml"
 file-types = [ "xml" ]
 formatter = { command = "xmllint", args = ["--format", "-"] }
 language-servers = [ "xml" ]
+indent = { tab-width = 4, unit = "    " }
