@@ -5,16 +5,17 @@
 
 [[language]]
 indent = { tab-width = 4, unit = "    " }
+language-servers = ["pyright"]
+# language-servers = ["pyright", "ruff"]
 name = "python"
-language-servers = ["pyright", "ruff"]
 
 [language-server.pyright]
 command = "pyright-langserver"
 args = ["--stdio"]
 
-[language-server.ruff]
-command = "ruff-lsp"
-args = []
+# [language-server.ruff]
+# command = "ruff-lsp"
+# args = []
 
 # -------------------------------------------------------------
 #                              RUST
@@ -30,6 +31,9 @@ command = "clippy"
 [language-server.rust-analyzer.config.cargo]
 features = "all"
 
+[language-server.rust-analyzer.config.diagnostics]
+disabled = ["unlinked-file"]
+
 # -------------------------------------------------------------
 #                    JAVASCRIPT / TYPESCRIPT
 # -------------------------------------------------------------
@@ -37,6 +41,7 @@ features = "all"
 [[language]]
 name = "javascript"
 indent = { tab-width = 4, unit = "    " }
+# injection-regex = "^$"
 language-servers = [
   "typescript-language-server", # optional
   "vscode-eslint-language-server",
@@ -61,6 +66,19 @@ language-servers = [
   "vscode-eslint-language-server",
 ]
 
+# DOES NOT WORK YET
+# Used for odoo test files
+# They tend to be too long for treesitter to handle
+# [[language]]
+# name = "js-test"
+# scope = "source.js"
+# grammar = "javascript"
+# file-types = [{ glob = "*.test.js" }] 
+# injection-regex = "^$"
+# roots = []
+# comment-token = "//"
+# indent = { tab-width = 4, unit = "    " } 
+
 # -------------------------------------------------------------
 #                             TOML
 # -------------------------------------------------------------
@@ -77,8 +95,13 @@ file-types = [
   { glob = "uv.lock" }
 ]
 comment-token = "#"
-language-servers = [ "taplo", "tombi" ]
+language-servers = [ "taplo" ]
+# language-servers = [ "taplo", "tombi" ]
 indent = { tab-width = 2, unit = "  " }
+
+# [language-server.tombi.config.linter]
+# tables-out-of-order = false
+
 
 # -------------------------------------------------------------
 #                          CSS + SCSS
@@ -103,4 +126,31 @@ name = "xml"
 file-types = [ "xml" ]
 formatter = { command = "xmllint", args = ["--format", "-"] }
 language-servers = [ "xml" ]
+indent = { tab-width = 4, unit = "    " }
+
+# -------------------------------------------------------------
+#                             JSON 
+# -------------------------------------------------------------
+
+[[language]]
+name = "json"
+auto-format = false
+indent = { tab-width = 4, unit = "    " }
+
+# -------------------------------------------------------------
+#                             BASH 
+# -------------------------------------------------------------
+
+[[language]]
+name = "bash"
+auto-format = false
+indent = { tab-width = 4, unit = "    " }
+
+# -------------------------------------------------------------
+#                             FISH 
+# -------------------------------------------------------------
+
+[[language]]
+name = "fish"
+auto-format = false
 indent = { tab-width = 4, unit = "    " }

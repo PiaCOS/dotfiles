@@ -25,8 +25,12 @@ exec --no-startup-id ~/set_once.sh
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 font pango: Noto Sans Regular 10
 
+# exec --no-startup-id xmodmap -e 'keycode 49 = Hyper_L'
+# exec --no-startup-id xmodmap -e 'add mod3 = Hyper_L'
+
 # set the mod key to the winkey:
 set $mod Mod4
+# set $mod Mod3
 
 # Remap Caps Lock to Control
 exec --no-startup-id setxkbmap -option ctrl:nocaps
@@ -458,8 +462,8 @@ exec --no-startup-id ~/.screenlayout/monitor.sh
 # exec --no-startup-id sleep 2 && nitrogen --restore
 exec --no-startup-id sleep 1 && feh --bg-fill /home/elco/Dev/dotfiles/nordic.jpg
 
-# set powersavings for display:
-exec --no-startup-id xset s 480 dpms 600 600 600
+# set powersavings for display: SEE AT THE BOTTOM
+# exec --no-startup-id xset s 480 dpms 600 600 600
 
 # disable power saving (for example if using xscreensaver)
 #exec --no-startup-id xset -dpms
@@ -623,3 +627,22 @@ bindsym $mod+t exec --no-startup-id rofi -show window \
 #exec --no-startup-id greenclip daemon>/dev/null
 #bindsym $mod+c exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard \
 #       -config ~/.config/rofi/rofidmenu.rasi
+
+#####################################
+#        Screen Lock and all        #
+#####################################
+
+# Screen blanck (=Idle): 10min | turn off display: 15min
+exec --no-startup-id xset s 600 dpms 900 900 900
+
+# Lock screen after 10 minutes of idle
+exec --no-startup-id xss-lock \
+        --notifier "notify-send 'Locking soon' 'Screen will lock in 30 seconds'" \
+        --notifier-delay 30 \
+        -- i3lock -c 000000
+
+# Notify battery status
+exec --no-startup-id $HOME/.config/i3/scripts/battery_warn.sh
+
+# Set Caps Lock to be another Control key
+exec_always --no-startup-id setxkbmap -option ctrl:nocaps

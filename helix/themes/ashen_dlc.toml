@@ -26,7 +26,8 @@
 "constant.character.escape" = "g_2"
 "constant.numeric" = "blue"
 
-"string" = {fg = "red_glowing", modifiers = ["italic"]}
+# "string" = {fg = "red_glowing", modifiers = ["italic"]}
+"string" = {fg = "red_glowing"}
 "string.regexp" = "orange_glow"
 "string.special" = "g_2"
 "string.special.url" = { fg = "red_glowing", modifiers = ["bold"] }
@@ -38,7 +39,7 @@
 "comment.line.documentation" = { fg = "g_5", modifiers = ["italic"] }
 
 "variable" = "g_3"
-"variable.parameter" = { fg = "g_2", modifiers = ["italic"] }
+"variable.parameter" = { fg = "g_2", modifiers = ["bold"] }
 "variable.builtin" = "blue"
 "variable.other.member" = { fg = "g_2" }
 
@@ -50,7 +51,7 @@
 "punctuation.delimiter" = "orange_smolder"
 
 
-"keyword" = { fg = "red_ember", modifiers = ["bold"] }
+"keyword" = { fg = "red_ember", modifiers = ["bold", "italic"] }
 "keyword.operator" = "orange_blaze"
 "keyword.directive" = { fg = "red_ember", modifiers = ["italic"] }
 "keyword.storage.modifier" = { fg = "red_ember", modifiers = ["italic"] }

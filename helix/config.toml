@@ -29,7 +29,6 @@ line-number = "relative"
 bufferline = "never" # always, never, multiple
 true-color = true
 
-
 [editor.cursor-shape]
 normal = "block" # block, bar, underline, hidden
 insert = "bar"
@@ -62,13 +61,13 @@ nbsp = "none"
 nnbsp = "none"
 newline = "none"
 
-[editor.whitespace.characters]
-space = "·"
-nbsp = "⍽"
-nnbsp = "␣"
-tab = "→"
-newline = "⏎"
-tabpad = "·"
+# [editor.whitespace.characters]
+# space = "·"
+# nbsp = "⍽"
+# nnbsp = "␣"
+# tab = "→"
+# newline = "⏎"
+# tabpad = "·"
 
 
 [editor.indent-guides]
