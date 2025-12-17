@@ -21,38 +21,67 @@ config.font = wezterm.font(FONT_FAMILY)
 config.enable_tab_bar = false
 -- Define a custom scheme with Pastel Red text and Soft Black background
 config.color_schemes = {
-  ['Magma'] = {
-    foreground = '#F06060',
-    background = '#101014',
+  ["BooBerry"] = {
+    foreground = '#C7B8E0', -- lilac
+    background = '#3A2A4D', -- berry
+
+    cursor_bg = '#C7B8E0', -- lilac
+    cursor_fg = '#3A2A4D', -- berry
+    cursor_border = '#C7B8E0',
+
+    selection_fg = 'none',
+    selection_bg = '#47345E', -- berry_dim (Used for selection for better contrast)
+
+    scrollbar_thumb = '#5A3D6E', -- berry_fade
+    split = '#47345E', -- berry_dim
 
     ansi = {
-      '#101014', -- Black (Soft Black)
-      '#F04040', -- Red (Light Coral/Pastel Red)
-      '#A0D4B2', -- Green (Soft Mint)
-      '#FFCC99', -- Yellow (Soft Peach)
-      '#B0C4DE', -- Blue (Soft Slate)
-      '#E6A8D7', -- Magenta (Soft Pink)
-      '#ADD8E6', -- Cyan (Soft Blue)
-      '#D3D3D3', -- White (Light Grey)
+        '#2B1C3D', -- Black (berry_saturated)
+        '#D678B5', -- Red (bubblegum)
+        '#7FC9AB', -- Green (mint)
+        '#E3C0A8', -- Yellow (gold)
+        '#C78DFC', -- Blue (violet)
+        '#D678B5', -- Magenta (bubblegum)
+        '#7FC9AB', -- Cyan (mint)
+        '#C7B8E0', -- White (lilac)
     },
-
     brights = {
-      '#444444', -- Bright Black (Dark Grey)
-      '#FFB6C1', -- Bright Red (Light Pink/More Pastel)
-      '#C1E1C1', -- Bright Green
-      '#FFDDAA', -- Bright Yellow
-      '#C6E2FF', -- Bright Blue
-      '#FBAED2', -- Bright Magenta
-      '#B0E0E6', -- Bright Cyan
-      '#F07F7F', -- Bright White (True White)
+        '#886C9C', -- Bright Black (berry_desaturated / comments)
+        '#D678B5', -- Bright Red
+        '#7FC9AB', -- Bright Green
+        '#E3C0A8', -- Bright Yellow
+        '#C78DFC', -- Bright Blue
+        '#D678B5', -- Bright Magenta
+        '#7FC9AB', -- Bright Cyan
+        '#FFFFFF', -- Bright White (Boosted for contrast)
     },
+    tab_bar = {
+      background = '#2B1C3D', -- berry_saturated
 
-    cursor_bg = '#F08080',
-    cursor_fg = '#181818',
+      -- The active tab (matches ui.statusline.normal)
+      active_tab = {
+          bg_color = '#C7B8E0', -- lilac
+          fg_color = '#2B1C3D', -- berry_saturated
+      },
+
+      -- Inactive tabs (matches ui.statusline.inactive)
+      inactive_tab = {
+          bg_color = '#2B1C3D', -- berry_saturated
+          fg_color = '#886C9C', -- berry_desaturated
+      },
+
+      -- The "new tab" button
+      new_tab = {
+          bg_color = '#2B1C3D',
+          fg_color = '#C7B8E0',
+      },
+    },
   }
 }
--- config.color_scheme = 'Magma'
-config.color_scheme = 'rose-pine'
+-- config.color_scheme = 'BooBerry'
+config.color_scheme = 'Andromeda'
+-- config.color_scheme = 'nord'
+-- config.color_scheme = 'rose-pine'
 -- config.color_scheme = 'Count Von Count (terminal.sexy)'
 
 -- ----------------------------------------------------
