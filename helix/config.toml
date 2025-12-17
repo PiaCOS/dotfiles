@@ -28,6 +28,11 @@ theme = "trans_theme"
 line-number = "relative"
 bufferline = "never" # always, never, multiple
 true-color = true
+end-of-line-diagnostics = "error"
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+other-lines = "disable"
 
 [editor.cursor-shape]
 normal = "block" # block, bar, underline, hidden

@@ -73,7 +73,7 @@ language-servers = [
 # name = "js-test"
 # scope = "source.js"
 # grammar = "javascript"
-# file-types = [{ glob = "*.test.js" }] 
+# file-types = [{ glob = "*.test.js" }]
 # injection-regex = "^$"
 # roots = []
 # comment-token = "//"
@@ -82,6 +82,9 @@ language-servers = [
 # -------------------------------------------------------------
 #                             TOML
 # -------------------------------------------------------------
+
+[language-server.uwu_colors]
+command = "uwu_colors"
 
 [[language]]
 name = "toml"
@@ -95,7 +98,10 @@ file-types = [
   { glob = "uv.lock" }
 ]
 comment-token = "#"
-language-servers = [ "taplo" ]
+language-servers = [
+  { name = "taplo" },
+  { name = "uwu_colors" },
+]
 # language-servers = [ "taplo", "tombi" ]
 indent = { tab-width = 2, unit = "  " }
 
@@ -153,4 +159,24 @@ indent = { tab-width = 4, unit = "    " }
 [[language]]
 name = "fish"
 auto-format = false
+indent = { tab-width = 4, unit = "    " }
+
+# -------------------------------------------------------------
+#                           MARKDOWN
+# -------------------------------------------------------------
+
+[[language]]
+name = "markdown"
+indent = { tab-width = 2, unit = "  " }
+rulers = [80]
+
+# -------------------------------------------------------------
+#                            MAGMA
+# -------------------------------------------------------------
+
+[[language]]
+name = "magma"
+file-types = [{ glob = "*.mag" }]
+scope = "source.mag"
+comment-token = "#"
 indent = { tab-width = 4, unit = "    " }
