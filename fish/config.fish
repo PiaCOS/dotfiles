@@ -21,14 +21,16 @@ if status is-interactive
     end
 
     set -gx EDITOR helix
+    set -gx EDITOR hx
 
     # ---------------------------------------------------
     # ALIAS STUFF
     # ---------------------------------------------------
 
-    abbr ll "ls -lah"
+    abbr ll "eza -la"
+    # abbr ll "ls -lah"
     # abbr z zoxide
-    abbr hx helix
+    # abbr hx helix
 
     # used to sudo last command
     abbr !! --position anywhere --function last_history_item
