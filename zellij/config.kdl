@@ -157,7 +157,7 @@ keybinds clear-defaults=true {
         bind "Alt i" { MoveTab "left"; }
         bind "Alt n" { NewPane; }
         bind "Alt o" { MoveTab "right"; }
-        bind "Ctrl q" { Quit; }
+        bind "Ctrl Alt q" { Quit; }
     }
     shared_except "locked" "move" {
         bind "Ctrl h" { SwitchToMode "move"; }
@@ -297,108 +297,10 @@ web_client {
 // 
 // theme "dracula"
 themes {
-    magma {
-        text_unselected {
-            base 240 128 128
-            background 0 0 0
-            emphasis_0 240 128 128
-            emphasis_1 240 128 128
-            emphasis_2 240 128 128
-            emphasis_3 240 128 128
-        }
-        text_selected {
-            base 240 128 128
-            background 24 24 24
-            emphasis_0 240 128 128
-            emphasis_1 240 128 128
-            emphasis_2 240 128 128
-            emphasis_3 240 128 128
-        }
-        ribbon_selected {
-            base 255 255 255
-            background 240 128 128
-            emphasis_0 0 0 0
-            emphasis_1 0 0 0
-            emphasis_2 0 0 0
-            emphasis_3 0 0 0
-        }
-        ribbon_unselected {
-            base 240 128 128
-            background 0 0 0
-            emphasis_0 240 128 128
-            emphasis_1 240 128 128
-            emphasis_2 240 128 128
-            emphasis_3 240 128 128
-        }
-        table_title {
-            base 240 128 128
-            background 0 0 0
-            emphasis_0 240 128 128
-            emphasis_1 240 128 128
-            emphasis_2 240 128 128
-            emphasis_3 240 128 128
-        }
-        table_cell_selected {
-            base 240 128 128
-            background 24 24 24
-            emphasis_0 240 128 128
-            emphasis_1 240 128 128
-            emphasis_2 240 128 128
-            emphasis_3 240 128 128
-        }
-        table_cell_unselected {
-            base 240 128 128
-            background 0 0 0
-            emphasis_0 240 128 128
-            emphasis_1 240 128 128
-            emphasis_2 240 128 128
-            emphasis_3 240 128 128
-        }
-        list_selected {
-            base 240 128 128
-            background 24 24 24
-            emphasis_0 240 128 128
-            emphasis_1 240 128 128
-            emphasis_2 240 128 128
-            emphasis_3 240 128 128
-        }
-        list_unselected {
-            base 240 128 128
-            background 0 0 0
-            emphasis_0 240 128 128
-            emphasis_1 240 128 128
-            emphasis_2 240 128 128
-            emphasis_3 240 128 128
-        }
-        frame_unselected {
-            base 240 128 128
-            background 0 0 0
-            emphasis_0 240 128 128
-            emphasis_1 240 128 128
-            emphasis_2 240 128 128
-            emphasis_3 240 128 128
-        }
-        frame_selected {
-            base 255 255 255
-            background 0 0 0
-            emphasis_0 255 255 255
-            emphasis_1 255 255 255
-            emphasis_2 255 255 255
-            emphasis_3 255 255 255
-        }
-        frame_highlight {
-            base 240 128 128
-            background 0 0 0
-            emphasis_0 240 128 128
-            emphasis_1 240 128 128
-            emphasis_2 240 128 128
-            emphasis_3 240 128 128
-        }
-    };
     hatsunemiku {
         text_unselected {
             base 220 215 215
-            background 0
+            background 35 38 46
             emphasis_0 223 38 131
             emphasis_1 188 127 210
             emphasis_2 229 233 249
@@ -422,7 +324,7 @@ themes {
         }
         ribbon_unselected {
             base 220 215 215
-            background 0
+            background 35 38 46
             emphasis_0 223 38 131
             emphasis_1 188 127 210
             emphasis_2 229 233 249
@@ -497,6 +399,7 @@ themes {
 
 theme "hatsunemiku"
 // theme "magma"
+// theme "dracula"
 // Choose the base input mode of zellij.
 // Default: normal
 // 
