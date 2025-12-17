@@ -1,0 +1,88 @@
+# Hatsune Miku Theme — made by ChatGPT for you
+
+"comment" = { fg = "snow_gray" }
+"constant" = { fg = "neon_pink" }
+"function" = { fg = "miku_teal_light" }
+"function.macro" = { fg = "aqua_glow" }
+"keyword" = { fg = "neon_pink" }
+"operator" = { fg = "neon_pink" }
+"punctuation" = { fg = "cyan_soft" }
+"string" = { fg = "neon_pink" }
+"type" = { fg = "miku_teal" }
+"variable" = { fg = "cyan_soft" }
+"variable.builtin" = { fg = "miku_teal" }
+"tag" = { fg = "neon_pink" }
+"label" = { fg = "neon_pink" }
+"attribute" = { fg = "cyan_soft" }
+"namespace" = { fg = "cyan_soft" }
+"module" = { fg = "cyan_soft" }
+
+"markup.heading" = { fg = "neon_pink", modifiers = ["bold"] }
+"markup.heading.marker" = { fg = "snow_gray" }
+"markup.list" = { fg = "neon_pink" }
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.strikethrough" = { modifiers = ["crossed_out"] }
+"markup.link.url" = { fg = "miku_teal", modifiers = ["underlined"] }
+"markup.link.text" = { fg = "miku_teal" }
+"markup.quote" = { fg = "snow_gray" }
+"markup.raw" = { fg = "miku_teal_light" }
+
+"ui.background" = { bg = "vocaloid_black" }
+"ui.cursor" =  { fg = "vocaloid_black", bg = "miku_teal" }
+"ui.cursor.match" = { fg = "vocaloid_black", bg = "snow_gray" }
+"ui.cursor.select" = { fg = "vocaloid_black", bg = "miku_teal_light" }
+"ui.cursor.insert" = { fg = "vocaloid_black", bg = "aqua_glow" }
+"ui.linenr" = { fg = "snow_gray" }
+"ui.linenr.selected" = { fg = "miku_teal_light" }
+"ui.cursorline" = { fg = "cyan_soft", bg = "vocaloid_black_dim" }
+"ui.statusline" = { fg = "cyan_soft", bg = "vocaloid_black_saturated" }
+"ui.statusline.inactive" = { fg = "snow_gray", bg = "vocaloid_black_saturated" }
+"ui.statusline.normal" = { fg = "vocaloid_black_saturated", bg = "miku_teal_light" }
+"ui.statusline.insert" = { fg = "vocaloid_black_saturated", bg = "aqua_glow" }
+"ui.statusline.select" = { fg = "vocaloid_black_saturated", bg = "miku_teal" }
+"ui.popup" = { fg = "cyan_soft", bg = "vocaloid_black_saturated" }
+"ui.window" = { fg = "snow_gray", bg = "vocaloid_black" }
+"ui.help" = { fg = "cyan_soft", bg = "vocaloid_black_saturated" }
+"ui.text" = { fg = "cyan_soft" }
+"ui.text.focus" = { fg = "aqua_glow" }
+"ui.menu" = { fg = "cyan_soft", bg = "vocaloid_black_saturated" }
+"ui.menu.selected" = { fg = "aqua_glow", bg = "vocaloid_black_saturated" }
+"ui.selection" = { bg = "vocaloid_black_saturated" }
+"ui.virtual.whitespace" = { fg = "snow_gray" }
+"ui.virtual.ruler" = { bg = "vocaloid_black_dim" }
+"ui.virtual.indent-guide" = { fg = "vocaloid_black_fade" }
+"ui.virtual.inlay-hint" = { fg = "snow_gray" }
+
+"diff.plus" = { fg = "aqua_glow" }
+"diff.delta" = { fg = "neon_pink" }
+"diff.minus" = { fg = "magenta_dark" }
+
+"error" = { fg = "magenta_dark" }
+"warning" = { fg = "neon_pink" }
+"info" = { fg = "cyan_soft" }
+"hint" = { fg = "cyan_soft" }
+
+"diagnostic.warning" = { underline = { color = "neon_pink", style = "curl"} }
+"diagnostic.error" = { underline = { color = "magenta_dark", style = "curl"} }
+"diagnostic.info" = { underline = { color = "cyan_soft", style = "curl"} }
+"diagnostic.hint" = { underline = { color = "cyan_soft", style = "curl"} }
+"diagnostic.unnecessary" = { modifiers = ["dim"] }
+"diagnostic.deprecated" = { modifiers = ["crossed_out"] }
+
+[palette]
+vocaloid_black = "#0C0F12"
+vocaloid_black_dim = "#15191E"
+vocaloid_black_saturated = "#090B0E"
+vocaloid_black_fade = "#232831"
+
+miku_teal = "#39C5BB"
+miku_teal_light = "#5EE7D6"
+aqua_glow = "#8AF9E6"
+cyan_soft = "#C8F5F2"
+
+neon_pink = "#FF5CA8"
+magenta_dark = "#BD3F84"
+
+snow_gray = "#A8B0BA"
+

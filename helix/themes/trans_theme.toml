@@ -1,3 +1,6 @@
-inherits = "poimandres"
+# inherits = "poimandres_le_2"
+inherits = "hatsunemiku"
+# inherits = "boo_berry_but_cuter"
+# inherits = "andromeda"
 
 "ui.background" = {}

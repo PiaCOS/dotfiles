@@ -1,4 +1,4 @@
 inherits = "boo_berry"
 
-"keyword" = { fg = "bubblegum" , modifiers = ["italic"] }
+"keyword" = { fg = "bubblegum" , modifiers = ["italic", "bold"] }
 "comment" = { fg = "berry_desaturated", modifiers = ["italic"] }
