@@ -27,7 +27,10 @@ config.color_schemes = {
 -- config.color_scheme = 'Andromeda'
 -- config.color_scheme = 'rose-pine'
 config.color_scheme = 'Atelier Plateau (base16)'
-
+config.colors = {
+  -- foreground = "#756d6d",
+  foreground = "#d5cdcd",
+}
 -- ----------------------------------------------------
 --                       UTILS
 -- ----------------------------------------------------
