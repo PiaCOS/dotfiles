@@ -1,5 +1,6 @@
 # inherits = "poimandres_le_2"
-inherits = "hatsunemiku"
+# inherits = "hatsunemiku"
+inherits = "atelier_plateau"
 # inherits = "boo_berry_but_cuter"
 # inherits = "andromeda"
 

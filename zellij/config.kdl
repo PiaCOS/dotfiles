@@ -395,9 +395,55 @@ themes {
             emphasis_3 223 38 131
         }
     }
+    plateau_angel {
+        // Unselected components use the muted Plateau grays
+        text_unselected {
+            base "#8a8585"       // softGray
+            background "#1b1818" // darkGray
+            emphasis_0 "#ca4949" // red
+            emphasis_1 "#8464c4" // purple
+            emphasis_2 "#f4ecec" // pureMist
+            emphasis_3 "#5485b6" // cyan
+        }
+        // Selected components use the medium grays for contrast
+        text_selected {
+            base "#f4ecec"       // pureMist
+            background "#585050" // mediumGray
+            emphasis_0 "#ca4949" 
+            emphasis_1 "#8464c4" 
+            emphasis_2 "#f4ecec" 
+            emphasis_3 "#5485b6" 
+        }
+        // Frame highlights for active panes
+        frame_selected {
+            base "#5485b6"       // steelBlue
+            background "#1b1818"
+            emphasis_0 "#5485b6"
+            emphasis_1 "#5485b6"
+            emphasis_2 "#5485b6"
+            emphasis_3 "#5485b6"
+        }
+        frame_unselected {
+            base "#393434"       // deepAsh
+            background "#1b1818"
+            emphasis_0 "#393434"
+            emphasis_1 "#393434"
+            emphasis_2 "#393434"
+            emphasis_3 "#393434"
+        }
+        frame_highlight {
+            base "#d26937"       // brightOrange
+            background "#1b1818"
+            emphasis_0 "#d26937"
+            emphasis_1 "#d26937"
+            emphasis_2 "#d26937"
+            emphasis_3 "#d26937"
+        }
+    }
 }
 
-theme "hatsunemiku"
+// theme "hatsunemiku"
+theme "plateau_angel"
 // theme "magma"
 // theme "dracula"
 // Choose the base input mode of zellij.

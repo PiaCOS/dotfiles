@@ -320,7 +320,7 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 bindsym $mod+p exec --no-startup-id ~/.config/i3/scripts/audio-device-switch
 
 ## App shortcuts
-bindsym $mod+w exec --no-startup-id /usr/bin/firefox
+bindsym $mod+w exec --no-startup-id /usr/bin/zen-browser
 bindsym $mod+n exec --no-startup-id /usr/bin/thunar
 # bindsym Print exec --no-startup-id scrot ~/%Y-%m-%d-%T-screenshot.png && notify-send "Screenshot saved to ~/$(date +"%Y-%m-%d-%T")-screenshot.png"
 bindsym Print exec --no-startup-id /usr/sbin/flameshot gui --path ~/Pictures/Screenshots/
@@ -460,8 +460,9 @@ exec --no-startup-id ~/.screenlayout/monitor.sh
 
 # set wallpaper
 # exec --no-startup-id sleep 2 && nitrogen --restore
-exec --no-startup-id sleep 1 && feh --bg-fill /home/elco/Dev/dotfiles/nordic.jpg
-
+# exec --no-startup-id sleep 1 && feh --bg-fill /home/elco/Dev/dotfiles/nordic.jpg
+# exec --no-startup-id sleep 1 && feh --bg-fill /home/pia/Pictures/87ce9c20d05809e66fff25a772e55937.jpg
+exec --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/makima-chainsaw-man-4k-wallpaper-uhdpaper.com-18@5@k.jpg
 # set powersavings for display: SEE AT THE BOTTOM
 # exec --no-startup-id xset s 480 dpms 600 600 600
 

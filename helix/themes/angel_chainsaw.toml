@@ -1,0 +1,58 @@
+# Theme: Angel Devil
+# A melancholic palette of halos, feathers, and blood.
+
+# Interface colors
+"ui.background" = { bg = "none" }
+"ui.background.separator" = { fg = "wing_gray" }
+"ui.cursor" = { fg = "background", bg = "halo_gold" }
+"ui.cursor.insert" = { fg = "background", bg = "blood_red" }
+"ui.cursor.select" = { fg = "background", bg = "purple_haze" }
+
+"ui.gutter" = { bg = "none" }
+"ui.linenr" = { fg = "wing_gray", bg = "none" }
+"ui.linenr.selected" = { fg = "halo_gold", bg = "none", modifiers = ["bold"] }
+
+"ui.statusline" = { fg = "halo_white", bg = "suit_black" }
+"ui.statusline.inactive" = { fg = "wing_gray", bg = "suit_black" }
+"ui.statusline.normal" = { fg = "suit_black", bg = "halo_gold" }
+"ui.statusline.insert" = { fg = "halo_white", bg = "blood_red" }
+
+"ui.text" = { fg = "halo_white" }
+"ui.text.focus" = { fg = "halo_gold", modifiers = ["bold"] }
+
+"ui.virtual.indent-guide" = { fg = "suit_black" } # Very dim
+
+"ui.selection" = { bg = "selection_gray" }
+
+# Syntax highlighting
+"comment" = { fg = "wing_gray", modifiers = ["italic"] } # wingGray
+"constant" = { fg = "blood_red" }                        # bloodRed
+"constant.numeric" = { fg = "sunset_orange" }            # sunsetOrange
+
+"string" = { fg = "feather_white" }                      # featherWhite
+"type" = { fg = "halo_gold" }                            # haloGold
+
+"function" = { fg = "sky_blue" }                         # skyBlue
+"variable" = { fg = "halo_white" }                       # haloWhite
+"variable.builtin" = { fg = "sunset_orange" }
+
+"keyword" = { fg = "purple_haze", modifiers = ["bold", "italic"] } # purpleHaze
+"operator" = { fg = "sky_blue" }
+
+"punctuation" = { fg = "wing_gray" }
+
+[palette]
+# The core "Angel" colors
+background = "#121212"     # deepVoid
+halo_white = "#f0f0f0"     # haloWhite
+feather_white = "#d1d1d1"  # featherWhite
+wing_gray = "#666666"      # wingGray
+suit_black = "#1c1c1c"     # suitBlack
+selection_gray = "#3d3d3d" # selectionGray
+
+# Accents
+halo_gold = "#e6c384"      # haloGold
+blood_red = "#942f2f"      # bloodRed
+sunset_orange = "#d67b45"  # sunsetOrange
+sky_blue = "#89b4fa"       # skyBlue
+purple_haze = "#b794f4"    # purpleHaze

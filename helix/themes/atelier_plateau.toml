@@ -1,0 +1,98 @@
+# Theme: Atelier Plateau (Angel Edit)
+# Based on colors by Bram de Haan
+
+# Interface colors
+"ui.background" = { bg = "background" }
+"ui.background.separator" = { fg = "muted" }
+"ui.cursor" = { fg = "background", bg = "cursor" }
+"ui.cursor.normal" = { fg = "background", bg = "cursor" }
+"ui.cursor.insert" = { fg = "background", bg = "accent" }
+"ui.cursor.select" = { fg = "background", bg = "purple" }
+"ui.cursor.match" = { fg = "background", bg = "yellow" }
+"ui.cursor.primary" = { fg = "background", bg = "cursor" }
+
+"ui.gutter" = { bg = "background" }
+"ui.gutter.selected" = { bg = "line_highlight" }
+"ui.linenr" = { fg = "line_numbers", bg = "background" }
+"ui.linenr.selected" = { fg = "accent", "bg" = "background", modifiers = ["bold"] }
+
+"ui.statusline" = { fg = "foreground", bg = "background" }
+"ui.statusline.inactive" = { fg = "muted", bg = "background" }
+"ui.statusline.normal" = { fg = "background", bg = "accent" }
+"ui.statusline.insert" = { fg = "background", bg = "green" }
+"ui.statusline.select" = { fg = "background", bg = "purple" }
+
+"ui.popup" = { fg = "foreground", bg = "popup_bg" }
+"ui.window" = { fg = "muted" }
+"ui.help" = { fg = "foreground", bg = "popup_bg" }
+
+"ui.text" = { fg = "foreground" }
+"ui.text.focus" = { fg = "accent", modifiers = ["bold"] }
+"ui.text.inactive" = { fg = "muted" }
+
+"ui.virtual.indent-guide" = { fg = "indent_guide" }
+"ui.virtual.inlay-hint" = { fg = "muted" }
+
+"ui.menu" = { fg = "foreground", bg = "popup_bg" }
+"ui.menu.selected" = { fg = "background", bg = "accent" }
+
+"ui.selection" = { bg = "selection_background" }
+"ui.highlight" = { bg = "line_highlight" }
+
+# Syntax highlighting
+"comment" = { fg = "comment", modifiers = ["italic"] } # dimGray
+"constant" = { fg = "red" }                            # dullRed
+"constant.numeric" = { fg = "orange" }                 # brightOrange
+"constant.builtin" = { fg = "red" }                    # dullRed
+
+"string" = { fg = "green" }                            # tealGreen
+"string.regexp" = { fg = "blue" }                      # steelBlue
+
+"type" = { fg = "yellow" }                             # desertYellow
+"type.builtin" = { fg = "yellow" }
+
+"function" = { fg = "blue" }                           # dustyBlue
+"function.builtin" = { fg = "blue" }
+
+"variable" = { fg = "foreground" }                     # offWhite
+"variable.builtin" = { fg = "orange" }                 # brightOrange
+"variable.parameter" = { fg = "orange" }
+
+"keyword" = { fg = "purple", modifiers = ["bold", "italic"] } # mutedPurple
+"operator" = { fg = "cyan" }                                  # steelBlue
+
+"punctuation" = { fg = "foreground" }
+"special" = { fg = "hot_pink" }                         # roseDust
+
+# Markup
+"markup.heading" = { fg = "blue", modifiers = ["bold"] }
+"markup.list" = { fg = "red" }
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.link.url" = { fg = "orange", modifiers = ["underlined"] }
+
+[palette]
+# Main colors
+background = "#1b1818" # deepBlack
+foreground = "#f4ecec" # pureMist
+cursor = "#f4ecec"     # pureMist
+accent = "#5485b6"     # steelBlue
+
+# UI colors
+line_highlight = "#292424"       # ashBlack
+selection_background = "#585050" # mediumGray
+line_numbers = "#655d5d"         # dimGray
+muted = "#7e7777"                # lightAsh
+popup_bg = "#292424"             # ashBlack
+indent_guide = "#292424"         # dimIndent
+
+# Functional Colors
+orange = "#d26937"   # brightOrange
+yellow = "#a06e3b"   # desertYellow
+purple = "#8464c4"   # mutedPurple
+hot_pink = "#bd5187" # roseDust
+blue = "#7272ca"     # dustyBlue
+cyan = "#5485b6"     # steelBlue
+red = "#ca4949"      # dullRed
+green = "#4b8b8b"    # tealGreen
+comment = "#655d5d"  # dimGray
