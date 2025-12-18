@@ -424,12 +424,12 @@ themes {
             emphasis_3 "#5485b6"
         }
         frame_unselected {
-            base "#393434"       // deepAsh
+            base "#494444"       // deepAsh
             background "#1b1818"
-            emphasis_0 "#393434"
-            emphasis_1 "#393434"
-            emphasis_2 "#393434"
-            emphasis_3 "#393434"
+            emphasis_0 "#494444"
+            emphasis_1 "#494444"
+            emphasis_2 "#494444"
+            emphasis_3 "#494444"
         }
         frame_highlight {
             base "#d26937"       // brightOrange
