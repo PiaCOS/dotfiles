@@ -1,7 +1,14 @@
 # inherits = "poimandres_le_2"
 # inherits = "hatsunemiku"
-inherits = "atelier_plateau"
+# inherits = "atelier_plateau"
 # inherits = "boo_berry_but_cuter"
+inherits = "rose_pine_moon"
 # inherits = "andromeda"
 
 "ui.background" = {}
+# "ui.statusline.normal.bg" = {}
+# "ui.statusline.insert.bg" = {}
+# "ui.statusline.select.bg" = {}
+# "ui.popup.bg" = {}
+# "ui.window.bg" = {}
+# "ui.help.bg" = {}

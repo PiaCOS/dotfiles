@@ -1,4 +1,5 @@
-theme = "trans_theme"
+# theme = "trans_theme"
+theme = "seoul267"
 
 
 [keys.normal]
@@ -29,6 +30,10 @@ line-number = "relative"
 bufferline = "never" # always, never, multiple
 true-color = true
 end-of-line-diagnostics = "error"
+popup-border = "all"
+trim-trailing-whitespace = true
+rainbow-brackets = true
+preview-completion-insert = false
 
 [editor.inline-diagnostics]
 cursor-line = "warning"
