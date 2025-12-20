@@ -462,7 +462,8 @@ exec --no-startup-id ~/.screenlayout/monitor.sh
 # exec --no-startup-id sleep 2 && nitrogen --restore
 # exec --no-startup-id sleep 1 && feh --bg-fill /home/elco/Dev/dotfiles/nordic.jpg
 # exec --no-startup-id sleep 1 && feh --bg-fill /home/pia/Pictures/87ce9c20d05809e66fff25a772e55937.jpg
-exec --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/makima-chainsaw-man-4k-wallpaper-uhdpaper.com-18@5@k.jpg
+# exec --no-startup-id sleep 1 && feh -bg-fill /home/pia/Dev/dotfiles/makima-chainsaw-man-4k-wallpaper-uhdpaper.com-18@5@k.jpg
+exec --no-startup-id sleep 1 && feh -bg-fill /home/pia/Dev/dotfiles/angel2.png
 # set powersavings for display: SEE AT THE BOTTOM
 # exec --no-startup-id xset s 480 dpms 600 600 600
 
@@ -497,7 +498,7 @@ exec --no-startup-id /usr/bin/dunst
 
 # Autostart apps as you like
 #exec --no-startup-id sleep 2 && xfce4-terminal
-exec --no-startup-id sleep 7 && firefox https://github.com/endeavouros-team/endeavouros-i3wm-setup/blob/main/force-knowledge.md
+# exec --no-startup-id sleep 7 && firefox https://github.com/endeavouros-team/endeavouros-i3wm-setup/blob/main/force-knowledge.md
 #exec --no-startup-id sleep 3 && thunar
 
 

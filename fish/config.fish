@@ -10,7 +10,7 @@ if status is-interactive
     fish_add_path $HOME/go/bin
     # Used for Ghidra
     fish_add_path $HOME/jdk-21.0.5+11
-    # Used for Unity (might delete at some point) 
+    # Used for Unity (might delete at some point)
     fish_add_path /usr/local/share/dotnet
 
     # No idea what it does (prob. doing a setup with fish compatibility)
@@ -47,7 +47,7 @@ if status is-interactive
     alias instakill "pasta | xargs -p kill -9; xclip -selection clipboard /dev/null"
 
     # cool stuff
-    function choco
+    function mkcd
         set arg $argv[1]
         mkdir $arg
         cd $arg
@@ -68,7 +68,12 @@ if status is-interactive
     function when
         date '+%Y-%m-%d %H:%M:%S'
         printf '\n'
-        cal
+        cal --months 2 --monday --columns 2
+    end
+
+    function tutafeh
+        autorandr --change
+        feh --bg-fill /home/pia/Dev/dotfiles/angel2.png
     end
 
     # ---------------------------------------------------
