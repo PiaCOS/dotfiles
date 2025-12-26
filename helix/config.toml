@@ -19,6 +19,10 @@ theme = "trans_theme"
 "g" = "goto_word"
 "G" = "goto_file_start"
 
+[keys.select.g]
+"g" = "goto_word"
+"G" = "goto_file_start"
+
 
 [keys.insert]
 "j" = { "j" = "normal_mode" }
@@ -29,6 +33,7 @@ line-number = "relative"
 bufferline = "never" # always, never, multiple
 true-color = true
 end-of-line-diagnostics = "error"
+popup-border = "all"
 
 [editor.inline-diagnostics]
 cursor-line = "warning"
