@@ -37,7 +37,7 @@ config.colors = {
 --                       UTILS
 -- ----------------------------------------------------
 
-config.default_prog = { "/usr/bin/fish" }
+config.default_prog = { "fish" }
 
 config.keys = {
   -- was conflicting with lazygit commit keymap
