@@ -34,6 +34,10 @@ if status is-interactive
     # abbr z zoxide
     # abbr hx helix
 
+    # nix
+    abbr sysup "sudo nixos-rebuild switch --flake ~/Dev/dotfiles#nixos"
+    abbr homup "nix run home-manager/master -- switch --flake ~/Dev/dotfiles#pia"
+
     # used to sudo last command
     abbr !! --position anywhere --function last_history_item
     abbr --add --position anywhere -- !! 'history --max 1 | string match -r " (.*)" | string trim --left'
