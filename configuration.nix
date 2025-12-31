@@ -48,6 +48,7 @@
       dunst
       scrot
       xclip
+      xss-lock
       imagemagickBig
       acpi
     ];
