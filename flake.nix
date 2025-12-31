@@ -132,7 +132,7 @@
                 head5 = "log --oneline -n 5";
                 head10 = "log --oneline -n 10";
                 head20 = "log --oneline -n 20";
-                lograph = "git log --oneline --graph --decorate --all";
+                lograph = "log --oneline --graph --decorate --all";
               };
               init.defaultBranch = "main";
             };
