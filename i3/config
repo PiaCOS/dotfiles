@@ -23,7 +23,7 @@ exec --no-startup-id ~/set_once.sh
 # is used in the bar {} block below.
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango: Noto Sans Regular 10
+font pango: Maple Mono NF 10
 
 # exec --no-startup-id xmodmap -e 'keycode 49 = Hyper_L'
 # exec --no-startup-id xmodmap -e 'add mod3 = Hyper_L'
@@ -528,10 +528,20 @@ set $urgentred      #e53935
 set $white          #ffffff
 set $black          #000000
 set $purple         #e345ff
-set $darkgrey       #383c4a
+set $darkgrey       #1b1818
 set $grey           #b0b5bd
 set $mediumgrey     #8b8b8b
 set $yellowbrown    #e1b700
+
+set $steelBlue      #5485b8
+set $mediumGray     #585050
+set $darkGray       #1b1818
+set $pureMist        #f4ecec
+set $deepAsh        #494444
+set $brightOrange   #fd26937
+
+
+
 
 # define colors for windows:
 #class                      border      bground     text        indicator   child_border
@@ -550,11 +560,11 @@ exec --no-startup-id bash -c 'pkill nm-applet; nm-applet'
 # Start i3bar to display a workspace bar
 # (plus the system information i3status finds out, if available)
 bar {
-        mode hide
-        font pango: Noto Sans Regular 10
+        # mode hide
+        font pango: Maple Mono NF 10
         status_command i3blocks -c ~/.config/i3/i3blocks.conf
-        position bottom
-        # position top
+        # position bottom
+        position top
         # i3bar_command i3bar --transparency
         # it could be that you have no primary display set: set one (xrandr --output <output> --primary)
         # reference: https://i3wm.org/docs/userguide.html#_tray_output
@@ -568,14 +578,23 @@ bar {
         ##strip_workspace_name no
 
         colors {
-                separator           $purple
-                background          $darkgrey
-                statusline          $white
-                #                   border              bg          txt         indicator
-                focused_workspace   $mediumgrey         $grey       $darkgrey   $purple
-                active_workspace    $lightblue          $mediumgrey $darkgrey   $purple
-                inactive_workspace  $darkgrey           $darkgrey   $grey       $purple
-                urgent_workspace    $urgentred          $urgentred  $white      $purple
+                separator           $steelBlue
+                background          $darkGray
+                statusline          $pureMist
+                #                   border              bg             txt            indicator
+                focused_workspace   $mediumGray         $mediumGray    $darkGray      $steelBlue
+                active_workspace    $lightblue          $mediumGray    $darkGray      $steelBlue
+                inactive_workspace  $darkGray           $darkGray      $mediumGray    $steelBlue
+                urgent_workspace    $brightOrange       $brightOrange  $pureMist      $steelBlue
+
+                # separator           $purple
+                # background          $darkgrey
+                # statusline          $white
+                # #                   border              bg          txt         indicator
+                # focused_workspace   $mediumgrey         $grey       $darkgrey   $purple
+                # active_workspace    $lightblue          $mediumgrey $darkgrey   $purple
+                # inactive_workspace  $darkgrey           $darkgrey   $grey       $purple
+                # urgent_workspace    $urgentred          $urgentred  $white      $purple
         }
 }
 
