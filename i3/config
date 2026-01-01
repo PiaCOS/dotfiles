@@ -426,5 +426,7 @@ exec --no-startup-id xss-lock \
 # Notify battery status
 exec --no-startup-id $HOME/.config/i3/scripts/battery_warn.sh
 
+# Combined because of race condition
 # Set Caps Lock to be another Control key
-exec_always --no-startup-id setxkbmap -option ctrl:nocaps
+# Switch [ and ] to ^ and $
+exec_always --no-startup-id sh -c "setxkbmap -option ctrl:nocaps && sleep 0.5 && xmodmap -e 'keycode 34 = bracketleft dead_diaeresis bracketleft dead_diaeresis asciicircum dead_circumflex' -e 'keycode 35 = bracketright asterisk bracketright asterisk dollar sterling' -e 'keycode 49 = grave asciitilde grave asciitilde twosuperior threesuperior'"
