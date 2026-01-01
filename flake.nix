@@ -137,6 +137,7 @@
               init.defaultBranch = "main";
             };
           };
+
           # ---------------- git config ----------------
 
           programs.lazygit = {
@@ -146,6 +147,13 @@
                   editPreset = "helix";
                 };
               };
+          };
+
+          # ---------------- rofi config ----------------
+
+          programs.rofi = {
+            enable = true;
+            theme = "${pkgs.rofi}/share/rofi/themes/gruvbox-dark.rasi";
           };
 
           # ---------------- i3 config ----------------

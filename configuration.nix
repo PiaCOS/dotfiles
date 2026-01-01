@@ -41,7 +41,7 @@
   services.xserver.windowManager.i3 = {
     enable = true;
     extraPackages = with pkgs; [
-      rofi
+      # rofi
       i3status
       i3blocks
       i3lock
