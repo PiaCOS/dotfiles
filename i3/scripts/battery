@@ -65,17 +65,6 @@ else:
     FA_QUESTION = "<span font='FontAwesome'>\uf128</span>"
 
 
-    if state == "Discharging":
-        fulltext = FA_BATTERY + " "
-    elif state == "Full":
-        fulltext = FA_PLUG + " "
-        timeleft = ""
-    elif state == "Unknown":
-        fulltext = FA_QUESTION + " " + FA_BATTERY + " "
-        timeleft = ""
-    else:
-        fulltext = FA_LIGHTNING + " " + FA_PLUG + " "
-
     def color(percent):
         if percent < 10:
             # exit code 33 will turn background red
@@ -96,9 +85,20 @@ else:
             return config.get("color_80", "#FFFF66")
         return config.get("color_full", "#FFFFFF")
 
-    form =  '<span color="{}">{}%</span>'
-    fulltext += form.format(color(percentleft), percentleft)
-    #fulltext += timeleft
+
+    if state == "Discharging":
+        form =  'bat::<span color="{}">{}%</span>'
+        fulltext = form.format(color(percentleft), percentleft)
+    elif state == "Full":
+        form =  'bat::<span color="{}">FULL</span>'
+        fulltext = form.format(color(percentleft))
+    elif state == "Unknown":
+        form =  'bat::<span color="{}">{}%</span>'
+        fulltext = form.format(color(percentleft), percentleft)
+    else:
+        form =  'bat::<span color="{}">+{}%</span>'
+        fulltext = form.format(color(percentleft), percentleft)
+
 
 print(fulltext)
 print(fulltext)

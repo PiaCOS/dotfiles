@@ -51,6 +51,9 @@
       xss-lock
       imagemagickBig
       acpi
+      lm_sensors
+      sysstat
+      pulseaudioFull
     ];
   };
 
