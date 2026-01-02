@@ -75,6 +75,7 @@
             ripgrep
             uv
             brightnessctl
+            libnotify
 
             # Development
             rustup
