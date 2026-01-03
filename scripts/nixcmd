@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+echo 'sudo nixos-rebuild switch --flake .#nixos'
+echo 'nix run home-manager/master -- switch --flake .#pia'
+echo 'nix flake update'
+echo 'nix-shell -p <package>'
+echo 'sudo nix-collect-garbage -d'
