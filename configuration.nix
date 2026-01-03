@@ -54,6 +54,7 @@
       lm_sensors
       sysstat
       pulseaudioFull
+      xmodmap
     ];
   };
 

@@ -40,7 +40,7 @@
           environment.systemPackages = with pkgs; [
             wezterm
             zen-browser.packages.${system}.default
-            xfce.thunar
+            thunar
             feh
             picom
             fish
@@ -92,10 +92,10 @@
 
             # Custom Scripts
             (writeShellScriptBin "brightness-up" ''
-              ${brightnessctl}/bin/brightnessctl set 5%+
+              ${brightnessctl}/bin/brightnessctl set 2%+
             '')
             (writeShellScriptBin "brightness-down" ''
-              ${brightnessctl}/bin/brightnessctl set 5%-
+              ${brightnessctl}/bin/brightnessctl set 2%-
             '')
           ];
 
