@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import shlex
 import signal
@@ -65,22 +65,25 @@ to_update =  None
 to_test =    None
 
 arg_list = [
-    ArgField( "--addons",   "addons",          None ),
-    ArgField( "--dev",      "dev",             dev ),
-    ArgField( "-p",         "port",            port ),
-    ArgField( "-d",         "db",              db ),
-    ArgField( "-c",         "cwd",             cwd ),
-    ArgField( "-i",         "to_install",      to_install ),
-    ArgField( "-u",         "to_update",       to_update ),
-    ArgField( "--test",     "to_test",         to_test ),
-    ArgField( "--log",      "log",             log ),
-    ArgFlag( "-e",          "use_enterprise",  False ),
-    ArgFlag( "--demo",      "with_demo",       False ),
-    ArgFlag( "--log_sql",   "log_sql",         False ),
-    ArgFlag( "--shell",     "shell_mode",      False ),
-    ArgFlag( "--dry",       "dry_run",         False ),
-    ArgFlag( "--out",       "out",             False ),
-    ArgFlag( "--need_help", "need_help",       False ),
+    ArgField( "--addons",      "addons",          None ),
+    ArgField( "--dev",         "dev",             dev ),
+    ArgField( "-p",            "port",            port ),
+    ArgField( "-d",            "db",              db ),
+    ArgField( "-c",            "cwd",             cwd ),
+    ArgField( "-i",            "to_install",      to_install ),
+    ArgField( "-u",            "to_update",       to_update ),
+    ArgField( "--test",        "to_test",         to_test ),
+    ArgField( "--log",         "log",             log ),
+    ArgField( "--db_host",     "db_host",         "localhost" ),
+    ArgField( "--db_user",     "db_user",         "odoo" ),
+    ArgField( "--db_password", "db_password",     "odoo" ),
+    ArgFlag( "-e",             "use_enterprise",  False ),
+    ArgFlag( "--demo",         "with_demo",       False ),
+    ArgFlag( "--log_sql",      "log_sql",         False ),
+    ArgFlag( "--shell",        "shell_mode",      False ),
+    ArgFlag( "--dry",          "dry_run",         False ),
+    ArgFlag( "--out",          "out",             False ),
+    ArgFlag( "--need_help",    "need_help",       False ),
 ]
 
 
@@ -129,7 +132,9 @@ def main():
     mode = "shell" if args.shell_mode else "server"
 
     if not args.need_help:
-        command = f"./odoo-bin --addons-path={addons_path(args)} {mode} --dev={args.dev} --http-port={args.port} -d {args.db} --log-level={args.log}"
+        print("sys.executable: ", sys.executable)
+        command = f"{sys.executable} ./odoo-bin --addons-path={addons_path(args)} {mode} --dev={args.dev} --http-port={args.port} -d {args.db} --log-level={args.log}"
+        command += f" --db_host={args.db_host} --db_user={args.db_user} --db_password={args.db_password}"
         if args.to_install:
             command += f" -i {args.to_install}"
         if args.to_update:
