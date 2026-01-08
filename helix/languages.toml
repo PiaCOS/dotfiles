@@ -129,7 +129,7 @@ indent = { tab-width = 4, unit = "    " }
 
 [[language]]
 name = "xml"
-file-types = [ "xml" ]
+file-types = [ "xml", "rng" ]
 formatter = { command = "xmllint", args = ["--format", "-"] }
 language-servers = [ "xml" ]
 indent = { tab-width = 4, unit = "    " }
