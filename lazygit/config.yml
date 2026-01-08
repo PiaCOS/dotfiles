@@ -1,2 +1,2 @@
 os:
-  editPreset: 'hx'
+  edit: 'hx {{filename}}'
