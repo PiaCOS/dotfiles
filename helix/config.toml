@@ -34,6 +34,10 @@ bufferline = "never" # always, never, multiple
 true-color = true
 end-of-line-diagnostics = "error"
 popup-border = "all"
+trim-trailing-whitespace = true
+# rainbow-brackets = true
+preview-completion-insert = false
+
 
 [editor.inline-diagnostics]
 cursor-line = "warning"
@@ -60,13 +64,15 @@ mode.select = "SELECT"
 '{' = '}'
 '[' = ']'
 '"' = '"'
-# '`' = '`'
+"'" = "'"
+'`' = '`'
 '<' = '>'
 
 
 [editor.whitespace.render]
 space = "none"
-tab = "all"
+# tab = "all"
+tab = "none"
 nbsp = "none"
 nnbsp = "none"
 newline = "none"

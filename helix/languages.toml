@@ -134,6 +134,9 @@ formatter = { command = "xmllint", args = ["--format", "-"] }
 language-servers = [ "xml" ]
 indent = { tab-width = 4, unit = "    " }
 
+[language-server.xml]
+command = "lemminx-linux"
+
 # -------------------------------------------------------------
 #                             JSON 
 # -------------------------------------------------------------
