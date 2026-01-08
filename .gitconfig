@@ -3,7 +3,7 @@
 	email = pia.cosneau@gmail.com
 
 [core]
-	editor = vim
+	editor = helix
 
 [alias]
 	cp = cherry-pick
