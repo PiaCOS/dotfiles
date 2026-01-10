@@ -74,8 +74,6 @@
             zoxide
             ripgrep
             uv
-            brightnessctl
-            libnotify
 
             # Development
             rustup
@@ -156,6 +154,49 @@
             enable = true;
             theme = "${pkgs.rofi}/share/rofi/themes/gruvbox-dark.rasi";
           };
+
+          # ---------------- niri config ----------------
+
+          xdg.configFile."niri/config.kdl".text = ''
+              input {
+                  keyboard {
+                      xkb {
+                          layout "be"
+                      }
+                  }
+                  touchpad {
+                      tap
+                      natural-scroll
+                  }
+              }
+
+              // Keybindings
+              binds {
+                  Mod+Return { spawn "wezterm"; }
+                  Mod+D { spawn "rofi" "-show" "drun"; }
+                  Mod+Q { close-window; }
+
+                  Mod+Left  { focus-column-left; }
+                  Mod+Right { focus-column-right; }
+                  Mod+Shift+Left  { move-column-left; }
+                  Mod+Shift+Right { move-column-right; }
+
+                  Mod+WheelScrollDown      coarse-scroll-right;
+                  Mod+WheelScrollUp        coarse-scroll-left;
+
+                  Print { screenshot; }
+
+                  // Exit niri
+                  Mod+Shift+E { quit; }
+              }
+
+              layout {
+                  gap 16
+                  default-column-width { proportion 0.5; }
+              }
+
+              spawn-at-startup "waybar"
+          '';
 
           # ---------------- i3 config ----------------
 

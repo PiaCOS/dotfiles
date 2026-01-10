@@ -41,18 +41,13 @@
   services.xserver.windowManager.i3 = {
     enable = true;
     extraPackages = with pkgs; [
-      # rofi
       i3status
       i3blocks
       i3lock
       dunst
-      scrot
       xclip
       xss-lock
       imagemagickBig
-      acpi
-      lm_sensors
-      sysstat
       pulseaudioFull
       xmodmap
     ];
@@ -65,6 +60,12 @@
     layout = "be";
     variant = "";
   };
+
+  # Configue niri
+  programs.niri.enable = true;
+
+  # Browser run nativly on wayland and fallback to X
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Configure console keymap
   console.keyMap = "be-latin1";
@@ -117,11 +118,27 @@
   environment.variables.EDITOR = "hx";
 
   environment.systemPackages = with pkgs; [
+    # Essentials
     upower
     autorandr
     git
     vim
     fish
+    acpi
+    lm_sensors
+    sysstat
+    brightnessctl
+    libnotify
+    scrot
+    rofi
+
+    # Wayland specific
+    waybar
+    swww
+    mako
+    swaylock-effects
+    swayidle
+    wl-clipboard
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
