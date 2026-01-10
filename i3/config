@@ -62,28 +62,28 @@ bindcode $mod+18    workspace  $ws9
 bindcode $mod+19    workspace  $ws10
 
 # switch to workspace with numpad keys
-bindcode $mod+87 workspace $ws1
-bindcode $mod+88 workspace $ws2
-bindcode $mod+89 workspace $ws3
-bindcode $mod+83 workspace $ws4
-bindcode $mod+84 workspace $ws5
-bindcode $mod+85 workspace $ws6
-bindcode $mod+79 workspace $ws7
-bindcode $mod+80 workspace $ws8
-bindcode $mod+81 workspace $ws9
-bindcode $mod+90 workspace $ws10
+# bindcode $mod+87 workspace $ws1
+# bindcode $mod+88 workspace $ws2
+# bindcode $mod+89 workspace $ws3
+# bindcode $mod+83 workspace $ws4
+# bindcode $mod+84 workspace $ws5
+# bindcode $mod+85 workspace $ws6
+# bindcode $mod+79 workspace $ws7
+# bindcode $mod+80 workspace $ws8
+# bindcode $mod+81 workspace $ws9
+# bindcode $mod+90 workspace $ws10
 
-# switch to workspace with numlock numpad keys
-bindcode $mod+Mod2+87 workspace $ws1
-bindcode $mod+Mod2+88 workspace $ws2
-bindcode $mod+Mod2+89 workspace $ws3
-bindcode $mod+Mod2+83 workspace $ws4
-bindcode $mod+Mod2+84 workspace $ws5
-bindcode $mod+Mod2+85 workspace $ws6
-bindcode $mod+Mod2+79 workspace $ws7
-bindcode $mod+Mod2+80 workspace $ws8
-bindcode $mod+Mod2+81 workspace $ws9
-bindcode $mod+Mod2+90 workspace $ws10
+# # switch to workspace with numlock numpad keys
+# bindcode $mod+Mod2+87 workspace $ws1
+# bindcode $mod+Mod2+88 workspace $ws2
+# bindcode $mod+Mod2+89 workspace $ws3
+# bindcode $mod+Mod2+83 workspace $ws4
+# bindcode $mod+Mod2+84 workspace $ws5
+# bindcode $mod+Mod2+85 workspace $ws6
+# bindcode $mod+Mod2+79 workspace $ws7
+# bindcode $mod+Mod2+80 workspace $ws8
+# bindcode $mod+Mod2+81 workspace $ws9
+# bindcode $mod+Mod2+90 workspace $ws10
 
 # move focused container to workspace
 bindcode $mod+Shift+10    move container to workspace  $ws1
@@ -98,58 +98,58 @@ bindcode $mod+Shift+18    move container to workspace  $ws9
 bindcode $mod+Shift+19    move container to workspace  $ws10
 
 # move focused container to workspace with numpad keys
-bindcode $mod+Shift+Mod2+87     move container to workspace  $ws1
-bindcode $mod+Shift+Mod2+88     move container to workspace  $ws2
-bindcode $mod+Shift+Mod2+89     move container to workspace  $ws3
-bindcode $mod+Shift+Mod2+83     move container to workspace  $ws4
-bindcode $mod+Shift+Mod2+84     move container to workspace  $ws5
-bindcode $mod+Shift+Mod2+85     move container to workspace  $ws6
-bindcode $mod+Shift+Mod2+79     move container to workspace  $ws7
-bindcode $mod+Shift+Mod2+80     move container to workspace  $ws8
-bindcode $mod+Shift+Mod2+81     move container to workspace  $ws9
-bindcode $mod+Shift+Mod2+90     move container to workspace  $ws10
+# bindcode $mod+Shift+Mod2+87     move container to workspace  $ws1
+# bindcode $mod+Shift+Mod2+88     move container to workspace  $ws2
+# bindcode $mod+Shift+Mod2+89     move container to workspace  $ws3
+# bindcode $mod+Shift+Mod2+83     move container to workspace  $ws4
+# bindcode $mod+Shift+Mod2+84     move container to workspace  $ws5
+# bindcode $mod+Shift+Mod2+85     move container to workspace  $ws6
+# bindcode $mod+Shift+Mod2+79     move container to workspace  $ws7
+# bindcode $mod+Shift+Mod2+80     move container to workspace  $ws8
+# bindcode $mod+Shift+Mod2+81     move container to workspace  $ws9
+# bindcode $mod+Shift+Mod2+90     move container to workspace  $ws10
 
-# move focused container to workspace with numpad keys
-bindcode $mod+Shift+87   move container to workspace  $ws1
-bindcode $mod+Shift+88   move container to workspace  $ws2
-bindcode $mod+Shift+89   move container to workspace  $ws3
-bindcode $mod+Shift+83   move container to workspace  $ws4
-bindcode $mod+Shift+84   move container to workspace  $ws5
-bindcode $mod+Shift+85   move container to workspace  $ws6
-bindcode $mod+Shift+79   move container to workspace  $ws7
-bindcode $mod+Shift+80   move container to workspace  $ws8
-bindcode $mod+Shift+81   move container to workspace  $ws9
-bindcode $mod+Shift+90   move container to workspace  $ws10
+# # move focused container to workspace with numpad keys
+# bindcode $mod+Shift+87   move container to workspace  $ws1
+# bindcode $mod+Shift+88   move container to workspace  $ws2
+# bindcode $mod+Shift+89   move container to workspace  $ws3
+# bindcode $mod+Shift+83   move container to workspace  $ws4
+# bindcode $mod+Shift+84   move container to workspace  $ws5
+# bindcode $mod+Shift+85   move container to workspace  $ws6
+# bindcode $mod+Shift+79   move container to workspace  $ws7
+# bindcode $mod+Shift+80   move container to workspace  $ws8
+# bindcode $mod+Shift+81   move container to workspace  $ws9
+# bindcode $mod+Shift+90   move container to workspace  $ws10
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+b focus up
-bindsym $mod+o focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+# bindsym $mod+Left focus left
+# bindsym $mod+Down focus down
+# bindsym $mod+Up focus up
+# bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+b move up
-bindsym $mod+Shift+o move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+# bindsym $mod+Shift+Left move left
+# bindsym $mod+Shift+Down move down
+# bindsym $mod+Shift+Up move up
+# bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+Control+h split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+Control+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -221,7 +221,7 @@ bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/powermenu
 
 # Lock the system
 # lock by blurring the screen:
-bindsym $mod+l exec --no-startup-id ~/.config/i3/scripts/blur-lock
+bindsym $mod+Control+l exec --no-startup-id ~/.config/i3/scripts/blur-lock
 # lock in case after sleep
 exec --no-startup-id xss-lock -l ~/.config/i3/scripts/blur-lock
 
