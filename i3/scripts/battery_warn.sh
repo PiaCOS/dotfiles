@@ -15,14 +15,14 @@ while true; do
         fi
 
         if [ "$PERCENT" -le 10 ] && [ "$LAST" -gt 10 ]; then
-            notify-send -u normal -t 20000 "Battery very low" "Battery at 10%"
+            notify-send -u critical -t 20000 "Battery very low" "Battery at 10%"
         fi
 
         if [ "$PERCENT" -le 5 ] && [ "$LAST" -gt 5 ]; then
-            notify-send -u normal -t 20000 "Battery Critical" "Battery at 5%"
+            notify-send -u critical -t 20000 "Battery Critical" "Battery at 5%"
         fi
 
         LAST=$PERCENT
-        sleep 30
+        sleep 60
     fi
 done
