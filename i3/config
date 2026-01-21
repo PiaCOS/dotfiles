@@ -189,6 +189,18 @@ mode "move_workspace" {
         bindsym j move workspace to output down
         bindsym k move workspace to output up
 
+        # If i need to focus another ws while moving
+        bindcode $mod+10    workspace  $ws1
+        bindcode $mod+11    workspace  $ws2
+        bindcode $mod+12    workspace  $ws3
+        bindcode $mod+13    workspace  $ws4
+        bindcode $mod+14    workspace  $ws5
+        bindcode $mod+15    workspace  $ws6
+        bindcode $mod+16    workspace  $ws7
+        bindcode $mod+17    workspace  $ws8
+        bindcode $mod+18    workspace  $ws9
+        bindcode $mod+19    workspace  $ws10
+
         # back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
