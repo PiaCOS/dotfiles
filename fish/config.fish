@@ -73,6 +73,14 @@ if status is-interactive
         cal
     end
 
+    function rfc
+        set arg $argv[1]
+        set url "https://www.rfc-editor.org/rfc/rfc"
+        set ext ".txt"
+        curl (string join '' $url $arg $ext) | less
+    end
+
+
     # ---------------------------------------------------
     # SSH Agent (start once per session)
     # ---------------------------------------------------
