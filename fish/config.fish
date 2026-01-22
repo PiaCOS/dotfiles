@@ -29,6 +29,7 @@ if status is-interactive
     # ALIAS STUFF
     # ---------------------------------------------------
 
+    abbr j "just"
     abbr ll "eza -la"
     # abbr ll "ls -lah"
     # abbr z zoxide
