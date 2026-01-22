@@ -10,7 +10,7 @@ if status is-interactive
     fish_add_path $HOME/go/bin
     # Used for Ghidra
     fish_add_path $HOME/jdk-21.0.5+11
-    # Used for Unity (might delete at some point) 
+    # Used for Unity (might delete at some point)
     fish_add_path /usr/local/share/dotnet
 
     # No idea what it does (prob. doing a setup with fish compatibility)
@@ -22,6 +22,8 @@ if status is-interactive
 
     set -gx EDITOR helix
     set -gx EDITOR hx
+
+    set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /home/elco/.ghcup/bin $PATH # ghcup-env
 
     # ---------------------------------------------------
     # ALIAS STUFF
