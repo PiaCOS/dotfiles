@@ -96,7 +96,7 @@
   users.users.pia = {
     isNormalUser = true;
     description = "Pia";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "plugdev" ];
     packages = with pkgs; [
     ];
   };
@@ -140,6 +140,14 @@
     swayidle
     wl-clipboard
   ];
+
+  boot.blacklistedKernelModules = [
+    "dvb_usb_rtl28xxu"
+    "rtl2832"
+    "rtl2830"
+  ];
+
+  hardware.rtl-sdr.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

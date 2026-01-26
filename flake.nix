@@ -44,6 +44,11 @@
             feh
             picom
             fish
+
+            rustup
+            gcc
+            binutils
+            gnupg1
           ];
         })
       ];
@@ -76,9 +81,7 @@
             uv
 
             # Development
-            rustup
-            gcc
-            binutils
+            just
             python3
             zellij
             home-manager
@@ -87,6 +90,17 @@
             # LSP
             nixd
             nixpkgs-fmt
+
+            # RTL-SDR
+            alsa-utils
+            gqrx
+            rtl-sdr
+            # cubicsdr
+            # sox
+            # multimon-ng
+            # direwolf
+            # fldigi
+            # wsjtx
 
             # Custom Scripts
             (writeShellScriptBin "brightness-up" ''
@@ -174,7 +188,7 @@
             config.color_scheme = 'Seoul256 (Gogh)'
             config.colors = {
               foreground = "#d5cdcd",
-              background = "222222",
+              background = "#222222",
             }
 
             -- -------- SHELL --------
