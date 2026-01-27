@@ -53,6 +53,7 @@
             brightnessctl
             libnotify
             scrot
+            nvd
 
             # GUI apps
             wezterm
@@ -62,6 +63,7 @@
             picom
             fish
 
+            # Build tools
             rustup
             gcc
             binutils
