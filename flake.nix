@@ -152,6 +152,13 @@
             };
           };
 
+          # ---------------- ssh config ----------------
+
+          programs.ssh = {
+            enable = true;
+            startAgent = true;
+          };
+
           # ---------------- lazygit config ----------------
 
           programs.lazygit = {
