@@ -37,7 +37,24 @@
       modules = [
         ./configuration.nix
         ({ pkgs, ... }: {
+          environment.variables.EDITOR = "hx";
+
           environment.systemPackages = with pkgs; [
+            # Essentials
+            autorandr
+            git
+            vim
+            rofi
+            fish
+            acpi
+            upower
+            lm_sensors
+            sysstat
+            brightnessctl
+            libnotify
+            scrot
+
+            # GUI apps
             wezterm
             zen-browser.packages.${system}.default
             thunar
@@ -112,23 +129,6 @@
             '')
           ];
 
-          # ---------------- SYMLINKS ----------------
-
-          # home.file.".config/helix".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/helix";
-          # home.file.".config/zellij/config.kdl".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/zellij/config.kdl";
-          # home.file.".config/i3/config".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/i3/config";
-
-          # ---------------- fish config ----------------
-
-          # programs.fish = {
-          #   enable = true;
-          #   shellAliases = {
-          #     sysup = "sudo nixos-rebuild switch --flake /etc/nixos#nixos";
-          #     homeup = "nix run home-manager/master -- switch --flake /etc/nixos#pia";
-          #     up = "sysup && homeup";
-          #   };
-          # };
-
           # ---------------- git config ----------------
 
           programs.git = {
@@ -152,7 +152,7 @@
             };
           };
 
-          # ---------------- git config ----------------
+          # ---------------- lazygit config ----------------
 
           programs.lazygit = {
             enable = true;
@@ -250,25 +250,6 @@
 
               spawn-at-startup "waybar"
           '';
-
-          # ---------------- i3 config ----------------
-
-          # xdg.configFile."i3blocks/config".text = ''
-          #   # Global properties
-          #   separator_block_width=15
-          #   markup=none
-
-          #   [battery]
-          #   label=BAT
-          #   # This requires the 'acpi' command
-          #   command=acpi -b | awk '{print $4}' | tr -d ','
-          #   interval=30
-          #   color=#E3E300
-
-          #   [time]
-          #   command=date '+%Y-%m-%d %H:%M:%S'
-          #   interval=1
-          # '';
         })
       ];
     };
