@@ -86,6 +86,7 @@
             zellij
             home-manager
             helix-fork.packages.${system}.default
+            bottom
 
             # LSP
             nixd
@@ -130,7 +131,7 @@
 
           # ---------------- git config ----------------
 
-           programs.git = {
+          programs.git = {
             enable = true;
             settings = {
               user = {
