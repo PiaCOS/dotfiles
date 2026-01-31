@@ -343,7 +343,7 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id ~/.screenlayout/monitor.sh
 
 # set wallpaper
-exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/angel2.png
+exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/angel2.png
 
 # Desktop notifications
 

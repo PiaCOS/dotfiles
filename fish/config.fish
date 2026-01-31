@@ -80,7 +80,7 @@ if status is-interactive
 
     function tutafeh
         autorandr --change
-        feh --bg-fill /home/pia/Dev/dotfiles/angel2.png
+        feh --bg-fill /home/pia/Dev/dotfiles/assets/angel2.png
     end
 
     # ---------------------------------------------------
