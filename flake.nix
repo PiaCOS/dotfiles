@@ -122,6 +122,9 @@
             # fldigi
             # wsjtx
 
+            # Game
+            rogue
+
             # Custom Scripts
             (writeShellScriptBin "brightness-up" ''
               ${brightnessctl}/bin/brightnessctl set 2%+

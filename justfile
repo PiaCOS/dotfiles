@@ -1,3 +1,6 @@
+default:
+    just -l
+
 # Update flake inputs
 flake-update:
     nix flake update
