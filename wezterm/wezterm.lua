@@ -8,8 +8,11 @@ local config = {}
 --                     FONT STUFF
 -- ----------------------------------------------------
 
-local FONT_FAMILY = "Maple Mono NF"
-local FONT_SIZE = 9.5
+-- local FONT_FAMILY = "Maple Mono NF"
+-- local FONT_SIZE = 9.5
+
+local FONT_FAMILY = "Comic Mono"
+local FONT_SIZE = 10.5
 
 config.font_size = FONT_SIZE
 config.font = wezterm.font(FONT_FAMILY)
@@ -21,6 +24,35 @@ config.font = wezterm.font(FONT_FAMILY)
 config.enable_tab_bar = false
 -- Define a custom scheme with Pastel Red text and Soft Black background
 config.color_schemes = {
+  ['Wildberries'] = {
+      foreground = "#ff0e82",
+      background = "#19002e",
+      cursor_bg = "#00ffb7",
+      cursor_border = "#00ffb7",
+      cursor_fg = "#19002e",
+      selection_bg = "#240041",
+      selection_fg = "#900048",
+      ansi = {
+          "#19002e",
+          "#d70040",
+          "#00ffb7",
+          "#ffd700",
+          "#399ee6",
+          "#ff0e82",
+          "#00f7e2",
+          "#c79bff",
+      },
+      brights = {
+          "#2a003f",
+          "#f40056",
+          "#00ffcc",
+          "#ffdf00",
+          "#58a8f3",
+          "#ff2b99",
+          "#00ffdb",
+          "#e0a9ff",
+      },
+  },
   ["BooBerry"] = {
     foreground = '#C7B8E0', -- lilac
     background = '#3A2A4D', -- berry
@@ -78,7 +110,7 @@ config.color_schemes = {
     },
   }
 }
--- config.color_scheme = 'BooBerry'
+-- config.color_scheme = 'Wilderries'
 config.color_scheme = 'Andromeda'
 -- config.color_scheme = 'nord'
 -- config.color_scheme = 'rose-pine'
