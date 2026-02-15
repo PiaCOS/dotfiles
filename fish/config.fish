@@ -1,4 +1,11 @@
 if status is-interactive
+
+    function fish_greeting
+        if command -v lune > /dev/null
+            lune
+        end
+    end
+
     # ---------------------------------------------------
     # PATH STUFF
     # ---------------------------------------------------

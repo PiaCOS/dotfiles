@@ -60,6 +60,7 @@ port =       8869
 db =         "default_db"
 cwd =        COMMUNITY_PATH
 log =        "info"
+workers =    0
 to_install = None
 to_update =  None
 to_test =    None
@@ -72,6 +73,7 @@ arg_list = [
     ArgField( "-c",            "cwd",             cwd ),
     ArgField( "-i",            "to_install",      to_install ),
     ArgField( "-u",            "to_update",       to_update ),
+    ArgField( "--workers",     "workers",         workers ),
     ArgField( "--test",        "to_test",         to_test ),
     ArgField( "--log",         "log",             log ),
     ArgField( "--db_host",     "db_host",         "localhost" ),
@@ -134,7 +136,7 @@ def main():
     if not args.need_help:
         print("sys.executable: ", sys.executable)
         command = f"{sys.executable} ./odoo-bin --addons-path={addons_path(args)} {mode} --dev={args.dev} --http-port={args.port} -d {args.db} --log-level={args.log}"
-        command += f" --db_host={args.db_host} --db_user={args.db_user} --db_password={args.db_password}"
+        command += f" --db_host={args.db_host} --db_user={args.db_user} --db_password={args.db_password} --workers={args.workers}"
         if args.to_install:
             command += f" -i {args.to_install}"
         if args.to_update:

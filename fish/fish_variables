@@ -1,5 +1,0 @@
-# This file contains fish universal variable definitions.
-# VERSION: 3.0
-SETUVAR SSH_KEYS_TO_AUTOLOAD:/home/elco/\x2essh/id_ed25519
-SETUVAR __fish_initialized:4300
-SETUVAR fish_user_paths:/home/elco/\x2ecargo/bin\x1e/home/elco/bin
