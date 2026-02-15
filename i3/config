@@ -34,8 +34,10 @@ workspace_layout default
 new_window pixel 1
 
 # Set inner/outer gaps
-gaps inner 6
-gaps outer 3
+# gaps inner 6
+# gaps outer 3
+gaps inner 0
+gaps outer 0
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -343,7 +345,8 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id ~/.screenlayout/monitor.sh
 
 # set wallpaper
-exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/angel2.png
+# exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/angel2.png
+exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/topographic-textures.jpg
 
 # Desktop notifications
 

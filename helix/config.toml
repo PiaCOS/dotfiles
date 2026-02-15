@@ -1,5 +1,6 @@
 # theme = "trans_theme"
-theme = "seoul256-dark"
+# theme = "seoul256-dark"
+theme = "ashokai"
 
 
 [keys.normal]
