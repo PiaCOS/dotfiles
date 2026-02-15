@@ -1,4 +1,12 @@
 if status is-interactive
+
+    # set -U fish_greeting "Hi it's Navi ^^"
+    function fish_greeting
+        if command -v lune > /dev/null
+            lune
+        end
+    end
+
     # ---------------------------------------------------
     # PATH STUFF
     # ---------------------------------------------------
@@ -24,6 +32,8 @@ if status is-interactive
 
     set -gx EDITOR helix
     set -gx EDITOR hx
+
+    direnv hook fish | source
 
     # ---------------------------------------------------
     # ALIAS STUFF

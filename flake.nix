@@ -13,13 +13,18 @@
 
     helix-fork.url = "github:PiaCOS/helix/pia-helix-fork";
 
+    lune-repo = {
+      url = "git+https://codeberg.org/PiaCOS/lune.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, helix-fork, zen-browser, ... }:
+  outputs = { self, nixpkgs, home-manager, helix-fork, lune-repo, zen-browser, ... }:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -54,6 +59,7 @@
             libnotify
             scrot
             nvd
+            direnv
 
             # GUI apps
             wezterm
@@ -78,9 +84,10 @@
     # -------------------------------------------------------------------------
     homeConfigurations.pia = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
+      extraSpecialArgs = { inherit (self) inputs; };
 
       modules = [
-        ({ pkgs, ... }: {
+        ({ pkgs, inputs, ... }: {
           home.username = "pia";
           home.homeDirectory = "/home/pia";
           home.stateVersion = "24.11";
@@ -91,7 +98,7 @@
             # CLI tools
             fastfetch
             hyfetch
-            lazygit
+            # lazygit
             tldr
             fzf
             eza
@@ -105,6 +112,7 @@
             zellij
             home-manager
             helix-fork.packages.${system}.default
+            inputs.lune-repo.packages.${pkgs.system}.default
             bottom
 
             # LSP
@@ -170,7 +178,7 @@
             enable = true;
               settings = {
                 os = {
-                  editPreset = "helix";
+                  editPreset = "hx";
                 };
               };
           };
