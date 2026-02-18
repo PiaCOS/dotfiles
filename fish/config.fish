@@ -117,7 +117,8 @@ if status is-interactive
 
     if not set -q SSH_AGENT_PID; or not kill -0 $SSH_AGENT_PID 2>/dev/null; or not test -S "$SSH_AUTH_SOCK"
         echo "Starting new ssh-agent..."
-        ssh-agent -c | tee $agent_env_file | source
+        # ssh-agent -c | tee $agent_env_file | source
+        ssh-agent -c | sed 's/^echo/#echo/' | tee $agent_env_file | source
     end
 
     if status is-interactive
