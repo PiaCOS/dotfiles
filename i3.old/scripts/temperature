@@ -20,6 +20,7 @@ my $t_warn = $ENV{T_WARN} || 70;
 my $t_crit = $ENV{T_CRIT} || 90;
 my $chip = $ENV{SENSOR_CHIP} || "";
 my $temperature = -9999;
+my $label = "😀 ";
 
 sub help {
     print "Usage: temperature [-w <warning>] [-c <critical>] [--chip <chip>]\n";
@@ -45,13 +46,23 @@ while (<SENSORS>) {
 close(SENSORS);
 
 $temperature eq -9999 and die 'Cannot find temperature';
-my $temp_kelvin = $temperature + 273.15;
-$temp_kelvin = sprintf("%.1f", $temp_kelvin);
 
-print "${temp_kelvin}K\n";
-print "${temp_kelvin}K\n";
-# print "$temperature°C\n";
-# print "$temperature°C\n";
+if ($temperature < 45) {
+  $label = '';
+} elsif ($temperature < 55) {
+  $label = '';
+} elsif ($temperature < 65) {
+  $label = '';
+} elsif ($temperature < 75) {
+  $label = '';
+} else {
+  $label = '';
+}
+# Print short_text, full_text
+print "${label}";
+print " $temperature°C\n";
+print "${label}";
+print " $temperature°C\n";
 
 # Print color, if needed
 if ($temperature >= $t_crit) {

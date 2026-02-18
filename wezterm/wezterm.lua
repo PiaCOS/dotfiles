@@ -8,11 +8,14 @@ local config = {}
 --                     FONT STUFF
 -- ----------------------------------------------------
 
--- local FONT_FAMILY = "Maple Mono NF"
--- local FONT_SIZE = 9.5
+local FONT_FAMILY = "Maple Mono NF"
+local FONT_SIZE = 9.5
 
-local FONT_FAMILY = "Comic Mono"
-local FONT_SIZE = 10.5
+-- local FONT_FAMILY = "Comic Mono"
+-- local FONT_SIZE = 10.5
+
+-- local FONT_FAMILY = "Cozette"
+-- local FONT_SIZE = 12
 
 config.font_size = FONT_SIZE
 config.font = wezterm.font(FONT_FAMILY)
@@ -22,99 +25,19 @@ config.font = wezterm.font(FONT_FAMILY)
 -- ----------------------------------------------------
 
 config.enable_tab_bar = false
--- Define a custom scheme with Pastel Red text and Soft Black background
-config.color_schemes = {
-  ['Wildberries'] = {
-      foreground = "#ff0e82",
-      background = "#19002e",
-      cursor_bg = "#00ffb7",
-      cursor_border = "#00ffb7",
-      cursor_fg = "#19002e",
-      selection_bg = "#240041",
-      selection_fg = "#900048",
-      ansi = {
-          "#19002e",
-          "#d70040",
-          "#00ffb7",
-          "#ffd700",
-          "#399ee6",
-          "#ff0e82",
-          "#00f7e2",
-          "#c79bff",
-      },
-      brights = {
-          "#2a003f",
-          "#f40056",
-          "#00ffcc",
-          "#ffdf00",
-          "#58a8f3",
-          "#ff2b99",
-          "#00ffdb",
-          "#e0a9ff",
-      },
-  },
-  ["BooBerry"] = {
-    foreground = '#C7B8E0', -- lilac
-    background = '#3A2A4D', -- berry
-
-    cursor_bg = '#C7B8E0', -- lilac
-    cursor_fg = '#3A2A4D', -- berry
-    cursor_border = '#C7B8E0',
-
-    selection_fg = 'none',
-    selection_bg = '#47345E', -- berry_dim (Used for selection for better contrast)
-
-    scrollbar_thumb = '#5A3D6E', -- berry_fade
-    split = '#47345E', -- berry_dim
-
-    ansi = {
-        '#2B1C3D', -- Black (berry_saturated)
-        '#D678B5', -- Red (bubblegum)
-        '#7FC9AB', -- Green (mint)
-        '#E3C0A8', -- Yellow (gold)
-        '#C78DFC', -- Blue (violet)
-        '#D678B5', -- Magenta (bubblegum)
-        '#7FC9AB', -- Cyan (mint)
-        '#C7B8E0', -- White (lilac)
-    },
-    brights = {
-        '#886C9C', -- Bright Black (berry_desaturated / comments)
-        '#D678B5', -- Bright Red
-        '#7FC9AB', -- Bright Green
-        '#E3C0A8', -- Bright Yellow
-        '#C78DFC', -- Bright Blue
-        '#D678B5', -- Bright Magenta
-        '#7FC9AB', -- Bright Cyan
-        '#FFFFFF', -- Bright White (Boosted for contrast)
-    },
-    tab_bar = {
-      background = '#2B1C3D', -- berry_saturated
-
-      -- The active tab (matches ui.statusline.normal)
-      active_tab = {
-          bg_color = '#C7B8E0', -- lilac
-          fg_color = '#2B1C3D', -- berry_saturated
-      },
-
-      -- Inactive tabs (matches ui.statusline.inactive)
-      inactive_tab = {
-          bg_color = '#2B1C3D', -- berry_saturated
-          fg_color = '#886C9C', -- berry_desaturated
-      },
-
-      -- The "new tab" button
-      new_tab = {
-          bg_color = '#2B1C3D',
-          fg_color = '#C7B8E0',
-      },
-    },
-  }
-}
--- config.color_scheme = 'Wilderries'
+config.window_background_opacity = 0.95
+config.color_schemes = {}
 config.color_scheme = 'Andromeda'
--- config.color_scheme = 'nord'
 -- config.color_scheme = 'rose-pine'
--- config.color_scheme = 'Count Von Count (terminal.sexy)'
+-- config.color_scheme = 'Chameleon'
+-- config.color_scheme = 'jubi'
+-- config.color_scheme = 'BlueBerryPie'
+-- config.color_scheme = 'Dark Violet (base16)'
+-- config.color_scheme = 'matrix'
+-- config.color_scheme = 'HaX0R_R3D'
+-- config.colors = {
+--     background = "#000000",
+-- }
 
 -- ----------------------------------------------------
 --                       UTILS
