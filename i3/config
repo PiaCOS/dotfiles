@@ -195,10 +195,22 @@ bindsym $mod+r mode "resize"
 
 # Move entire workspace to another monitor
 mode "move_workspace" {
-        bindsym Left move workspace to output left
-        bindsym Right move workspace to output right
-        bindsym Down move workspace to output down
-        bindsym Up move workspace to output up
+        bindsym h move workspace to output left
+        bindsym l move workspace to output right
+        bindsym j move workspace to output down
+        bindsym k move workspace to output up
+
+        # switch to workspace :: I want to be able to move in this mode
+        bindcode $mod+10    workspace  $ws1
+        bindcode $mod+11    workspace  $ws2
+        bindcode $mod+12    workspace  $ws3
+        bindcode $mod+13    workspace  $ws4
+        bindcode $mod+14    workspace  $ws5
+        bindcode $mod+15    workspace  $ws6
+        bindcode $mod+16    workspace  $ws7
+        bindcode $mod+17    workspace  $ws8
+        bindcode $mod+18    workspace  $ws9
+        bindcode $mod+19    workspace  $ws10
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
