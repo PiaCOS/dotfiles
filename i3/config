@@ -200,6 +200,23 @@ mode "move_workspace" {
         bindsym Down move workspace to output down
         bindsym Up move workspace to output up
 
+        bindsym h move workspace to output left
+        bindsym l move workspace to output right
+        bindsym j move workspace to output down
+        bindsym k move workspace to output up
+
+        # switch to workspace
+        bindcode $mod+10    workspace  $ws1
+        bindcode $mod+11    workspace  $ws2
+        bindcode $mod+12    workspace  $ws3
+        bindcode $mod+13    workspace  $ws4
+        bindcode $mod+14    workspace  $ws5
+        bindcode $mod+15    workspace  $ws6
+        bindcode $mod+16    workspace  $ws7
+        bindcode $mod+17    workspace  $ws8
+        bindcode $mod+18    workspace  $ws9
+        bindcode $mod+19    workspace  $ws10
+
         # back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -359,10 +376,10 @@ exec --no-startup-id /usr/bin/dunst
 # Define colors variables:
 set $steelBlue      #5485b8
 set $mediumGray     #585050
-set $darkGray       #1b1818
-set $pureMist        #f4ecec
+set $darkGray       #000000
+set $pureMist       #f4ecec
 set $deepAsh        #494444
-set $brightOrange   #fd26937
+set $brightOrange   #fd2693
 
 # define colors for windows:
 #class                      border        bground        text         indicator      child_border
@@ -392,9 +409,9 @@ bar {
                 background          $darkGray
                 statusline          $pureMist
                 #                   border              bg             txt            indicator
-                focused_workspace   $mediumGray         $mediumGray    $darkGray      $steelBlue
-                active_workspace    $lightblue          $mediumGray    $darkGray      $steelBlue
-                inactive_workspace  $darkGray           $darkGray      $mediumGray    $steelBlue
+                focused_workspace   $mediumGray         $mediumGray    $pureMist      $steelBlue
+                active_workspace    $lightblue          $mediumGray    $pureMist      $steelBlue
+                inactive_workspace  $darkGray           $darkGray      $pureMist      $steelBlue
                 urgent_workspace    $brightOrange       $brightOrange  $pureMist      $steelBlue
         }
 }
