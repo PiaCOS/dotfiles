@@ -13,18 +13,13 @@
 
     helix-fork.url = "github:PiaCOS/helix/pia-helix-fork";
 
-    lune-repo = {
-      url = "git+https://codeberg.org/PiaCOS/lune.git";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, helix-fork, lune-repo, zen-browser, ... }:
+  outputs = { self, nixpkgs, home-manager, helix-fork, zen-browser, ... }:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -112,7 +107,6 @@
             zellij
             home-manager
             helix-fork.packages.${system}.default
-            inputs.lune-repo.packages.${pkgs.system}.default
             bottom
 
             # LSP
@@ -152,7 +146,7 @@
                 email = "pia.cosneau@gmail.com";
               };
               core = {
-                editor = "helix";
+                editor = "hx";
               };
               alias = {
                 cp = "cherry-pick";
@@ -178,7 +172,8 @@
             enable = true;
               settings = {
                 os = {
-                  editPreset = "hx";
+                  edit = "hx {{filename}}";
+                  editAtLine = "hx +{{line}} {{filename}}";
                 };
               };
           };
