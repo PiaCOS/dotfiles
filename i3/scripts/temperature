@@ -19,6 +19,7 @@ binmode(STDOUT, ":utf8");
 my $t_warn = $ENV{T_WARN} || 70;
 my $t_crit = $ENV{T_CRIT} || 90;
 my $chip = $ENV{SENSOR_CHIP} || "";
+my $label = $ENV{LABEL} // "";
 my $temperature = -9999;
 
 sub help {
@@ -48,17 +49,16 @@ $temperature eq -9999 and die 'Cannot find temperature';
 my $temp_kelvin = $temperature + 273.15;
 $temp_kelvin = sprintf("%.1f", $temp_kelvin);
 
-print "${temp_kelvin}K\n";
-print "${temp_kelvin}K\n";
-# print "$temperature°C\n";
-# print "$temperature°C\n";
-
-# Print color, if needed
+my $color = "#FFFFFF";
 if ($temperature >= $t_crit) {
-    print "#FF0000\n";
-    exit 33;
+    $color = "#FF0000";
 } elsif ($temperature >= $t_warn) {
-    print "#FFFC00\n";
+    $color = "#FFCC00";
 }
+
+my $output = "${label}<span color='$color'>$temp_kelvin</span>K\n";
+
+print $output; # Full text
+print $output; # Short text
 
 exit 0;

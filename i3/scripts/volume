@@ -27,8 +27,14 @@ MUTED=$(pactl list sinks | awk -v s="$SINK" '
 ')
 
 if [[ "$MUTED" == "no" ]]; then
-    echo "vol::${VOL}%"
+    LABEL="vol::"
 else
-    echo "mut::<span foreground='#ffaf87'>${VOL}%</span>"
+    LABEL="<span color='#a1a1a1'>mut</span>::"
 fi
 
+DISPLAY_VOL="${VOL}%"
+if [[ "$VOL" == "14" ]]; then
+    DISPLAY_VOL="<span color='#C4A6D1'>${VOL}%</span>"
+fi
+
+echo "${LABEL}${DISPLAY_VOL}"
