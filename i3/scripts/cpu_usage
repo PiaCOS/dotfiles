@@ -45,18 +45,20 @@ close(MPSTAT);
 
 $cpu_usage eq -1 and die 'Can\'t find CPU information';
 
-# Print short_text, full_text
-print "${label}";
-printf "%02.${decimals}f%%\n", $cpu_usage;
-print "${label}";
-printf "%02.${decimals}f%%\n", $cpu_usage;
-
-# Print color, if needed
+my $color = "#FFFFFF";
 if ($cpu_usage >= $t_crit) {
-    print "#FF0000\n";
-    exit 33;
+    $color = "#FF0000";
 } elsif ($cpu_usage >= $t_warn) {
-    print "#FFFC00\n";
+    $color = "#FFCC00"
+# } elsif (int($cpu_usage + 0.5) == 14)
+} elsif ($cpu_usage == 14) {
+    $color = "#C4A6D1";
 }
+
+my $formatted_usage = sprintf("%02.${decimals}f%%", $cpu_usage);
+my $output = "${label}<span color=\"$color\">$formatted_usage</span>\n";
+
+print $output; # Full text
+print $output; # Short text
 
 exit 0;

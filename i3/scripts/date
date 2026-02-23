@@ -1,0 +1,23 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use POSIX qw(strftime);
+
+my $label = $ENV{LABEL} // "";
+my $lavender_color = "#C4A6D1";
+
+my @time_parts = (
+    strftime("%y", localtime),
+    strftime("%m", localtime),
+    strftime("%d", localtime),
+    strftime("%H", localtime),
+    strftime("%M", localtime),
+    strftime("%S", localtime)
+);
+
+my @processed = map {
+    ($_ eq "14") ? "<span color='$lavender_color'>$_</span>" : $_
+} @time_parts;
+
+printf "%s:%s:%s %s:%s:%s\n", @processed;
