@@ -8,7 +8,7 @@ my $label = $ENV{LABEL} // "";
 my $lavender_color = "#C4A6D1";
 
 my @time_parts = (
-    strftime("%y", localtime),
+    strftime("%Y", localtime),
     strftime("%m", localtime),
     strftime("%d", localtime),
     strftime("%H", localtime),

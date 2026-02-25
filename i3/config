@@ -170,9 +170,6 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# open new empty workspace
-bindsym $mod+Shift+n exec --no-startup-id ~/.config/i3/scripts/empty_workspace
-
 # resize window (you can also use the mouse for that):
 mode "resize" {
         bindsym h resize shrink width 10 px or 10 ppt
