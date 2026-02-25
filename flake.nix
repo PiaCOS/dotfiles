@@ -56,6 +56,9 @@
             nvd
             direnv
 
+            # LSP
+            perlnavigator
+
             # GUI apps
             wezterm
             zen-browser.packages.${system}.default
