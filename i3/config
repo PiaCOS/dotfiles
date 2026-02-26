@@ -377,6 +377,7 @@ set $darkGray       #1b1818
 set $pureMist       #f4ecec
 set $deepAsh        #494444
 set $brightOrange   #fd2693
+set $lightGray      #a1a1a1
 
 # define colors for windows:
 #class                      border        bground        text         indicator      child_border
@@ -407,8 +408,8 @@ bar {
                 background          $darkGray
                 statusline          $pureMist
                 #                   border              bg             txt            indicator
-                focused_workspace   $darkGray           $steelBlue     $darkGray      $steelBlue
-                active_workspace    $darkGray           $steelBlue     $darkGray      $steelBlue
+                focused_workspace   $darkGray           $lightGray     $darkGray      $steelBlue
+                active_workspace    $darkGray           $lightGray     $darkGray      $steelBlue
                 inactive_workspace  $darkGray           $darkGray      $pureMist      $steelBlue
                 urgent_workspace    $brightOrange       $brightOrange  $pureMist      $steelBlue
         }

@@ -1,4 +1,5 @@
-theme = "trans_theme"
+# theme = "trans_theme"
+theme = "vesper"
 # theme = "ashokai_urple"
 
 

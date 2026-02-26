@@ -27,17 +27,17 @@ config.font = wezterm.font(FONT_FAMILY)
 config.enable_tab_bar = false
 config.window_background_opacity = 0.95
 config.color_schemes = {}
-config.color_scheme = 'Andromeda'
--- config.color_scheme = 'rose-pine'
--- config.color_scheme = 'Chameleon'
--- config.color_scheme = 'jubi'
--- config.color_scheme = 'BlueBerryPie'
--- config.color_scheme = 'Dark Violet (base16)'
--- config.color_scheme = 'matrix'
--- config.color_scheme = 'HaX0R_R3D'
--- config.colors = {
---     background = "#000000",
--- }
+-- config.color_scheme = 'Andromeda'
+-- config.color_scheme = 'Count Von Count (terminal.sexy)'
+-- config.color_scheme = 'Maia (Gogh)'
+-- config.color_scheme = 'Sugarplum'
+config.color_scheme = 'Vesper'
+-- config.color_scheme = 'Ic Green Ppl (Gogh)'
+-- config.color_scheme = 'Fairyfloss'
+config.colors = {
+    -- background = "#000000",
+    background = "#3A3D3F",
+}
 
 -- ----------------------------------------------------
 --                       UTILS
