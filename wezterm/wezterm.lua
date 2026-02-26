@@ -27,16 +27,44 @@ config.font = wezterm.font(FONT_FAMILY)
 config.enable_tab_bar = false
 config.window_background_opacity = 0.95
 config.color_schemes = {}
--- config.color_scheme = 'Andromeda'
--- config.color_scheme = 'Count Von Count (terminal.sexy)'
--- config.color_scheme = 'Maia (Gogh)'
--- config.color_scheme = 'Sugarplum'
-config.color_scheme = 'Vesper'
--- config.color_scheme = 'Ic Green Ppl (Gogh)'
--- config.color_scheme = 'Fairyfloss'
 config.colors = {
-    -- background = "#000000",
-    background = "#3A3D3F",
+    foreground = "#f8f9e8",
+    background = "#2b3438",
+    -- background = "#232a2e",
+
+    cursor_bg = "#cbe3b3",
+    cursor_fg = "#171c1f",
+    cursor_border = "#cbe3b3",
+
+    selection_fg = "#f8f9e8",
+    selection_bg = "#374145",
+
+    scrollbar_thumb = "#2b3337",
+
+    ansi = {
+      "#232a2e", -- black
+      "#f57f82", -- red
+      "#cbe3b3", -- green
+      "#f5d098", -- yellow
+      "#b2caed", -- blue
+      "#f3c0e5", -- magenta
+      "#b3e3ca", -- cyan
+      "#f8f9e8", -- white
+    },
+    brights = {
+      "#2b3337", -- black
+      "#f57f82", -- red
+      "#cbe3b3", -- green
+      "#f5d098", -- yellow
+      "#b2caed", -- blue
+      "#f3c0e5", -- magenta
+      "#b3e3ca", -- cyan
+      "#96b4aa", -- white
+    },
+
+    indexed = {
+      [16] = "#f7a182", -- search match accent
+    },
 }
 
 -- ----------------------------------------------------
