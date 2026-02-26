@@ -1,0 +1,61 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+sub get_interface {
+	my $ip_route = `ip route`;
+	if ($ip_route =~ m/^default via \S+ dev (\S+)/m) {
+		return $1;
+	}
+	die "Interface not found";
+}
+
+sub get_device_data {
+	my $interface = shift;
+	die "Interface not found" unless $interface;
+
+	my $dev_data = `cat /proc/net/dev`;
+	if ($dev_data =~ m/^\s*$interface:\s*(.*)/m) {
+		return $1;
+	}
+	die "No data for $interface";
+}
+
+sub extract_bits {
+	my $data = shift;
+	die "No data found" unless $data;
+
+	my @stats = split(/\s+/, $data);
+	if (defined $stats[0] && defined $stats[8]) {
+		return (
+			"down" => $stats[0] * 8,
+			"up"   => $stats[8] * 8,
+		);
+	}
+	die "Can't extract upload data";
+}
+
+
+# Get the bytes
+# multiply by 8 to get bits
+# sleep for a second
+# Get the bits again and compute delta
+
+my $interface = get_interface();
+
+
+my $dev_data_t0 = get_device_data($interface);
+$_ = `sleep 1`;
+my $dev_data_t1 = get_device_data($interface);
+
+
+my %bits_t0 = extract_bits($dev_data_t0);
+my %bits_t1 = extract_bits($dev_data_t1);
+
+# CHECK THE MATH!!! IS IT 1000000 or 1024*1024 ? AND * 8 or / 8 ??
+my $delta_down = ($bits_t1{"down"} - $bits_t0{"down"}) / 1_000_000;
+my $delta_up = ($bits_t1{"up"} - $bits_t0{"up"}) / 1_000_000;
+
+
+print "Down: $delta_down Mbps - Up: $delta_up Mbps";
