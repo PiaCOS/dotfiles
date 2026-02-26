@@ -8,7 +8,7 @@ my $label = $ENV{LABEL} // "";
 my $lavender_color = "#C4A6D1";
 
 my @time_parts = (
-    strftime("%y", localtime),
+    strftime("%Y", localtime),
     strftime("%m", localtime),
     strftime("%d", localtime),
     strftime("%H", localtime),
@@ -17,7 +17,7 @@ my @time_parts = (
 );
 
 my @processed = map {
-    ($_ eq "14") ? "<span color='$lavender_color'>$_</span>" : $_
+    ($_ eq "14") ? "<span color='$lavender_color' style='italic' weight='bold'>$_</span>" : $_
 } @time_parts;
 
 printf "%s:%s:%s %s:%s:%s\n", @processed;

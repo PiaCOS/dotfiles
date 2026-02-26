@@ -29,12 +29,12 @@ MUTED=$(pactl list sinks | awk -v s="$SINK" '
 if [[ "$MUTED" == "no" ]]; then
     LABEL="vol::"
 else
-    LABEL="<span color='#a1a1a1'>mut</span>::"
+    LABEL="<span color='#a1a1a1' style='italic'>mut</span>::"
 fi
 
 DISPLAY_VOL="${VOL}%"
 if [[ "$VOL" == "14" ]]; then
-    DISPLAY_VOL="<span color='#C4A6D1'>${VOL}%</span>"
+    DISPLAY_VOL="<span color='#C4A6D1' weight='bold'>${VOL}%</span>"
 fi
 
 echo "${LABEL}${DISPLAY_VOL}"
