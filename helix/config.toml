@@ -72,6 +72,19 @@ nbsp = "none"
 nnbsp = "none"
 newline = "none"
 
+
+[editor.soft-wrap]
+enable = true
+max-wrap = 20
+# max-indent-retain=0
+wrap-indicator = ""
+
+[editor.smart-tab]
+enable = true
+supersede-menu = true # :3
+
+
+
 # [editor.whitespace.characters]
 # space = "·"
 # nbsp = "⍽"
