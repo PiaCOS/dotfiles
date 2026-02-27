@@ -34,8 +34,10 @@ workspace_layout default
 new_window pixel 1
 
 # Set inner/outer gaps
-gaps inner 6
-gaps outer 3
+gaps inner 24
+gaps outer 18
+# gaps inner 6
+# gaps outer 3
 # gaps inner 0
 # gaps outer 0
 
@@ -338,7 +340,8 @@ exec_always $HOME/.config/i3/scripts/import-gsettings
 ## compositor
 
 # start using default config
-exec_always --no-startup-id picom -b --backend glx
+# exec_always --no-startup-id picom -b --backend glx
+exec_always --no-startup-id picom -b --config ~/Dev/dotfiles/picom/picom.conf --backend glx
 
 ## applications/services
 
@@ -360,7 +363,8 @@ exec --no-startup-id ~/.screenlayout/monitor.sh
 # exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/angel2.png
 # exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/topographic-textures.jpg
 # exec_always --no-startup-id sleep 1 && feh --bg-fill /home/elco/Dev/dotfiles/topographic-textures.jpg
-exec_always --no-startup-id sleep 1 && feh --bg-fill /home/elco/Dev/dotfiles/nordic.jpg
+# exec_always --no-startup-id sleep 1 && feh --bg-fill /home/elco/Dev/dotfiles/nordic.jpg
+exec_always --no-startup-id sleep 1 && feh --bg-fill /home/elco/Dev/dotfiles/cloudwall2.jpg
 
 # Desktop notifications
 
