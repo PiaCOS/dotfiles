@@ -118,7 +118,7 @@
 
             # RTL-SDR
             alsa-utils
-            gqrx
+            # gqrx
             rtl-sdr
             # cubicsdr
             # sox
