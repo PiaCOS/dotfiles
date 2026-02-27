@@ -1,0 +1,57 @@
+#!/usr/bin/env perl
+
+# Made by ~ PiaCOS ~
+# This script gives you the battery percentage in the pango markup format.
+# It needs `acpi` installed on your device.
+
+use strict;
+use warnings;
+use POSIX qw/floor/;
+
+my $label = $ENV{LABEL} // "";
+my $acpi = `acpi`;
+
+my ($percent) = $acpi =~ /,\s(\b\d+)%,/;
+my ($state) = $acpi =~ /\s(\b[A-Z][a-z]+),/;
+
+sub get_color {
+  my $p = shift;
+  my $ratio = floor($p / 10);
+  my %colors = (
+    1 => "#FF1100",
+    2 => "#FF3300",
+    3 => "#FF6600",
+    4 => "#FF9900",
+    5 => "#FFCC00",
+    6 => "#FFFF00",
+    7 => "#FFFF33",
+    8 => "#FFFF66",
+  );
+  return $colors{$ratio} // "#FFFFFF";
+}
+
+sub to_pango {
+  my $p = shift;
+  my $s = shift;
+
+  my $color = get_color($p);
+
+  if ($p < 10) {
+    return "$label<span foreground='#FF0000'>$p%!</span>";
+  }
+  elsif ($s eq "Full") {
+    return "$label<span color='$color'>FULL</span>";
+  }
+  elsif ($s eq "Charging") {
+    return "$label<span color='$color'>+$p%</span>";
+  }
+  else {
+    return "$label<span color='$color'>$p%</span>";
+  }
+
+}
+
+my $pango = to_pango($percent, $state);
+print "$pango\n";
+print "$pango\n";
+
