@@ -36,14 +36,14 @@ sub to_pango {
 
   my $color = get_color($p);
 
-  if ($p < 10) {
+  if ($s eq "Charging") {
+    return "$label<span color='$color'>+$p%</span>";
+  }
+  elsif ($p < 10) {
     return "$label<span foreground='#FF0000'>$p%!</span>";
   }
   elsif ($s eq "Full") {
     return "$label<span color='$color'>FULL</span>";
-  }
-  elsif ($s eq "Charging") {
-    return "$label<span color='$color'>+$p%</span>";
   }
   else {
     return "$label<span color='$color'>$p%</span>";
