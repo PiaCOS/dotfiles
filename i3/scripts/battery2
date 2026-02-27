@@ -6,6 +6,7 @@
 
 use strict;
 use warnings;
+use POSIX qw/floor/;
 
 my $label = $ENV{LABEL} // "";
 my $acpi = `acpi`;
@@ -15,9 +16,9 @@ my ($state) = $acpi =~ /\s(\b[A-Z][a-z]+),/;
 
 sub get_color {
   my $p = shift;
-  my $ratio = int($p / 10 + 0.5);
+  my $ratio = floor($p / 10);
   my %colors = (
-    1 => "#FFFFFF",
+    1 => "#FF1100",
     2 => "#FF3300",
     3 => "#FF6600",
     4 => "#FF9900",
@@ -36,7 +37,7 @@ sub to_pango {
   my $color = get_color($p);
 
   if ($p < 10) {
-    return "$label<span background='#FF6600' color='$color'>$p%</span>";
+    return "$label<span foreground='#FF0000'>$p%!</span>";
   }
   elsif ($s eq "Full") {
     return "$label<span color='$color'>FULL</span>";
