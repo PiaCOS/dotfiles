@@ -11,7 +11,8 @@
 "constant.character" = "skye"
 "constant.character.escape" = "pink"
 
-"string" = "green"
+# "string" = "green"
+"string" = "lime"
 "string.regexp" = "orange"
 "string.special" = "blue"
 "string.special.symbol" = "red"
