@@ -11,7 +11,7 @@ use POSIX qw/floor/;
 my $label = $ENV{LABEL} // "";
 my $acpi = `acpi`;
 
-my ($percent) = $acpi =~ /,\s(\b\d+)%,/;
+my ($percent) = $acpi =~ /,\s(\b\d+)%/;
 my ($state) = $acpi =~ /\s(\b[A-Z][a-z]+),/;
 
 sub get_color {
@@ -22,10 +22,10 @@ sub get_color {
     2 => "#FF3300",
     3 => "#FF6600",
     4 => "#FF9900",
-    5 => "#FFCC00",
-    6 => "#FFFF00",
-    7 => "#FFFF33",
-    8 => "#FFFF66",
+    # 5 => "#FFCC00",
+    # 6 => "#FFFF00",
+    # 7 => "#FFFF33",
+    # 8 => "#FFFF66",
   );
   return $colors{$ratio} // "#FFFFFF";
 }
