@@ -371,7 +371,8 @@ exec --no-startup-id ~/.screenlayout/monitor.sh
 # set wallpaper
 # exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/angel2.png
 # exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/topographic-textures.jpg
-exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/topographic-purple.jpg
+# exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/topographic-purple.jpg
+exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/grubox-minecraft.png
 
 # Desktop notifications
 
@@ -383,18 +384,34 @@ exec --no-startup-id /usr/bin/dunst
 
 # Define colors variables:
 set $steelBlue      #5485b8
-set $mediumGray     #585050
-set $darkGray       #000000
+set $mediumGray     #ebdbb2
+set $darkGray       #282828
 set $pureMist       #f4ecec
-set $deepAsh        #494444
-set $brightOrange   #fd2693
+set $deepAsh        #32302f
+# set $brightOrange   #fd2693
+# set $bg2            #665c54
+
+# set $steelBlue      #5485b8
+# set $mediumGray     #585050
+# set $darkGray       #000000
+# set $pureMist       #f4ecec
+# set $deepAsh        #494444
+# set $brightOrange   #fd2693
+set $danger           #cc241d
+set $warning           #d65d0e
+set $alert           #d79921
+set $fg1           #ebdbb2
+set $fg2           #928374
+set $bg1           #282828
+set $bg2           #32302f
+
 
 # define colors for windows:
 #class                      border        bground        text         indicator      child_border
-client.focused              $steelBlue    $darkGray      $pureMist    $mediumGray    $mediumGray
-client.unfocused            $darkGray     $darkGray      $mediumGray  $darkGray      $darkGray
-client.focused_inactive     $darkGray     $darkGray      $mediumGray  $darkGray      $darkGray
-client.urgent               $brightOrange $brightOrange  $pureMist    $brightOrange  $brightOrange
+client.focused              $alert        $alert         $fg1          $fg2          $bg1
+client.unfocused            $bg1            $bg1         $fg2          $bg1          $bg1
+client.focused_inactive     $bg1            $bg1         $fg2          $bg1          $bg1
+client.urgent               $warning      $warning       $fg1          $warning      $warning
 
 # -----------------------------------------------------------------------------
 #               Bar Settings (input comes from i3blocks)
@@ -413,14 +430,14 @@ bar {
         tray_padding 0
         strip_workspace_numbers yes
         colors {
-                separator           $steelBlue
-                background          $darkGray
-                statusline          $pureMist
+                separator           $alert
+                background          $bg1
+                statusline          $fg1
                 #                   border              bg             txt            indicator
-                focused_workspace   $mediumGray         $mediumGray    $pureMist      $steelBlue
-                active_workspace    $lightblue          $mediumGray    $pureMist      $steelBlue
-                inactive_workspace  $darkGray           $darkGray      $pureMist      $steelBlue
-                urgent_workspace    $brightOrange       $brightOrange  $pureMist      $steelBlue
+                focused_workspace   $bg1                $bg2           $fg1             $alert
+                active_workspace    $bg1                $bg2           $fg1             $alert
+                inactive_workspace  $bg1                $bg1           $fg1             $alert
+                urgent_workspace    $warning            $warning       $fg1             $alert
         }
 }
 

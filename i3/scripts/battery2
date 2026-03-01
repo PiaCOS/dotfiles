@@ -14,14 +14,28 @@ my $acpi = `acpi`;
 my ($percent) = $acpi =~ /,\s(\b\d+)%/;
 my ($state) = $acpi =~ /\s(\b[A-Z][a-z]+),/;
 
+sub load_colors {
+    my $file = "$ENV{HOME}/Dev/dotfiles/.colors";
+    my %colors;
+    open(my $fh, '<', $file) or die "Could not open $file: $!";
+    while (<$fh>) {
+        chomp;
+        my ($key, $val) = split(/=/);
+        $colors{$key} = $val;
+    }
+    close($fh);
+    return %colors;
+}
+
 sub get_color {
   my $p = shift;
+  my %c = load_colors;
   my $ratio = floor($p / 10);
   my %colors = (
-    1 => "#FF1100",
-    2 => "#FF3300",
-    3 => "#FF6600",
-    4 => "#FF9900",
+    1 => $c{danger},
+    2 => $c{danger},
+    3 => $c{warning},
+    4 => $c{alert},
     # 5 => "#FFCC00",
     # 6 => "#FFFF00",
     # 7 => "#FFFF33",

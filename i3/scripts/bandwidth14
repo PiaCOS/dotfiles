@@ -60,8 +60,23 @@ sub take_average {
     );
 }
 
+sub load_colors {
+    my $file = "$ENV{HOME}/Dev/dotfiles/.colors";
+    my %colors;
+    open(my $fh, '<', $file) or die "Could not open $file: $!";
+    while (<$fh>) {
+        chomp;
+        my ($key, $val) = split(/=/);
+        $colors{$key} = $val;
+    }
+    close($fh);
+    return %colors;
+}
+
 my $label = $ENV{label} // "uwu";
 my %avg = take_average(10);
 # printf "The cost is \$%6.2f\n",499;
 
-printf "<span color='#FFFFFF'>%.2f|%.2f</span>\n", $avg{'down'} / 1, $avg{'up'} / 1;
+my %c = load_colors();
+
+printf "<span color='$c{fg1}'>%.2f|%.2f</span>\n", $avg{'down'} / 1, $avg{'up'} / 1;

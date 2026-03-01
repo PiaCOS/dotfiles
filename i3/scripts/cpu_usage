@@ -26,6 +26,20 @@ sub help {
     exit 0;
 }
 
+sub load_colors {
+    my $file = "$ENV{HOME}/Dev/dotfiles/.colors";
+    my %colors;
+    open(my $fh, '<', $file) or die "Could not open $file: $!";
+    while (<$fh>) {
+        chomp;
+        my ($key, $val) = split(/=/);
+        $colors{$key} = $val;
+    }
+    close($fh);
+    return %colors;
+}
+my %c = load_colors();
+
 GetOptions("help|h" => \&help,
            "w=i"    => \$t_warn,
            "c=i"    => \$t_crit,
@@ -45,11 +59,11 @@ close(MPSTAT);
 
 $cpu_usage eq -1 and die 'Can\'t find CPU information';
 
-my $color = "#FFFFFF";
+my $color = $c{fg1};
 if ($cpu_usage >= $t_crit) {
-    $color = "#FF0000";
+    $color = $c{warning};
 } elsif ($cpu_usage >= $t_warn) {
-    $color = "#FFCC00"
+    $color = $c{alert}
 }
 if (int($cpu_usage + 0.5) == 14) {
     $color = "#C4A6D1";
