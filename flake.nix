@@ -55,6 +55,7 @@
             scrot
             nvd
             direnv
+            tamzen
 
             # LSP
             perlnavigator
@@ -196,12 +197,13 @@
 
             -- -------- FONTS --------
             local FONT_FAMILY = "Maple Mono NF"
+            -- local FONT_FAMILY = "TamzenForPowerline"
             local FONT_SIZE = 9.5
             config.font_size = FONT_SIZE
             config.font = wezterm.font(FONT_FAMILY)
 
             -- -------- THEME --------
-            config.window_background_opacity = 0.92
+            config.window_background_opacity = 0.6
             config.enable_tab_bar = false
             config.color_schemes = {}
             -- config.color_scheme = 'Seoul256 (Gogh)'
