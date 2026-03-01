@@ -1,6 +1,7 @@
 # theme = "trans_theme"
 # theme = "seoul256-dark"
-theme = "ashokai"
+# theme = "ashokai"
+theme = "gruvbox"
 
 
 [keys.normal]

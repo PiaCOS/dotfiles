@@ -203,15 +203,18 @@
             config.font = wezterm.font(FONT_FAMILY)
 
             -- -------- THEME --------
-            config.window_background_opacity = 0.6
+            -- config.window_background_opacity = 0.6
+            config.window_background_opacity = 0.95
             config.enable_tab_bar = false
             config.color_schemes = {}
             -- config.color_scheme = 'Seoul256 (Gogh)'
-            config.color_scheme = 'Dark Violet (base16)'
+            -- config.color_scheme = 'Dark Violet (base16)'
+            config.color_scheme = 'Gruvbox Dark (Gogh)'
+            -- config.color_scheme = 'Gruvbox dark, hard (base16)'
             config.colors = {
               -- foreground = "#d5cdcd",
               -- background = "#222222",
-              background = "#000000",
+              -- background = "#000000",
             }
 
             -- -------- SHELL --------
