@@ -34,8 +34,9 @@ workspace_layout default
 new_window pixel 1
 
 # Set inner/outer gaps
+# smart_gaps on
 gaps inner 24
-gaps outer 18
+# gaps outer 16
 # gaps inner 6
 # gaps outer 3
 # gaps inner 0
