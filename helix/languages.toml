@@ -195,7 +195,7 @@ indent = { tab-width = 4, unit = "    " }
 [[language]]
 name = "markdown"
 indent = { tab-width = 2, unit = "  " }
-rulers = [80]
+# rulers = [80]
 
 # -------------------------------------------------------------
 #                            MAGMA
