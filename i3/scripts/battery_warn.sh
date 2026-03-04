@@ -23,6 +23,6 @@ while true; do
         fi
 
         LAST=$PERCENT
-        sleep 30
     fi
+    sleep 30
 done
