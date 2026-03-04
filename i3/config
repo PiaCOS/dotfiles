@@ -248,10 +248,10 @@ bindsym $mod+Shift+r restart
 
 # Backlight control (not on my current hardware)
 # Backlight setting using dunst osc || NECESSARY FOR MONITOR BRIGHTNESS
-# bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_up
-# bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_down
-bindsym XF86MonBrightnessUp exec --no-startup-id brightness-up
-bindsym XF86MonBrightnessDown exec --no-startup-id brightness-down
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_down
+# bindsym XF86MonBrightnessUp exec --no-startup-id brightness-up
+# bindsym XF86MonBrightnessDown exec --no-startup-id brightness-down
 
 
 # ---------------- Multimedia Keys ----------------
