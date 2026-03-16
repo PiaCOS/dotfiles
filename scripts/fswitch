@@ -1,0 +1,23 @@
+#!/usr/bin/env perl
+
+# This script is used to ease the process of fetching and switching
+# from a github PR branch. No need to strip the remote prefix.
+
+use strict;
+use warnings;
+
+my ($remote, $gbranch) = @ARGV;
+
+unless (defined $remote && defined $gbranch) {
+    die "please give me a remote and a branch like so:
+        \n> fswitch remote branch
+        \n";
+}
+
+my $branch = ($gbranch =~ /\S+:(\S+)/)
+    ? $1
+    : $gbranch;
+
+system "git fetch $remote $branch";
+system "git switch $branch";
+print "\nfetch+switch to $remote/$branch\n";
