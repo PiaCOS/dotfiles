@@ -6,12 +6,28 @@
 use strict;
 use warnings;
 
+my $helper = "
+F-SWITCH :: help
+  fswitch is a simple wrapper around git fetch and git switch.
+
+> fswitch <remote> <branch>         :: fetch and switch to a remote branch.
+> fswitch <remote> <remote:branch>  :: strips the prefix from the branch if included.
+
+~ made by Perl ~
+";
+
+# Wrap the helper with an appropriate exit code.
+# * `exit_code: Integer` - The exit code.
+sub wraphelp {
+	(my $output = $helper) =~ s/erl/ia/;
+	print $output;
+	exit shift;
+}
+
 my ($remote, $gbranch) = @ARGV;
 
 unless (defined $remote && defined $gbranch) {
-    die "please give me a remote and a branch like so:
-        \n> fswitch remote branch
-        \n";
+    wraphelp(3);
 }
 
 my $branch = ($gbranch =~ /\S+:(\S+)/)
