@@ -6,6 +6,7 @@ theme = "gruvbox"
 
 [keys.normal]
 "X" = "extend_line_above"
+"C-p" = [":pipe scry", "collapse_selection"]
 
 
 [keys.normal.space.z]
