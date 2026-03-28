@@ -220,6 +220,12 @@ mode "move_workspace" {
 
 bindsym $mod+m mode "move_workspace"
 
+# Move the currently focused window to the hidden scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the currently focused scratchpad window
+bindsym $mod+minus scratchpad show
+
 
 # -----------------------------------------------------------------------------
 #                       Keybindings for Different Actions
