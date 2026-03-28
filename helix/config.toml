@@ -1,7 +1,8 @@
 # theme = "trans_theme"
-theme = "vesper"
+# theme = "vesper"
 # theme = "ashokai_urple"
 # theme = "evergarden_fall"
+theme = "default_but_better"
 
 
 [keys.normal]

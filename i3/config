@@ -384,7 +384,8 @@ exec --no-startup-id ~/.screenlayout/monitor.sh
 # exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/topographic-textures.jpg
 # exec_always --no-startup-id sleep 1 && feh --bg-fill /home/elco/Dev/dotfiles/topographic-textures.jpg
 # exec_always --no-startup-id sleep 1 && feh --bg-fill /home/elco/Dev/dotfiles/nordic.jpg
-exec_always --no-startup-id sleep 1 && feh --bg-fill /home/elco/Dev/dotfiles/cloudwall2.jpg
+# exec_always --no-startup-id sleep 1 && feh --bg-fill /home/elco/Dev/dotfiles/cloudwall2.jpg
+exec_always --no-startup-id sleep 1 && feh --bg-fill /home/elco/Dev/dotfiles/cloud2.jpg
 
 # Desktop notifications
 
