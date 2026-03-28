@@ -35,7 +35,7 @@ new_window pixel 1
 # gaps inner 6
 # gaps outer 3
 gaps inner 0
-gaps outer 0
+# gaps outer 0
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -380,7 +380,8 @@ exec --no-startup-id ~/.screenlayout/monitor.sh
 # exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/angel2.png
 # exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/topographic-textures.jpg
 # exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/topographic-purple.jpg
-exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/grubox-minecraft.png
+exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/topology-green.jpg
+# exec_always --no-startup-id sleep 1 && feh --bg-fill /home/pia/Dev/dotfiles/assets/grubox-minecraft.png
 
 # Desktop notifications
 

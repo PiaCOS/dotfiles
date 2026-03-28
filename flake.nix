@@ -41,38 +41,36 @@
 
           environment.systemPackages = with pkgs; [
             # Essentials
-            autorandr
-            git
-            vim
-            rofi
-            fish
             acpi
-            upower
-            lm_sensors
-            sysstat
+            autorandr
             brightnessctl
+            fish
+            git
             libnotify
-            scrot
+            lm_sensors
             nvd
-            direnv
-            tamzen
-
-            # LSP
-            perlnavigator
+            rofi
+            scrot
+            sysstat
+            upower
+            vim
 
             # GUI apps
-            wezterm
-            zen-browser.packages.${system}.default
-            thunar
+            # They need to be in system otherwise they're not displayed in rofi
+            blender
+            calibre
             feh
             picom
-            fish
+            thunar
+            wezterm
+            zen-browser.packages.${system}.default
 
             # Build tools
-            rustup
-            gcc
             binutils
+            gcc
             gnupg1
+            rustup
+            steel
           ];
         })
       ];
@@ -97,7 +95,6 @@
             # CLI tools
             fastfetch
             hyfetch
-            # lazygit
             tldr
             fzf
             eza
@@ -112,10 +109,14 @@
             home-manager
             helix-fork.packages.${system}.default
             bottom
+            direnv
+            htop
 
             # LSP
             nixd
             nixpkgs-fmt
+            perlnavigator
+            uwu-colors
 
             # RTL-SDR
             alsa-utils
@@ -191,47 +192,47 @@
 
           # ---------------- wezterm config ----------------
 
-          xdg.configFile."wezterm/wezterm.lua".text = ''
-            local wezterm = require 'wezterm'
-            local config = {}
+          # xdg.configFile."wezterm/wezterm.lua".text = ''
+          #   local wezterm = require 'wezterm'
+          #   local config = {}
 
-            -- -------- FONTS --------
-            local FONT_FAMILY = "Maple Mono NF"
-            -- local FONT_FAMILY = "TamzenForPowerline"
-            local FONT_SIZE = 9.5
-            config.font_size = FONT_SIZE
-            config.font = wezterm.font(FONT_FAMILY)
+          #   -- -------- FONTS --------
+          #   local FONT_FAMILY = "Maple Mono NF"
+          #   -- local FONT_FAMILY = "TamzenForPowerline"
+          #   local FONT_SIZE = 9.5
+          #   config.font_size = FONT_SIZE
+          #   config.font = wezterm.font(FONT_FAMILY)
 
-            -- -------- THEME --------
-            -- config.window_background_opacity = 0.6
-            config.window_background_opacity = 0.95
-            config.enable_tab_bar = false
-            config.color_schemes = {}
-            -- config.color_scheme = 'Seoul256 (Gogh)'
-            -- config.color_scheme = 'Dark Violet (base16)'
-            config.color_scheme = 'Gruvbox Dark (Gogh)'
-            -- config.color_scheme = 'Gruvbox dark, hard (base16)'
-            config.colors = {
-              -- foreground = "#d5cdcd",
-              -- background = "#222222",
-              -- background = "#000000",
-            }
+          #   -- -------- THEME --------
+          #   -- config.window_background_opacity = 0.6
+          #   config.window_background_opacity = 0.95
+          #   config.enable_tab_bar = false
+          #   config.color_schemes = {}
+          #   -- config.color_scheme = 'Seoul256 (Gogh)'
+          #   -- config.color_scheme = 'Dark Violet (base16)'
+          #   config.color_scheme = 'Gruvbox Dark (Gogh)'
+          #   -- config.color_scheme = 'Gruvbox dark, hard (base16)'
+          #   config.colors = {
+          #     -- foreground = "#d5cdcd",
+          #     -- background = "#222222",
+          #     -- background = "#000000",
+          #   }
 
-            -- -------- SHELL --------
-            config.default_prog = { "fish" }
+          #   -- -------- SHELL --------
+          #   config.default_prog = { "fish" }
 
-            -- -------- KEYS --------
-            config.keys = {
-              -- was conflicting with lazygit commit keymap
-              {
-                key = 'Enter',
-                mods = 'ALT',
-                action = wezterm.action.DisableDefaultAssignment,
-              },
-            }
+          #   -- -------- KEYS --------
+          #   config.keys = {
+          #     -- was conflicting with lazygit commit keymap
+          #     {
+          #       key = 'Enter',
+          #       mods = 'ALT',
+          #       action = wezterm.action.DisableDefaultAssignment,
+          #     },
+          #   }
 
-            return config
-          '';
+          #   return config
+          # '';
 
           # ---------------- niri config ----------------
 
