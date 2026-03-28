@@ -18,4 +18,4 @@ home-build:
 nixos-build:
     sudo nixos-rebuild switch --flake ~/Dev/dotfiles#nixos
     nix run home-manager/master -- switch --flake ~/Dev/dotfiles#pia
-    nvd diff /run/current-system /run/booted-system
+    nvd diff /run/booted-system /run/current-system
