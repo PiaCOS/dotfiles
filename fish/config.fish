@@ -56,8 +56,15 @@ if status is-interactive
     alias deathnote "ps -ef | fzf -m | awk '{print \$2}' | creepy"
     alias instakill "pasta | xargs -p kill -9; xclip -selection clipboard /dev/null"
 
+    # Politly execute the last command as root (press space to see what will be executed)
+    function _sudo_last
+        set last_command (history -n 1)
+        echo sudo $last_command
+    end
+    abbr -a please --position command --function _sudo_last
+
     # cool stuff
-    function choco
+    function mkcd
         set arg $argv[1]
         mkdir $arg
         cd $arg
@@ -93,22 +100,6 @@ if status is-interactive
     # SSH Agent (start once per session)
     # ---------------------------------------------------
 
-    function start_agent
-        ssh-agent -c | tee ~/.ssh/agent_env_fish | source
-    end
-
-    # set -l agent_env_file ~/.ssh/agent_env_fish
-    # if not set -q SSH_AUTH_SOCK; or not test -S "$SSH_AUTH_SOCK"
-    #     if test -f $agent_env_file
-    #         source $agent_env_file
-    #     end
-    #     if not set -q SSH_AUTH_SOCK; or not test -S "$SSH_AUTH_SOCK"
-    #         ssh-agent -c | tee $agent_env_file | source
-    #     end
-    # end
-    # ssh-add -l >/dev/null 2>&1
-    # or ssh-add ~/.ssh/id_ed25519 >/dev/null
-
     set -l agent_env_file ~/.ssh/agent_env_fish
 
     if test -f $agent_env_file
@@ -118,6 +109,7 @@ if status is-interactive
     if not set -q SSH_AGENT_PID; or not kill -0 $SSH_AGENT_PID 2>/dev/null; or not test -S "$SSH_AUTH_SOCK"
         echo "Starting new ssh-agent..."
         # ssh-agent -c | tee $agent_env_file | source
+        # silence the 'Agent PID blablabla'
         ssh-agent -c | sed 's/^echo/#echo/' | tee $agent_env_file | source
     end
 
