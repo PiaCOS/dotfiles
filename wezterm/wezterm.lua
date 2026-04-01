@@ -28,10 +28,12 @@ config.enable_tab_bar = false
 config.window_background_opacity = 0.85
 -- config.color_scheme = "Ic Green Ppl (Gogh)"
 config.color_scheme = "Cloud (terminal.sexy)"
+config.color_scheme_dirs = { '~/Dev/dotfiles/wezterm/colors' }
+config.color_scheme = "HelixDefault"
 config.colors = {
-    -- foreground = "#f8f9e8",
+--     -- foreground = "#f8f9e8",
     background = "#1b1818",
-    -- background = "#232a2e",
+--     -- background = "#232a2e",
 }
 
 -- ----------------------------------------------------

@@ -1,0 +1,59 @@
+[colors]
+ansi = [
+    '#222827',
+    '#d5a8e3',
+    '#9c75dd',
+    '#9898ae',
+    '#654a96',
+    '#625566',
+    '#a9d1df',
+    '#e6ebe5',
+]
+background = '#000000'
+brights = [
+    '#5d6f74',
+    '#cd749c',
+    '#9ff28f',
+    '#c0c0dd',
+    '#eccdba',
+    '#3f3442',
+    '#849da2',
+    '#d9d6cf',
+]
+compose_cursor = '#d5a8e3'
+cursor_bg = '#ffffff'
+cursor_border = '#ffffff'
+cursor_fg = '#000000'
+foreground = '#ffffff'
+scrollbar_thumb = '#5d6f74'
+selection_bg = 'rgba(100% 100% 100% 25%)'
+selection_fg = 'rgba(0% 0% 0% 0%)'
+split = '#5786bc'
+
+[metadata]
+aliases = []
+author = ''
+name = 'HelixDefault'
+
+
+
+# [palette]
+# white = "#ffffff"
+# lilac = "#dbbfef"
+# lavender = "#a4a0e8"
+# comet = "#5a5977"
+# bossanova = "#452859"
+# midnight = "#3b224c"
+# revolver = "#281733"
+
+# silver = "#cccccc"
+# sirocco = "#697C81"
+# mint = "#9ff28f"
+# almond = "#eccdba"
+# chamois = "#E8DCA0"
+# honey = "#efba5d"
+
+# apricot = "#f47868"
+# lightning = "#ffcd1c"
+# delta = "#6F44F0"
+
