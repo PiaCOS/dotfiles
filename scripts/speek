@@ -19,7 +19,7 @@ S-PEEK :: help
 ";
 
 # Wrap the helper with an appropriate exit code.
-# * `exit_code: Integer` - The exit code.
+# * ($exit_code) -> IO -> EXIT
 sub wraphelp {
 	(my $output = $helper) =~ s/erl/ia/;
 	print $output;
@@ -27,13 +27,13 @@ sub wraphelp {
 }
 
 # Check with regex if the string can be cast as an integer.
-# * `text: String` - The string to check.
+# * ($string) -> $bool.
 sub is_integer {
 	defined $_[0] && $_[0] =~ /^\d+$/;
 }
 
 # Wrap `system` call.
-# * `command: Array<String>` - The command we want to spawn as an array.
+# * (@command) -> None?
 sub wrapsys {
 	my $result = system(@_);
 	if ($result != 0) {

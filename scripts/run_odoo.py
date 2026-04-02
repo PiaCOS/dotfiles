@@ -11,7 +11,7 @@ from typing import Optional, TypeAlias
 from pathlib import Path
 
 COMMUNITY_PATH = "./community"
-COMMUNITY_ADDONS_PATH = "addons/"
+COMMUNITY_ADDONS_PATH = "addons/,../oooo"
 ENTERPRISE_PATH = "../enterprise"
 
 HELPER = """

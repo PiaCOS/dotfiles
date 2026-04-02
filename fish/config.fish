@@ -20,6 +20,8 @@ if status is-interactive
     # Used for Unity (might delete at some point)
     fish_add_path /usr/local/share/dotnet
 
+    fish_add_path $HOME/Dev/dotfiles/scripts
+
     # No idea what it does (prob. doing a setup with fish compatibility)
     zoxide init fish | source
 

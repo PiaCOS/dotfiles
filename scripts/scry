@@ -3,6 +3,8 @@
 use strict;
 use warnings;
 
+# Parse and run the command and print it as a new comment.
+# * ($cmd, $comment_token) -> IO
 sub scry {
     my $cmd = shift;
     my $comment_token = shift;
