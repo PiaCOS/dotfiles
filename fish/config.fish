@@ -23,6 +23,8 @@ if status is-interactive
 
     set -gx HELIX_RUNTIME $HOME/.config/helix/runtime
 
+    fish_add_path $HOME/Dev/dotfiles/scripts
+
     # No idea what it does (prob. doing a setup with fish compatibility)
     zoxide init fish | source
 

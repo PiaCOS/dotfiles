@@ -17,7 +17,7 @@ F-SWITCH :: help
 ";
 
 # Wrap the helper with an appropriate exit code.
-# * `exit_code: Integer` - The exit code.
+# * ($exit_code) -> IO -> EXIT.
 sub wraphelp {
 	(my $output = $helper) =~ s/erl/ia/;
 	print $output;
