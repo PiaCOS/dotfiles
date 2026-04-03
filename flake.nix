@@ -52,7 +52,7 @@
             rofi
             scrot
             sysstat
-            upower
+            # upower
             vim
 
             # GUI apps
@@ -139,6 +139,12 @@
             (writeShellScriptBin "brightness-down" ''
               ${brightnessctl}/bin/brightnessctl set 2%-
             '')
+            (pkgs.writeTextFile {
+              name = "scry";
+              executable = true;
+              destination = "/bin/scry";
+              text = builtins.readFile ./scripts/scry;
+            })
           ];
 
           # ---------------- git config ----------------
