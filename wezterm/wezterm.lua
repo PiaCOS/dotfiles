@@ -10,8 +10,8 @@ config.font = wezterm.font(FONT_FAMILY)
 
 -- -------- THEME --------
 -- config.window_background_opacity = 0.6
-config.window_background_opacity = 0.95
--- config.window_background_opacity = 1
+-- config.window_background_opacity = 0.95
+config.window_background_opacity = 1
 config.enable_tab_bar = false
 config.color_schemes = {}
 -- config.color_scheme = 'Seoul256 (Gogh)'

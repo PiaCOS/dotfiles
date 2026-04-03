@@ -398,34 +398,27 @@ exec --no-startup-id /usr/bin/dunst
 # -----------------------------------------------------------------------------
 
 # Define colors variables:
-set $steelBlue      #5485b8
-set $mediumGray     #ebdbb2
-set $darkGray       #282828
-set $pureMist       #f4ecec
-set $deepAsh        #32302f
-# set $brightOrange   #fd2693
-# set $bg2            #665c54
+set $steelBlue     #5485b8
+set $mediumGray    #ebdbb2
+set $darkGray      #282828
+set $pureMist      #f4ecec
+set $deepAsh       #32302f
 
-# set $steelBlue      #5485b8
-# set $mediumGray     #585050
-# set $darkGray       #000000
-# set $pureMist       #f4ecec
-# set $deepAsh        #494444
-# set $brightOrange   #fd2693
-set $danger           #cc241d
-set $warning           #d65d0e
-set $alert           #d79921
+set $danger        #cc241d
+set $warning       #d65d0e
+set $alert         #d79921
 set $fg1           #ebdbb2
 set $fg2           #928374
 set $bg1           #282828
 set $bg2           #32302f
 
+default_border pixel 2
 
 # define colors for windows:
 #class                      border        bground        text         indicator      child_border
-client.focused              $alert        $alert         $fg1          $fg2          $bg1
-client.unfocused            $bg1            $bg1         $fg2          $bg1          $bg1
-client.focused_inactive     $bg1            $bg1         $fg2          $bg1          $bg1
+client.focused              $alert        $alert         $fg1          $bg1          $bg2
+client.unfocused            $bg2          $bg1           $fg2          $bg1          $bg1
+client.focused_inactive     $bg2          $bg1           $fg2          $bg1          $bg1
 client.urgent               $warning      $warning       $fg1          $warning      $warning
 
 # -----------------------------------------------------------------------------
