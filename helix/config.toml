@@ -7,6 +7,7 @@ theme = "default_but_better"
 
 [keys.normal]
 "X" = "extend_line_above"
+"`" = ["move_char_right", "move_prev_word_start", "move_next_word_start", "search_selection"]
 "C-p" = [":pipe scry", "collapse_selection"]
 
 
