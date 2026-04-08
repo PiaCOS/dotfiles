@@ -13,6 +13,8 @@
 	# git branch --show-current should also work
 	pwd = rev-parse --abbrev-ref HEAD
 
+	local = branch --sort=committerdate
+
 	head5 = log --oneline -n 5
 	head10 = log --oneline -n 10
 	head20 = log --oneline -n 20
