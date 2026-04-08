@@ -7,7 +7,7 @@ my $helper = "
 HYPERSTITION :: help
   hyperstition is a simple wrapper around git fetch and git rebase.
 
-> hyperstition <remote> <branch>    :: fetch a branch into itself and rebase it onto the current branch.
+> hyst <remote> <branch>      :: fetch a branch into itself and rebase it onto the current branch.
 
 ~ made by Perl ~
 ";
@@ -69,7 +69,7 @@ unless (defined $remote && defined $branch) {
 my $current_branch = is_branch_ok($branch);
 
 print_qx("git", "fetch", $remote, "$branch:$branch");
-green_print(">>> fetched $branch into itself");
+green_print("\n>>> fetched $branch into itself");
 
 print_qx("git", "rebase", $branch);
-green_print(">>> rebased $branch onto $current_branch");
+green_print("\n>>> rebased $branch onto $current_branch");
