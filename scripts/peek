@@ -1,0 +1,41 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use feature 'switch';
+
+# sub get_break_keyword {
+#     my $language = shift;
+#     given($language) {
+#         when("javascript") {return "debugger;";}
+#         when("python") {return "breakpoint()";}
+#         default {return "";}
+#     }
+# }
+
+# Returns the language specific way to print the buffer
+# * `($language, $buffer) -> $string`
+sub get_dbg_keyword {
+    my ($language, $buffer) = @_;
+    given($language) {
+        when("javascript") { return "console.log($buffer); // PEEK";}
+        when("python")     { return "print($buffer) # PEEK";}
+        when("perl")       { return "print '$buffer' # PEEK";}
+        when("rust")       { return "dbg!($buffer); // PEEK";}
+        default            { return "";}
+    }
+}
+
+# Returns the identation separated from the buffer.
+# * `($buffer) -> ($indentation, $rest_of_line)`
+sub extract_indentation {
+    my $buffer = shift;
+    $buffer =~ /^(\s*)(.*)\n$/s;
+    return ($1, $2);
+}
+
+my $line = <STDIN>;
+my ($language, $u) = @ARGV;
+my ($ind, $buffer) = extract_indentation($line);
+my $dbg = get_dbg_keyword($language, $buffer);
+print "$ind$dbg\n";
