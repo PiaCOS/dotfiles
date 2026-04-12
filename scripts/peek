@@ -4,15 +4,6 @@ use strict;
 use warnings;
 use feature 'switch';
 
-# sub get_break_keyword {
-#     my $language = shift;
-#     given($language) {
-#         when("javascript") {return "debugger;";}
-#         when("python") {return "breakpoint()";}
-#         default {return "";}
-#     }
-# }
-
 # Returns the language specific way to print the buffer
 # * `($language, $buffer) -> $string`
 sub get_dbg_keyword {
@@ -30,11 +21,17 @@ sub get_dbg_keyword {
 # * `($buffer) -> ($indentation, $rest_of_line)`
 sub extract_indentation {
     my $buffer = shift;
-    $buffer =~ /^(\s*)(.*)\n$/s;
-    return ($1, $2);
+    # if ($buffer =~ /^(\s*)(.*)\n$/s) {
+    if ($buffer =~ /^(\s*)(.*)$/) {
+        return ($1, $2);
+    }
+    return ("", $buffer);
 }
 
 my $line = <STDIN>;
+
+exit 0 unless defined $line;
+
 my ($language, $u) = @ARGV;
 my ($ind, $buffer) = extract_indentation($line);
 my $dbg = get_dbg_keyword($language, $buffer);
