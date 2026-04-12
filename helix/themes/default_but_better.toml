@@ -1,5 +1,6 @@
-attribute = "lilac"
-keyword = { fg = "almond", modifiers = ["italic"] }
+# attribute = "lilac"
+attribute = { fg = "lilac", modifiers = ["italic"] }
+keyword = { fg = "almond", modifiers = ["italic", "bold"] }
 "keyword.directive" = "lilac" # -- preprocessor comments (#if in C)
 namespace = "lilac"
 punctuation = "lavender"
@@ -19,27 +20,30 @@ function = "white"
 "function.definition" = "mint"
 "function.macro" = "lilac"
 "function.builtin" = "white"
-tag = "almond"
+tag = { fg = "almond", modifiers = ["bold"] }
 comment = { fg = "sirocco", modifiers = ["italic"] }
 constant = "white"
 "constant.builtin" = "white"
-string = "silver"
+# string = "silver"
+string = "mint"
 "constant.numeric" = "chamois"
 "constant.character.escape" = "honey"
 # used for lifetimes
 label = "honey"
 tabstop = { modifiers = ["italic"], bg = "bossanova" }
 
-"markup.heading" = "lilac"
+"markup.heading" = "mint"
 "markup.bold" = { modifiers = ["bold"] }
 "markup.italic" = { modifiers = ["italic"] }
 "markup.strikethrough" = { modifiers = ["crossed_out"] }
 "markup.link.url" = { fg = "silver", modifiers = ["underlined"] }
-"markup.link.text" = "almond"
-"markup.raw" = "almond"
+"markup.link.text" = "lilac"
+"markup.raw" = "white"
 
-"diff.plus" = "#35bf86"
-"diff.minus" = "#f22c86"
+"diff.plus" = "mint"
+"diff.minus" = "apricot"
+# "diff.plus" = "#35bf86"
+# "diff.minus" = "#f22c86"
 "diff.delta" = "#6f44f0"
 
 # TODO: differentiate doc comment
@@ -53,8 +57,8 @@ tabstop = { modifiers = ["italic"], bg = "bossanova" }
 "ui.statusline.inactive" = { fg = "lavender", bg = "revolver" }
 "ui.popup" = { bg = "revolver" }
 "ui.window" = { fg = "bossanova" }
-"ui.help" = { bg = "#7958DC", fg = "#171452" }
-"ui.text" = { fg = "lavender" }
+"ui.help" = { bg = "", fg = "lilac" }
+"ui.text" = { fg = "white" }
 "ui.text.focus" = { fg = "white" }
 "ui.text.inactive" = "sirocco"
 "ui.text.directory" = { fg = "lilac" }
@@ -62,7 +66,8 @@ tabstop = { modifiers = ["italic"], bg = "bossanova" }
 "ui.virtual.ruler" = { bg = "bossanova" }
 "ui.virtual.jump-label" = { fg = "apricot", modifiers = ["bold"] }
 
-"ui.virtual.indent-guide" = { fg = "comet" }
+# "ui.virtual.indent-guide" = { fg = "comet" }
+"ui.virtual.indent-guide" = { fg = "midnight" }
 
 "ui.selection" = { bg = "#540099" }
 "ui.selection.primary" = { bg = "#540099" }
@@ -71,7 +76,7 @@ tabstop = { modifiers = ["italic"], bg = "bossanova" }
 "ui.cursor.insert" = { bg = "white" }
 "ui.cursor.primary.select" = { bg = "delta" }
 "ui.cursor.primary.insert" = { bg = "white" }
-"ui.cursor.match" = { fg = "#212121", bg = "#6C6999" }
+"ui.cursor.match" = { fg = "white", bg = "#6C6999" }
 "ui.cursor" = { modifiers = ["reversed"] }
 "ui.cursorline.primary" = { bg = "bossanova" }
 "ui.highlight" = { bg = "bossanova" }

@@ -1,0 +1,61 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+# Parse and run the command and print it as a new comment.
+# * ($cmd, $comment_token) -> IO
+sub scry {
+    my $cmd = shift;
+    my $comment_token = shift;
+
+    $cmd =~ s/^\s+|\s+$//g;   # trim whitespaces
+    my $output = `$cmd 2>&1`; # 2>&1 grabs stdout and stderr
+
+    print "$comment_token --- [ SCRYING ] --- \n";
+
+    if (length($output) == 0) {
+        print "$comment_token done\n";
+    }
+
+    foreach my $out_line (split /\n/, $output) {
+        print "$comment_token $out_line\n";
+    }
+
+    print "$comment_token --- [ ENDSESS ] --- \n";
+    print "$comment_token\n";
+}
+
+my $skipping_flag = 0;
+while (my $line = <STDIN>) {
+
+    if ($line =~ /--- \[ SCRYING /) {
+        $skipping_flag = 1;
+        next;
+    }
+    if ($line =~ /--- \[ ENDSESS /) {
+        $skipping_flag = 0;
+        next;
+    }
+    # updates the scrying by skipping the scry outputs
+    next if $skipping_flag;
+
+    print $line;
+
+    if ($line =~ /# ::\{(.*?)\}::/) {
+        my $cmd = $1;
+        scry($cmd, "#");
+    }
+    elsif ($line =~ /\/\/ ::\{(.*?)\}::/) {
+        my $cmd = $1;
+        scry($cmd, "//");
+    }
+    elsif ($line =~ /-- ::\{(.*?)\}::/) {
+        my $cmd = $1;
+        scry($cmd, "--");
+    }
+    elsif ($line =~ /; ::\{(.*?)\}::/) {
+        my $cmd = $1;
+        scry($cmd, ";");
+    }
+}

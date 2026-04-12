@@ -1,0 +1,39 @@
+#!/usr/bin/env perl
+
+# This script is used to ease the process of fetching and switching
+# from a github PR branch. No need to strip the remote prefix.
+
+use strict;
+use warnings;
+
+my $helper = "
+F-SWITCH :: help
+  fswitch is a simple wrapper around git fetch and git switch.
+
+> fswitch <remote> <branch>         :: fetch and switch to a remote branch.
+> fswitch <remote> <remote:branch>  :: strips the prefix from the branch if included.
+
+~ made by Perl ~
+";
+
+# Wrap the helper with an appropriate exit code.
+# * ($exit_code) -> IO -> EXIT.
+sub wraphelp {
+	(my $output = $helper) =~ s/erl/ia/;
+	print $output;
+	exit shift;
+}
+
+my ($remote, $gbranch) = @ARGV;
+
+unless (defined $remote && defined $gbranch) {
+    wraphelp(3);
+}
+
+my $branch = ($gbranch =~ /\S+:(\S+)/)
+    ? $1
+    : $gbranch;
+
+system "git fetch $remote $branch";
+system "git switch $branch";
+print "\nfetch+switch to $remote/$branch\n";

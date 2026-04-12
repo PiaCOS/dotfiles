@@ -1,87 +1,209 @@
-# PYTHON
+
+# -------------------------------------------------------------
+#                              PYTHON
+# -------------------------------------------------------------
 
 [[language]]
 indent = { tab-width = 4, unit = "    " }
+language-servers = ["pyright"]
+# language-servers = ["pyright", "ruff"]
 name = "python"
-# language-servers = ["odoo-ls"]
-# language-servers = ["pyright", "ruff", "odoo-ls"]
-language-servers = ["pyright", "ruff"]
-
-# [language-server.odoo-ls]
-# command = "/home/odoo/Dev/odoo-ls/server/target/debug/odoo_ls_server"
-# args = [
-#   # "--parse",
-#   # "-o", "~/Dev/output.json",
-#   # "-c", "~/Dev/odoo/community",
-#   # "-a", "~/Dev/odoo/enterprise",
-#   "-s", "/home/odoo/Dev/odoo-ls/server/typeshed/stubs",
-#   "--stdlib", "/home/odoo/Dev/odoo-ls/server/typeshed/stdlib",
-# ]
 
 [language-server.pyright]
 command = "pyright-langserver"
 args = ["--stdio"]
 
-[language-server.ruff]
-command = "ruff-lsp"
-args = []
+# [language-server.ruff]
+# command = "ruff-lsp"
+# args = []
 
-# RUST
+# -------------------------------------------------------------
+#                              RUST
+# -------------------------------------------------------------
+
 [[language]]
-name = "rust" 
+name = "rust"
+indent = { tab-width = 4, unit = "    " }
+
 [language-server.rust-analyzer.config.check]
 command = "clippy"
 
 [language-server.rust-analyzer.config.cargo]
 features = "all"
 
-# JAVASCRIPT / TYPESCRIPT
+[language-server.rust-analyzer.config.diagnostics]
+disabled = ["unlinked-file"]
+
+# -------------------------------------------------------------
+#                    JAVASCRIPT / TYPESCRIPT
+# -------------------------------------------------------------
 
 [[language]]
 name = "javascript"
 indent = { tab-width = 4, unit = "    " }
+# injection-regex = "^$"
 language-servers = [
   "typescript-language-server", # optional
-  "vscode-eslint-language-server",
+  # "vscode-eslint-language-server",
 ]
 [[language]]
 name = "jsx"
 language-servers = [
   "typescript-language-server",
-  "vscode-eslint-language-server",
+  # "vscode-eslint-language-server",
 ]
 
 [[language]]
 name = "typescript"
 language-servers = [
   "typescript-language-server",
-  "vscode-eslint-language-server",
+  # "vscode-eslint-language-server",
 ]
 [[language]]
 name = "tsx"
 language-servers = [
   "typescript-language-server",
-  "vscode-eslint-language-server",
+  # "vscode-eslint-language-server",
 ]
 
-# TOML AND STUFF
+# DOES NOT WORK YET
+# Used for odoo test files
+# They tend to be too long for treesitter to handle
+# [[language]]
+# name = "js-test"
+# scope = "source.js"
+# grammar = "javascript"
+# file-types = [{ glob = "*.test.js" }]
+# injection-regex = "^$"
+# roots = []
+# comment-token = "//"
+# indent = { tab-width = 4, unit = "    " }
+
+# -------------------------------------------------------------
+#                             TOML
+# -------------------------------------------------------------
+
+[language-server.uwu_colors]
+command = "uwu_colors"
 
 [[language]]
 name = "toml"
 scope = "source.toml"
 injection-regex = "toml"
-file-types = ["toml", { glob = "pdm.lock" }, { glob = "poetry.lock" }, { glob = "Cargo.lock" }, { glob = "uv.lock" }]
+file-types = [
+  "toml",
+  { glob = "pdm.lock" },
+  { glob = "poetry.lock" },
+  { glob = "Cargo.lock" },
+  { glob = "uv.lock" }
+]
 comment-token = "#"
-language-servers = [ "taplo", "tombi" ]
+language-servers = [
+  { name = "taplo" },
+  { name = "uwu_colors" },
+]
+# language-servers = [ "taplo", "tombi" ]
 indent = { tab-width = 2, unit = "  " }
+
+# [language-server.tombi.config.linter]
+# tables-out-of-order = false
+
+
+# -------------------------------------------------------------
+#                          CSS + SCSS
+# -------------------------------------------------------------
 
 [[language]]
 name = "css"
 auto-format = false
-# indent = { tab-width = 4, unit = "    " }
+indent = { tab-width = 4, unit = "    " }
+
+[[language]]
+name = "scss"
+auto-format = false
+indent = { tab-width = 4, unit = "    " }
+
+# -------------------------------------------------------------
+#                             XML
+# -------------------------------------------------------------
 
 [[language]]
 name = "xml"
-file-types = [ "xml" ]
+file-types = [ "xml", "rng" ]
 formatter = { command = "xmllint", args = ["--format", "-"] }
 language-servers = [ "xml" ]
+indent = { tab-width = 4, unit = "    " }
+
+[language-server.xml]
+command = "lemminx-linux"
+
+# -------------------------------------------------------------
+#                             JSON
+# -------------------------------------------------------------
+
+[[language]]
+name = "json"
+auto-format = false
+indent = { tab-width = 4, unit = "    " }
+
+# -------------------------------------------------------------
+#                             BASH
+# -------------------------------------------------------------
+
+[[language]]
+name = "bash"
+auto-format = false
+indent = { tab-width = 4, unit = "    " }
+
+# -------------------------------------------------------------
+#                             PERL
+# -------------------------------------------------------------
+
+[[language]]
+name = "perl"
+auto-format = false
+indent = { tab-width = 4, unit = "    " }
+
+# -------------------------------------------------------------
+#                             INI
+# -------------------------------------------------------------
+
+[[language]]
+name = "ini"
+scope = "source.ini"
+injection-regex = "ini"
+file-types = [
+  "ini",
+  { glob = "i3blocks.conf" }
+]
+comment-token = "#"
+indent = { tab-width = 2, unit = "  " }
+
+# -------------------------------------------------------------
+#                             FISH
+# -------------------------------------------------------------
+
+[[language]]
+name = "fish"
+auto-format = false
+indent = { tab-width = 4, unit = "    " }
+
+# -------------------------------------------------------------
+#                           MARKDOWN
+# -------------------------------------------------------------
+
+[[language]]
+name = "markdown"
+indent = { tab-width = 2, unit = "  " }
+# rulers = [80]
+
+# -------------------------------------------------------------
+#                            MAGMA
+# -------------------------------------------------------------
+
+[[language]]
+name = "magma"
+file-types = [{ glob = "*.mag" }]
+scope = "source.mag"
+comment-token = "#"
+indent = { tab-width = 4, unit = "    " }

@@ -15,7 +15,8 @@ function fish_prompt
     set_color magenta
     printf ':: '
     set_color yellow
-    printf '%s' $USER
+    # printf '%s' $USER
+    printf 'pia'
     set_color normal
     printf ' -> '
 

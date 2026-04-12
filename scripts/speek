@@ -1,0 +1,71 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+
+my $helper = "
+S-PEEK :: help
+  speek is a simple wrapper around git stash.
+
+> speek                 :: Peek at the top of the stash
+> speek <index>         :: Peek at index <index>
+> speek diff            :: Peek with diff at the top
+> speek diff <index>    :: Peek with diff at index <index>
+> speek list            :: Show stash list
+> speek help            :: Show speek help
+
+~ made by Perl ~
+";
+
+# Wrap the helper with an appropriate exit code.
+# * ($exit_code) -> IO -> EXIT
+sub wraphelp {
+	(my $output = $helper) =~ s/erl/ia/;
+	print $output;
+	exit shift;
+}
+
+# Check with regex if the string can be cast as an integer.
+# * ($string) -> $bool.
+sub is_integer {
+	defined $_[0] && $_[0] =~ /^\d+$/;
+}
+
+# Wrap `system` call.
+# * (@command) -> None?
+sub wrapsys {
+	my $result = system(@_);
+	if ($result != 0) {
+		die "Error: Command [@_] failed with exit code: $?\n";
+	}
+}
+
+# Peek at the top when no args.
+if (scalar @ARGV == 0) {
+	wrapsys('git', 'stash', 'show', 'stash@{0}');
+} else {
+	my ($meth, $index) = @ARGV;
+
+	if ($meth eq "diff") {
+		if (defined $index) {
+			if (is_integer($index)) {
+				wrapsys('git', 'stash', 'show', '-p', "stash\@{$index}");
+			} else {
+				print "Error: Diff index must be a positive integer.\n";
+				wraphelp(1);
+			}
+		} else {
+			wrapsys('git', 'stash', 'show', '-p', 'stash@{0}');
+		}
+	} elsif ($meth eq "list") {
+		wrapsys('git', 'stash', 'list');
+	} elsif (is_integer($meth)) {
+		wrapsys('git', 'stash', 'show', "stash\@{$meth}");
+	} elsif ($meth eq "help") {
+		wraphelp(0);
+	} else {
+		print "Invalid command.\n";
+		wraphelp(3);
+	}
+}

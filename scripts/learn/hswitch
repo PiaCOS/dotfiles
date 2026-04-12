@@ -1,0 +1,35 @@
+#!/usr/bin/env stack
+-- stack --resolver lts-21.22 script --package turtle --package text
+
+{-# LANGUAGE OverloadedStrings #-}
+
+import Turtle
+import qualified Data.Text as T
+import System.Environment (getArgs)
+import System.Exit (die)
+
+extractBranch :: T.Text -> T.Text
+extractBranch rawBranch = snd(T.breakOnEnd ":" rawBranch)
+
+parseArgs :: [String] -> IO (T.Text, T.Text)
+parseArgs args = case args of
+  [r, b] -> return (T.pack r, T.pack b)
+  _      -> "please give me a remote and a branch like so:\n> fswitch remote branch\n"
+
+executeGit :: T.Text -> T.Text -> IO ()
+executeGit remote branch = do
+  procs "git" ["fetch", remote, branch] empty
+  procs "git" ["switch", branch] empty
+
+main :: IO ()
+main = do
+  -- unpacks result of an IO function
+  rawArgs <- getArgs
+  (remote, rawBranch) <- parseArgs rawArgs
+
+  -- binds result of a pure function
+  let cleanBranch = extractBranch rawBranch
+
+  executeGit remote cleanBranch
+
+  printf ("\nfetch+switch to "%s%"/"%s%"\n") remote cleanBranch

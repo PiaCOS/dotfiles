@@ -1,0 +1,18 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+local $/; # slurp :3
+
+my ($text) = <STDIN>;
+die "Missing text in stdin" unless defined $text;
+
+my @chars = qw(( ) [ ] * + " ' ` .);
+
+foreach my $char (@chars) {
+    my $pat = quotemeta($char);
+    $text =~ s/$pat/\\$&/g;
+}
+
+print "$text";

@@ -1,0 +1,75 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my $helper = "
+HYPERSTITION :: help
+  hyperstition is a simple wrapper around git fetch and git rebase.
+
+> hyst <remote> <branch>      :: fetch a branch into itself and rebase it onto the current branch.
+
+~ made by Perl ~
+";
+
+# Wrap the helper with an appropriate exit code.
+# * ($exit_code) -> IO
+sub wraphelp {
+	(my $output = $helper) =~ s/erl/ia/;
+	print $output;
+	exit shift;
+}
+
+# Print input in green.
+# * ($intput) -> IO
+sub green_print {
+	my $str = shift;
+	my $GREEN = "\e[32m";
+	my $RESET = "\e[0m";
+	print "${GREEN}$str${RESET}\n";
+}
+
+# Wrap system call -> avoid weird stuff
+# * (@command) -> $output?
+sub wrapsys {
+	my $cmd = join(" ", @_);
+	my $output = qx($cmd 2>&1);
+	my $exit_code = $? >> 8;
+
+	chomp($output); # :3
+	if ($exit_code != 0) {
+		die "[HYPERSTITION ERROR]: Command failed :/\n$output\n";
+	}
+	return $output;
+}
+
+# Print system call output
+# * (@command) -> IO?
+sub print_qx {
+	my $output = wrapsys(@_);
+	print $output;
+}
+
+# Check branch is not the current one
+# * ($branch) -> $output?
+sub is_branch_ok {
+	my $branch = shift;
+	my $output = wrapsys("git", "branch", "--show-current");
+	if ($output eq $branch) {
+		die "[HYPERSTITION ERROR]: Can't fetch branch ($branch) onto itself!";
+	}
+	return $output;
+}
+
+my ($remote, $branch)  = @ARGV;
+unless (defined $remote && defined $branch) {
+    wraphelp(3);
+}
+
+my $current_branch = is_branch_ok($branch);
+
+print_qx("git", "fetch", $remote, "$branch:$branch");
+green_print("\n>>> fetched $branch into itself");
+
+print_qx("git", "rebase", $branch);
+green_print("\n>>> rebased $branch onto $current_branch");

@@ -1,0 +1,10 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my $branches = `git branch`;
+(my $input = $branches) =~ s/^[\* ] //gm;
+
+open(my $pipe, '|-', "fzf");
+print $pipe $input;

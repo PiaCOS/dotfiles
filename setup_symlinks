@@ -1,30 +1,49 @@
 #!/usr/bin/env bash
 set -e
 
+# --- Configuration ---
 DOTFILES_DIR="$HOME/Dev/dotfiles"
 CONFIG_DIR="$HOME/.config"
 FONT_DIR="$HOME/.local/share/fonts"
+BIN_DIR="$HOME/bin"
 
-echo "Setting up symbolic links..."
+# --- Helper Function ---
+link_item() {
+    local src="$1"
+    local dst="$2"
 
-# '-sfn': s=symlink, f=force (overwrite), n=no-dereference (safer for directories)
+    mkdir -p "$(dirname "$dst")"
 
-# ----------------- .config/ Directories -----------------
-ln -sfn $DOTFILES_DIR/alacritty/ $CONFIG_DIR/alacritty
-ln -sfn $DOTFILES_DIR/fish/ $CONFIG_DIR/fish
-ln -sfn $DOTFILES_DIR/helix/ $CONFIG_DIR/helix
-ln -sfn $DOTFILES_DIR/i3/ $CONFIG_DIR/i3
-ln -sfn $DOTFILES_DIR/kitty/ $CONFIG_DIR/kitty
-ln -sfn $DOTFILES_DIR/wezterm/ $CONFIG_DIR/wezterm
-ln -sfn $DOTFILES_DIR/zellij/ $CONFIG_DIR/zellij
+    if [ -d "$dst" ] && [ ! -L "$dst" ]; then
+        echo "Removing existing directory: $dst"
+        rm -rf "$dst"
+    fi
+
+    # ln -sfn: 
+    # s = symbolic
+    # f = force (overwrite existing links/files)
+    # n = no-dereference (treat symlink to directory as a file)
+    ln -sfn "$src" "$dst"
+    echo "Linked: $dst -> $src"
+}
+
+# ----------------- .config Directories -----------------
+link_item "$DOTFILES_DIR/fish"     "$CONFIG_DIR/fish"
+link_item "$DOTFILES_DIR/helix"    "$CONFIG_DIR/helix"
+link_item "$DOTFILES_DIR/wezterm"  "$CONFIG_DIR/wezterm"
 
 # ----------------- Home Directory Files -----------------
-ln -sf $DOTFILES_DIR/.gitconfig $HOME/.gitconfig
+link_item "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
 
 # ---------------------- Executables ---------------------
-ln -sf $DOTFILES_DIR/scripts/reset_ssh_agent $HOME/bin/reset_ssh_agent
+# link_item "$DOTFILES_DIR/scripts/my_script" "$BIN_DIR/my_script"
 
 # ------------------------- Fonts ------------------------
-ln -sf $DOTFILES_DIR/fonts/MapleMono-NF-patch/* $FONT_DIR
+if [ -d "$DOTFILES_DIR/fonts" ]; then
+    mkdir -p "$FONT_DIR"
+    for font in "$DOTFILES_DIR/fonts"/*; do
+        link_item "$font" "$FONT_DIR/$(basename "$font")"
+    done
+fi
 
-echo "Symbolic links are ready!!"
+echo "All links are ready!"

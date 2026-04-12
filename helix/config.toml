@@ -1,18 +1,58 @@
-# theme = "ashen_dlc"
-# theme = "boo_berry_but_cuter"
-theme = "trans_theme"
+theme = "sonokai"
+
 
 [keys.normal]
 "X" = "extend_line_above"
+"`" = ["move_char_right", "move_prev_word_start", "move_next_word_start", "search_selection"]
+"C-P" = [":pipe scry", "collapse_selection"]
+"C-p" = [
+    ":pipe peek %{language} %{selection}",
+    "collapse_selection",
+]
+
+[keys.normal.space.z]
+"z" = "rotate_view"
+"v" = "vsplit"
+"s" = "hsplit"
+"up" = "jump_view_up"
+"down" = "jump_view_down"
+"right" = "jump_view_right"
+"left" = "jump_view_left"
+
 
 [keys.normal.g]
 "g" = "goto_word"
 "G" = "goto_file_start"
 
+[keys.select.g]
+"g" = "goto_word"
+"G" = "goto_file_start"
+
+
+[keys.insert]
+"j" = { "j" = "normal_mode" }
+
+
 [editor]
 line-number = "relative"
 bufferline = "never" # always, never, multiple
 true-color = true
+end-of-line-diagnostics = "error"
+popup-border = "all"
+trim-trailing-whitespace = true
+# rainbow-brackets = true
+preview-completion-insert = false
+
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+other-lines = "disable"
+
+[editor.cursor-shape]
+normal = "block" # block, bar, underline, hidden
+insert = "bar"
+select = "underline"
+
 
 [editor.statusline]
 left = ["mode", "file-name", "spinner"]
@@ -22,3 +62,49 @@ separator = "|"
 mode.insert = "INSERT"
 mode.normal = "NORMAL"
 mode.select = "SELECT"
+
+
+[editor.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+"'" = "'"
+'`' = '`'
+'<' = '>'
+
+
+[editor.whitespace.render]
+space = "none"
+# tab = "all"
+tab = "none"
+nbsp = "none"
+nnbsp = "none"
+newline = "none"
+
+
+[editor.soft-wrap]
+enable = true
+max-wrap = 20
+# max-indent-retain=0
+wrap-indicator = ""
+
+[editor.smart-tab]
+enable = true
+supersede-menu = true # :3
+
+
+
+# [editor.whitespace.characters]
+# space = "·"
+# nbsp = "⍽"
+# nnbsp = "␣"
+# tab = "→"
+# newline = "⏎"
+# tabpad = "·"
+
+
+[editor.indent-guides]
+render = true
+character = "╎" # Some characters that work well: "▏", "┆", "┊", "⸽"
+skip-levels = 1

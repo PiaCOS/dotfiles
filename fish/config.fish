@@ -10,8 +10,10 @@ if status is-interactive
     fish_add_path $HOME/go/bin
     # Used for Ghidra
     fish_add_path $HOME/jdk-21.0.5+11
-    # Used for Unity (might delete at some point) 
+    # Used for Unity (might delete at some point)
     fish_add_path /usr/local/share/dotnet
+
+    fish_add_path ~/Dev/dotfiles/scripts
 
     # No idea what it does (prob. doing a setup with fish compatibility)
     zoxide init fish | source
@@ -22,13 +24,15 @@ if status is-interactive
 
     set -gx EDITOR helix
 
+    eval (/opt/homebrew/bin/brew shellenv)
+
     # ---------------------------------------------------
     # ALIAS STUFF
     # ---------------------------------------------------
 
-    abbr ll "ls -lah"
+    abbr ll "eza -la"
     # abbr z zoxide
-    abbr hx helix
+    # abbr hx helix
 
     # used to sudo last command
     abbr !! --position anywhere --function last_history_item
