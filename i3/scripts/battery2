@@ -18,10 +18,11 @@ sub get_color {
   my $p = shift;
   my $ratio = floor($p / 10);
   my %colors = (
-    1 => "#FF1100",
-    2 => "#FF3300",
-    3 => "#FF6600",
-    4 => "#FF9900",
+    0 => "#FF1100",
+    1 => "#FF9900",
+    2 => "#FFCC00",
+    # 3 => "#FFCC00",
+    # 4 => "#FF9900",
     # 5 => "#FFCC00",
     # 6 => "#FFFF00",
     # 7 => "#FFFF33",
@@ -40,7 +41,7 @@ sub to_pango {
     return "$label<span color='$color'>+$p%</span>";
   }
   elsif ($p < 10) {
-    return "$label<span foreground='#FF0000'>$p%!</span>";
+    return "$label<span foreground='$color'>$p%!</span>";
   }
   elsif ($s eq "Full") {
     return "$label<span color='$color'>FULL</span>";
