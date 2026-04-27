@@ -1,6 +1,8 @@
 if status is-interactive
 
     function fish_greeting
+        # echo "~ Hi Pia ~"
+        # echo
         if command -v lune > /dev/null
             lune
         end
@@ -40,9 +42,9 @@ if status is-interactive
 
     abbr j "just"
     abbr ll "eza -la"
-    # abbr ll "ls -lah"
-    # abbr z zoxide
-    # abbr hx helix
+
+    abbr br "git switch (branch)"
+    abbr ff "fg %(jobs | fgf)"
 
     # used to sudo last command
     abbr !! --position anywhere --function last_history_item
@@ -123,3 +125,6 @@ if status is-interactive
         end
     end
 end
+
+# uv
+fish_add_path "/home/elco/.local/bin"

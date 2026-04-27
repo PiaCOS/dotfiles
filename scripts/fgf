@@ -1,0 +1,27 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my $fzf = "";
+while (my $line = <STDIN>) {
+    chomp $line;
+
+    if ($line =~ /^(\d+)\s+(\d+)\s+\d+%\s+\S+\s+(.+?)$/) {
+        my $job = $1;
+        my $pid = $2;
+        my $cmd = $3;
+
+        my $cwd = "Unknown Path";
+        if (-e "/proc/$pid/cwd") {
+            $cwd = readlink("/proc/$pid/cwd") || $cwd;
+        }
+        $fzf .= "$job\t$pid\t$cwd\t\e[32m[$cmd]\e[0m\n";
+    }
+}
+
+exit if $fzf eq "";
+my $selection = `echo "$fzf" | column -t -s '\t' | fzf --ansi`;
+if ($selection =~ /^(\d+)\s+/) {
+    print $1;
+}
