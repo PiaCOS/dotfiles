@@ -44,6 +44,7 @@ if status is-interactive
     abbr ll "eza -la"
 
     abbr br "git switch (branch)"
+    abbr drop "dropdb -h localhost -U odoo (dbs)"
     abbr ff "fg %(jobs | fgf)"
 
     # used to sudo last command
