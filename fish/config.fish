@@ -57,6 +57,8 @@ if status is-interactive
     alias creepy "xclip -selection clipboard"
     alias pasta "xclip -o -selection clipboard"
 
+    alias zellij-new='zellij attach -c "$(~/.config/zellij/session-name)"'
+
     alias deathnote "ps -ef | fzf -m | awk '{print \$2}' | creepy"
     alias instakill "pasta | xargs -p kill -9; xclip -selection clipboard /dev/null"
 

@@ -1,0 +1,112 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my @numbers = (
+    "no",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "eleven",
+    "twelve",
+    "thirteen",
+    "fourteen",
+    "fifteen",
+    "sixteen",
+    "seventeen",
+    "eighteen",
+    "nineteen",
+    "twenty",
+    "twenty-five",
+    "thirty",
+    "thirty-two",
+    "fourty",
+    "fourty-four",
+);
+
+my @adjectives = (
+    "eternal",
+    "finite",
+    "endless",
+    "arborescent",
+    "cerulean",
+    "abstract",
+    "concrete",
+    "sacred",
+    "esoteric",
+    "occult",
+);
+
+my @nouns = (
+    "reflexion",
+    "mind",
+    "blade",
+    "shadow",
+    "cognition",
+    "sword",
+    "mirror",
+    "tree",
+    "rhizome",
+    "drop",
+    "cloud",
+    "sky",
+    "mountain",
+    "lake",
+    "river",
+    "rock",
+    "wind",
+);
+
+sub conjugate {
+    my $number = shift;
+    my $noun = shift;
+
+    if ($number eq "no" || $number eq "one") {
+        return "$number-$noun";
+    } else {
+        if ($noun =~ /y$/) {
+            $noun =~ s/y$/ies/;
+        } else {
+            $noun .= 's';
+        }
+        return "$number-$noun";
+    }
+}
+
+sub generate_part {
+    my $p = rand(1);
+    my $adj_prob = 0.4;
+
+    if ($p > $adj_prob) {
+        my $adj = $adjectives[rand @adjectives];
+        my $noun = $nouns[rand @nouns];
+        return "$adj-$noun";
+    } else {
+        my $num = $numbers[rand @numbers];
+        my $noun = $nouns[rand @nouns];
+        return conjugate($num, $noun);
+    }
+}
+
+sub make_name {
+    # my $n = rand(1);
+    # if ($n > 0.5) {
+    #     return generate_part();
+    # }
+    # else {
+    #     my $part1 = generate_part();
+    #     my $part2 = generate_part();
+    #     return "${part1}_${part2}";
+    # }
+    return generate_part();
+}
+
+print make_name() . "\n";
