@@ -408,6 +408,9 @@ exec_always --no-startup-id sleep 1 && feh --bg-fill /home/elco/Dev/dotfiles/bla
 
 exec --no-startup-id /usr/bin/dunst
 
+# Chrome stuff to for overrides dialog XDG
+exec --no-startup-id dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP
+
 # -----------------------------------------------------------------------------
 #                   Color Settings for Bar and Windows
 # -----------------------------------------------------------------------------
