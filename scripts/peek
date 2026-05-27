@@ -9,8 +9,8 @@ use feature 'switch';
 sub get_dbg_keyword {
     my ($language, $buffer) = @_;
     given($language) {
-        when("javascript") { return "console.log($buffer); // PEEK";}
-        when("python")     { return "print($buffer) # PEEK";}
+        when("javascript") { return "console.log('$buffer: ', $buffer); // PEEK";}
+        when("python")     { return "print('$buffer: ', $buffer) # PEEK";}
         when("perl")       { return "print '$buffer' # PEEK";}
         when("rust")       { return "dbg!($buffer); // PEEK";}
         default            { return "";}
