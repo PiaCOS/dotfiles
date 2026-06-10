@@ -43,9 +43,7 @@ if status is-interactive
 
     abbr j "just"
     abbr ll "eza -la"
-    # abbr ll "ls -lah"
-    # abbr z zoxide
-    # abbr hx helix
+    abbr lg "lazygit"
 
     # nix
     abbr sysup "sudo nixos-rebuild switch --flake ~/Dev/dotfiles#nixos"
