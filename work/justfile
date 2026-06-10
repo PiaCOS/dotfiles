@@ -1,0 +1,105 @@
+default:
+    @just --list --unsorted
+
+# -------- Variables --------
+BIN := "community/odoo-bin"
+PORT := "8869"
+DB := "default_db"
+DEV := "xml,qweb"
+
+COMMUNITY_ADDONS := "community/addons"
+ENTERPRISE_ADDONS := "community/addons,enterprise"
+
+SELECTED_MODULES := "project,web_studio,contact,api_doc,hr,crm,mysubscription"
+RANDOM_MODULES := "project,web_studio,contact,api_doc,hr,crm,sale_management,stock,purchase,accountant,point_of_sale,mrp,mass_mailing,documents,calendar,mysubscription"
+
+# -------- DB Config -------- #
+DB_ARGS := "--db_host=localhost --db_user=odoo --db_password=odoo"
+
+# -------- PSQL Recipes -------- #
+
+# Drop default_db
+dropdd DB='$(dbs)':
+    dropdb -h localhost -U odoo {{DB}}
+
+# List all databases
+list-db:
+    psql -U postgres -c "\l"
+
+# List all users
+list-user:
+    psql -U postgres -c "\du"
+
+# Add pg_vector to a db (for AI stuff)
+addext_pgvector DB='$(dbs)':
+    # Might be necessary to:
+    # - install pgvector: `yay -S pgvector`
+    # - install pgvector in env: `uv pip install pgvector`
+    psql {{DB}} -U postgres -c "CREATE EXTENSION IF NOT EXISTS vector;"
+
+# -------- ODOO Recipes -------- #
+
+# Run community Odoo
+run:
+    uv run {{BIN}} --addons-path={{COMMUNITY_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}}
+
+# Run enterprise Odoo
+run-e:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}}
+
+# Run community Odoo with -d DB
+drun DB=DB:
+    uv run {{BIN}} --addons-path={{COMMUNITY_ADDONS}} --dev={{DEV}} --http-port={{PORT}} -d {{DB}} {{DB_ARGS}}
+
+# Run enterprise Odoo with -d DB
+drun-e DB=DB:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} -d {{DB}} {{DB_ARGS}}
+
+# Install specific modules (eg: `just install project,crm`)
+install modules DB=DB:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} -d {{DB}} -i {{modules}} {{DB_ARGS}} --stop-after-init
+
+# Initialize a db with demo data and specific modules (eg: `just demo project,crm`)
+demo modules DB=DB:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} -d {{DB}} -i {{modules}} --with-demo {{DB_ARGS}} --stop-after-init
+
+# Open Odoo shell
+shell DB=DB:
+    uv run {{BIN}} shell --addons-path={{ENTERPRISE_ADDONS}} -d {{DB}} {{DB_ARGS}}
+
+# Run tests for a specific module (e.g., `just test /account`, `just test :TestApiDoc`)
+test module DB=DB:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} -d {{DB}} --test-tags {{module}} {{DB_ARGS}} --stop-after-init
+
+
+# -------- QUICK Recipes -------- #
+
+# Run a quick db with modules in enterprise
+select:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} -d {{DB}} {{DB_ARGS}} -i {{SELECTED_MODULES}}
+
+# Run a quick db with modules in enterprise with demo data
+select-demo:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} -d {{DB}} {{DB_ARGS}} -i {{SELECTED_MODULES}} --with-demo
+
+# Run a quick db with LOTS of modules in enterprise
+random:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} -d {{DB}} {{DB_ARGS}} -i {{RANDOM_MODULES}}
+
+# Run a quick db with LOTS of modules in enterprise with demo data
+random-demo:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} -d {{DB}} {{DB_ARGS}} -i {{RANDOM_MODULES}} --with-demo
+
+
+# -------- TASK Recipes -------- #
+
+# My Subscription Task quick setup
+mysubscription:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}}  -d mysub_db -i mysubscription,crm,hr,contacts,sale_management,mass_mailing,mail,contacts,mass_mailing_sms,hr_skills --with-demo --stop-after-init
+    just run-e
+
+# Setup to bisect api_doc
+api-doc-bisect:
+    just dropdd api_bisect_db
+    just install api_doc api_bisect_db
+    just drun api_bisect_db
