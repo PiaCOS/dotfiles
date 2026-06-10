@@ -42,6 +42,7 @@ if status is-interactive
 
     abbr j "just"
     abbr ll "eza -la"
+    abbr lg "lazygit"
 
     abbr br "git switch (branch)"
     abbr drop "dropdb -h localhost -U odoo (dbs)"

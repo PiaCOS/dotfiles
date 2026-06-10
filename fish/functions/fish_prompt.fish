@@ -24,6 +24,7 @@ function fish_prompt
 
     set_color normal
     printf 'λ '
+    # printf '䷜'
 
     if test -n "$VIRTUAL_ENV"
         printf "(%s) " (set_color blue)(basename $VIRTUAL_ENV)(set_color normal)
@@ -32,7 +33,8 @@ function fish_prompt
     set_color magenta
     printf ':: '
     set_color yellow
-    printf '%s' $USER
+    # printf '%s' $USER
+    printf 'pia'
     set_color normal
     printf ' -> '
 
@@ -43,6 +45,11 @@ function fish_prompt
     # printf ' :: '
     set_color normal
     printf '%s' (fish_vcs_prompt ' (%s) ' 2>/dev/null)
+
+
+    set -l d (set_color brgrey)(date "+%R")(set_color normal)
+    set_color normal
+    printf ' %s' (set_color brgrey)(date "+%R")(set_color normal)
 
     # ---------------- Line 2 ----------------
 
