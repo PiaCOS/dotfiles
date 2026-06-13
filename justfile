@@ -6,18 +6,9 @@ update-flake:
     nix flake update
 
 # Rebuild system flake
-build-system:
+build:
     sudo nixos-rebuild switch --flake ~/Dev/dotfiles#nixos
     nvd diff /run/booted-system /run/current-system
-
-# Rebuild home manager
-build-home:
-    nix run home-manager/master -- switch --flake ~/Dev/dotfiles#pia
-
-# Rebuild Nixos
-build:
-    just build-system
-    just build-home
 
 # Keymap for vampire survivor
 vampire:

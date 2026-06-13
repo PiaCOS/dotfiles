@@ -1,15 +1,9 @@
 {
-  description = "Unified NixOS + Home Manager flake with scripts";
+  description = "Pure NixOS flake with unified system packages and scripts";
 
   inputs = {
     # System packages (Bleeding edge)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    # Home Manager
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     helix-fork.url = "github:PiaCOS/helix/pia-helix-fork";
 
@@ -19,26 +13,36 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, helix-fork, zen-browser, ... }:
+  outputs = { self, nixpkgs, helix-fork, zen-browser, ... }@inputs:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      dotfilesPath = "/home/pia/Dev/dotfiles";
     };
   in {
 
     # -------------------------------------------------------------------------
-    #                            System config
+    #                            System Config
     # -------------------------------------------------------------------------
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
+      specialArgs = { inherit inputs; };
+
       modules = [
         ./configuration.nix
+
         ({ pkgs, ... }: {
           environment.variables.EDITOR = "hx";
 
+          # User definition (Packages removed, managed globally now)
+          users.users.pia = {
+            isNormalUser = true;
+            description = "Pia";
+            extraGroups = [ "networkmanager" "wheel" ];
+          };
+
+          # Unified System-wide packages
           environment.systemPackages = with pkgs; [
             # Essentials
             acpi
@@ -52,70 +56,33 @@
             rofi
             scrot
             sysstat
-            # upower
-            vim
             tree
+            vim
 
-            # GUI apps
-            # They need to be in system otherwise they're not displayed in rofi
-            blender
-            calibre
-            feh
-            gimp
-            picom
-            thunar
-            wezterm
-            zen-browser.packages.${system}.default
+            # CLI tools
+            bottom
+            direnv
+            eza
+            fastfetch
+            fzf
+            htop
+            hyfetch
+            ripgrep
+            senpai
+            tldr
+            uv
+            zoxide
 
-            # Build tools
+            # Development
             binutils
             gcc
             gnupg1
-            rustup
-            steel
-          ];
-        })
-      ];
-    };
-
-    # -------------------------------------------------------------------------
-    #                            Home Manager config
-    # -------------------------------------------------------------------------
-    homeConfigurations.pia = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      extraSpecialArgs = { inherit (self) inputs; };
-
-      modules = [
-        ({ pkgs, inputs, ... }: {
-          home.username = "pia";
-          home.homeDirectory = "/home/pia";
-          home.stateVersion = "24.11";
-
-          home.enableNixpkgsReleaseCheck = false;
-
-          # ----------------- packages ------------------
-
-          home.packages = with pkgs; [
-            # CLI tools
-            fastfetch
-            hyfetch
-            tldr
-            fzf
-            eza
-            zoxide
-            ripgrep
-            uv
-            senpai
-
-            # Development
+            inputs.helix-fork.packages.${system}.default
             just
             python3
+            rustup
+            steel
             zellij
-            home-manager
-            helix-fork.packages.${system}.default
-            bottom
-            direnv
-            htop
 
             # LSP
             nixd
@@ -123,16 +90,19 @@
             perlnavigator
             uwu-colors
 
+            # GUI apps
+            blender
+            calibre
+            feh
+            gimp
+            picom
+            thunar
+            wezterm
+            inputs.zen-browser.packages.${system}.default
+
             # RTL-SDR
             alsa-utils
-            # gqrx
             rtl-sdr
-            # cubicsdr
-            # sox
-            # multimon-ng
-            # direwolf
-            # fldigi
-            # wsjtx
 
             # Game
             rogue
@@ -151,143 +121,6 @@
               text = builtins.readFile ./scripts/scry;
             })
           ];
-
-          # ---------------- git config ----------------
-
-          programs.git = {
-            enable = true;
-            signing.format = null;
-            settings = {
-              user = {
-                name  = "PiaCOS";
-                email = "pia.cosneau@gmail.com";
-              };
-              core = {
-                editor = "hx";
-              };
-              alias = {
-                cp = "cherry-pick";
-                head5 = "log --oneline -n 5";
-                head10 = "log --oneline -n 10";
-                head20 = "log --oneline -n 20";
-                lograph = "log --oneline --graph --decorate --all";
-              };
-              init.defaultBranch = "main";
-            };
-          };
-
-          # ---------------- ssh config ----------------
-
-          # programs.ssh = {
-          #   enable = true;
-          #   startAgent = true;
-          # };
-
-          # ---------------- lazygit config ----------------
-
-          programs.lazygit = {
-            enable = true;
-              settings = {
-                os = {
-                  edit = "hx {{filename}}";
-                  editAtLine = "hx +{{line}} {{filename}}";
-                };
-              };
-          };
-
-          # ---------------- rofi config ----------------
-
-          programs.rofi = {
-            enable = true;
-            theme = "${pkgs.rofi}/share/rofi/themes/gruvbox-dark.rasi";
-          };
-
-          # ---------------- wezterm config ----------------
-
-          # xdg.configFile."wezterm/wezterm.lua".text = ''
-          #   local wezterm = require 'wezterm'
-          #   local config = {}
-
-          #   -- -------- FONTS --------
-          #   local FONT_FAMILY = "Maple Mono NF"
-          #   -- local FONT_FAMILY = "TamzenForPowerline"
-          #   local FONT_SIZE = 9.5
-          #   config.font_size = FONT_SIZE
-          #   config.font = wezterm.font(FONT_FAMILY)
-
-          #   -- -------- THEME --------
-          #   -- config.window_background_opacity = 0.6
-          #   config.window_background_opacity = 0.95
-          #   config.enable_tab_bar = false
-          #   config.color_schemes = {}
-          #   -- config.color_scheme = 'Seoul256 (Gogh)'
-          #   -- config.color_scheme = 'Dark Violet (base16)'
-          #   config.color_scheme = 'Gruvbox Dark (Gogh)'
-          #   -- config.color_scheme = 'Gruvbox dark, hard (base16)'
-          #   config.colors = {
-          #     -- foreground = "#d5cdcd",
-          #     -- background = "#222222",
-          #     -- background = "#000000",
-          #   }
-
-          #   -- -------- SHELL --------
-          #   config.default_prog = { "fish" }
-
-          #   -- -------- KEYS --------
-          #   config.keys = {
-          #     -- was conflicting with lazygit commit keymap
-          #     {
-          #       key = 'Enter',
-          #       mods = 'ALT',
-          #       action = wezterm.action.DisableDefaultAssignment,
-          #     },
-          #   }
-
-          #   return config
-          # '';
-
-          # ---------------- niri config ----------------
-
-          xdg.configFile."niri/config.kdl".text = ''
-              input {
-                  keyboard {
-                      xkb {
-                          layout "be"
-                      }
-                  }
-                  touchpad {
-                      tap
-                      natural-scroll
-                  }
-              }
-
-              // Keybindings
-              binds {
-                  Mod+Return { spawn "wezterm"; }
-                  Mod+D { spawn "rofi" "-show" "drun"; }
-                  Mod+Q { close-window; }
-
-                  Mod+Left  { focus-column-left; }
-                  Mod+Right { focus-column-right; }
-                  Mod+Shift+Left  { move-column-left; }
-                  Mod+Shift+Right { move-column-right; }
-
-                  Mod+WheelScrollDown      coarse-scroll-right;
-                  Mod+WheelScrollUp        coarse-scroll-left;
-
-                  Print { screenshot; }
-
-                  // Exit niri
-                  Mod+Shift+E { quit; }
-              }
-
-              layout {
-                  gap 16
-                  default-column-width { proportion 0.5; }
-              }
-
-              spawn-at-startup "waybar"
-          '';
         })
       ];
     };

@@ -1,0 +1,4 @@
+configuration {
+    /* You can add extra rofi config here later if needed */
+}
+@theme "gruvbox-dark"

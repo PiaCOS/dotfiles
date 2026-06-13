@@ -1,0 +1,13 @@
+[user]
+	name = PiaCOS
+	email = pia.cosneau@gmail.com
+[core]
+	editor = hx
+[alias]
+	cp = cherry-pick
+	head5 = log --oneline -n 5
+	head10 = log --oneline -n 10
+	head20 = log --oneline -n 20
+	lograph = log --oneline --graph --decorate --all
+[init]
+	defaultBranch = main
