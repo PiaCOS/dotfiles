@@ -41,7 +41,7 @@ sub get_color {
     # 7 => "#FFFF33",
     # 8 => "#FFFF66",
   );
-  return $colors{$ratio} // "#FFFFFF";
+  return $colors{$ratio} // $c{fg1};
 }
 
 sub to_pango {

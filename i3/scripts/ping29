@@ -1,0 +1,33 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+
+# PING www.example.com (2606:4700:10::6814:179a) 56 data bytes
+# 64 bytes from 2606:4700:10::6814:179a: icmp_seq=1 ttl=57 time=17.7 ms
+# 64 bytes from 2606:4700:10::6814:179a: icmp_seq=2 ttl=57 time=23.5 ms
+# 64 bytes from 2606:4700:10::6814:179a: icmp_seq=3 ttl=57 time=19.3 ms
+
+# --- www.example.com ping statistics ---
+# 3 packets transmitted, 3 received, 0% packet loss, time 2004ms
+# rtt min/avg/max/mdev = 17.666/20.157/23.458/2.432 ms
+
+sub get_avg_ping {
+    my $ping_output = `ping -c 2 -W 1 1.1.1.1`;
+    if ($ping_output =~ m/^rtt min\/avg\/max\/mdev = .+\/(.+)\/.+\/.+$/m) {
+        my $ping = $1;
+        chomp $ping;
+        return $1
+    }
+    return "°-°";
+}
+
+my $ping = get_avg_ping();
+
+if ($ping eq "°-°") {
+    print "<span>$ping</span>\n";
+} else {
+    printf "<span>%.2f</span>\n", $ping;
+}
+printf "<span>%.2f</span>\n", $ping;
