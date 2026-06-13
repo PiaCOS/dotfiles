@@ -2,20 +2,23 @@ default:
     just -l
 
 # Update flake inputs
-flake-update:
+update-flake:
     nix flake update
 
 # Rebuild system flake
-system-build:
+build-system:
     sudo nixos-rebuild switch --flake ~/Dev/dotfiles#nixos
-    nvd diff /run/current-system /run/booted-system
+    nvd diff /run/booted-system /run/current-system
 
 # Rebuild home manager
-home-build:
+build-home:
     nix run home-manager/master -- switch --flake ~/Dev/dotfiles#pia
 
 # Rebuild Nixos
-nixos-build:
-    sudo nixos-rebuild switch --flake ~/Dev/dotfiles#nixos
-    nix run home-manager/master -- switch --flake ~/Dev/dotfiles#pia
-    nvd diff /run/booted-system /run/current-system
+build:
+    just build-system
+    just build-home
+
+# Keymap for vampire survivor
+vampire:
+    sudo nix-shell -p "python3.withPackages (ps: [ ps.evdev ])" --run "python3 scripts/vampire_mode.py"
