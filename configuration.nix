@@ -117,6 +117,22 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
+  xdg.portal = {
+    enable = true;
+    # Uses the GTK portal as a generic fallback.
+    # (Make sure to add `pkgs` to your module arguments if it isn't already)
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+    # Required on newer NixOS versions to tell the portal which implementation to use
+    config.common.default = "*";
+  };
+
+  # Enable OpenTabletDriver
+  hardware.opentabletdriver.enable = true;
+
+  # Required by OpenTabletDriver
+  hardware.uinput.enable = true;
+  boot.kernelModules = [ "uinput" ];
 
   # ---------------- Nix ----------------
 

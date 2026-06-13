@@ -54,12 +54,14 @@
             sysstat
             # upower
             vim
+            tree
 
             # GUI apps
             # They need to be in system otherwise they're not displayed in rofi
             blender
             calibre
             feh
+            gimp
             picom
             thunar
             wezterm
@@ -89,6 +91,8 @@
           home.homeDirectory = "/home/pia";
           home.stateVersion = "24.11";
 
+          home.enableNixpkgsReleaseCheck = false;
+
           # ----------------- packages ------------------
 
           home.packages = with pkgs; [
@@ -101,6 +105,7 @@
             zoxide
             ripgrep
             uv
+            senpai
 
             # Development
             just
@@ -151,6 +156,7 @@
 
           programs.git = {
             enable = true;
+            signing.format = null;
             settings = {
               user = {
                 name  = "PiaCOS";
