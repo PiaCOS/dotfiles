@@ -8,11 +8,16 @@ theme = "default_but_better"
 [keys.normal]
 "X" = "extend_line_above"
 "`" = ["move_char_right", "move_prev_word_start", "move_next_word_start", "search_selection"]
-"C-P" = [":pipe scry", "collapse_selection"]
+"C-m" = [":pipe scry", "collapse_selection"]
 "C-p" = [
     ":pipe peek %{language} %{selection}",
     "collapse_selection",
 ]
+# # Typewritter mode
+# "j" = ["move_line_down", "align_view_center"]
+# "down" = ["move_visual_line_down", "align_view_center"]
+# "k" = ["move_line_up", "align_view_center"]
+# "up" = ["move_visual_line_up", "align_view_center"]
 
 [keys.normal.space.z]
 "z" = "rotate_view"
@@ -44,8 +49,9 @@ true-color = true
 end-of-line-diagnostics = "error"
 popup-border = "all"
 trim-trailing-whitespace = true
-# rainbow-brackets = true
+rainbow-brackets = true
 preview-completion-insert = false
+clipboard-provider = "x-clip"
 
 
 [editor.inline-diagnostics]
