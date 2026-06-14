@@ -2,8 +2,17 @@ default:
     just -l
 
 # Update flake inputs
-update-flake:
+update:
     nix flake update
+
+# # Build flake
+# build:
+#     nixos-rebuild build --flake ~/Dev/dotfiles#nixos
+#     nvd diff /run/current-system ./result
+
+# # Apply the update
+# apply:
+#     nixos-rebuild switch --flake ~/Dev/dotfiles#nixos
 
 # Rebuild system flake
 build:

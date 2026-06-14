@@ -83,6 +83,8 @@
             rustup
             steel
             zellij
+            lazygit
+            gitui
 
             # LSP
             nixd
