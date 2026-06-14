@@ -125,3 +125,10 @@ if status is-interactive
         end
     end
 end
+
+# uv
+# fish_add_path "/home/elco/.local/bin"
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
