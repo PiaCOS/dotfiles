@@ -1,0 +1,44 @@
+#!/usr/bin/env steel
+(require "steel/result")
+(require-builtin "steel/process")
+
+; string -> bool
+(define (rtt-line? line)
+  (and (>= (string-length line) 3)
+       (equal? (substring line 0 3) "rtt")))
+
+; (string) -> string|#f
+(define (find-rtt-line lines)
+  (cond [(null? lines) #f]
+        [(rtt-line? (car lines)) (car lines)]
+        [else (find-rtt-line (cdr lines))]))
+
+; string -> string
+(define (format-2dp n)
+  (let* ([number-parts (split-many n ".")])
+    (string-append
+      (list-ref number-parts 0)
+      "."
+      (substring (list-ref number-parts 1) 0 2))))
+
+; string -> string
+(define (avg-from-rtt-line line)
+  (let* ([after-eq (list-ref (split-many line "= ") 1)]
+         [numbers (split-many after-eq "/")])
+    (list-ref numbers 1)))
+
+; string
+(define output
+  (~> (command "ping" (list "1.1.1.1" "-c" "10" "-W" "1" "-i" "0.1"))
+      with-stdout-piped
+      spawn-process
+      unwrap-ok
+      wait->stdout
+      unwrap-ok))
+
+(define lines (split-many output "\n"))
+(define rtt-line (find-rtt-line lines))
+
+(if rtt-line
+    (displayln (string-append "<span>" (format-2dp (avg-from-rtt-line rtt-line)) "</span>"))
+    (displayln "<span>°-°</span>"))
