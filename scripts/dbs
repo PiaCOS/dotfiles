@@ -5,6 +5,6 @@ use warnings;
 
 my $dbs = `psql -U postgres -t -A -c "SELECT datname FROM pg_database WHERE datistemplate = false;"`;
 
-open(my $pipe, '|-', "fzf") or die "bleep bloop: $!";
+open(my $pipe, '|-', "fzf --header=':: Choose a database ::'") or die "bleep bloop: $!";
 print $pipe $dbs;
 close($pipe);

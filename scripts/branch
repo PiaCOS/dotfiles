@@ -4,7 +4,13 @@ use strict;
 use warnings;
 
 my $branches = `git branch`;
+my $current = `git branch --show-current`;
+my $path = `pwd`;
+
+chomp $current;
+chomp $path;
+
 (my $input = $branches) =~ s/^[\* ] //gm;
 
-open(my $pipe, '|-', "fzf");
+open(my $pipe, '|-', "fzf --header=':: You are currently on $path > $current ::'");
 print $pipe $input;
