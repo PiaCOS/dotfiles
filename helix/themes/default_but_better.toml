@@ -1,36 +1,47 @@
-# attribute = "lilac"
-attribute = { fg = "lilac", modifiers = ["italic"] }
-keyword = { fg = "almond", modifiers = ["italic", "bold"] }
-"keyword.directive" = "lilac" # -- preprocessor comments (#if in C)
-namespace = "lilac"
-punctuation = "lavender"
+# ---- EDITOR ----
+
+"attribute" = { fg = "lilac", modifiers = ["italic"] }
+
+"keyword" = { fg = "almond", modifiers = ["italic", "bold"] }
+"keyword.directive" = "lilac"
+
+"namespace" = "lilac"
+
+"punctuation" = "lavender"
 "punctuation.delimiter" = "lavender"
-operator = "lilac"
-special = "honey"
+"operator" = "lilac"
+"special" = "honey"
+
 "variable.other.member" = "white"
-variable = "lavender"
-# variable = "almond" # TODO: metavariables only
-# "variable.parameter" = { fg = "lavender", modifiers = ["underlined"] }
+"variable" = "lavender"
 "variable.parameter" = { fg = "lavender" }
 "variable.builtin" = "mint"
-type = "white"
-"type.builtin" = "white" # TODO: distinguish?
-constructor = "lilac"
-function = "white"
+
+"type" = "white"
+"type.builtin" = "white"
+
+"constructor" = "lilac"
+
+"function" = "white"
 "function.definition" = "mint"
 "function.macro" = "lilac"
 "function.builtin" = "white"
-tag = { fg = "almond", modifiers = ["bold"] }
-comment = { fg = "sirocco", modifiers = ["italic"] }
-constant = "white"
+
+"tag" = { fg = "almond", modifiers = ["bold"] }
+
+"comment" = { fg = "sirocco", modifiers = ["italic"] }
+
+"constant" = "white"
 "constant.builtin" = "white"
-# string = "silver"
-string = "mint"
 "constant.numeric" = "chamois"
 "constant.character.escape" = "honey"
-# used for lifetimes
-label = "honey"
-tabstop = { modifiers = ["italic"], bg = "bossanova" }
+
+"string" = "mint"
+
+"label" = "honey"
+"tabstop" = { modifiers = ["italic"], bg = "bossanova" }
+
+# ---- MARKUP ----
 
 "markup.heading" = "mint"
 "markup.bold" = { modifiers = ["bold"] }
@@ -38,16 +49,16 @@ tabstop = { modifiers = ["italic"], bg = "bossanova" }
 "markup.strikethrough" = { modifiers = ["crossed_out"] }
 "markup.link.url" = { fg = "silver", modifiers = ["underlined"] }
 "markup.link.text" = "lilac"
-"markup.raw" = "white"
+"markup.raw" = "honey"
+"markup.quote" = { fg = "sirocco", modifiers = ["italic"] }
+
+# ---- DIFF ----
 
 "diff.plus" = "mint"
 "diff.minus" = "apricot"
-# "diff.plus" = "#35bf86"
-# "diff.minus" = "#f22c86"
 "diff.delta" = "#6f44f0"
 
-# TODO: differentiate doc comment
-# concat (ERROR) @error.syntax and "MISSING ;" selectors for errors
+# ---- UI ----
 
 "ui.background" = { bg = "midnight" }
 "ui.background.separator" = { fg = "comet" }
@@ -65,13 +76,9 @@ tabstop = { modifiers = ["italic"], bg = "bossanova" }
 "ui.virtual" = { fg = "comet" }
 "ui.virtual.ruler" = { bg = "bossanova" }
 "ui.virtual.jump-label" = { fg = "apricot", modifiers = ["bold"] }
-
-# "ui.virtual.indent-guide" = { fg = "comet" }
 "ui.virtual.indent-guide" = { fg = "midnight" }
-
 "ui.selection" = { bg = "#540099" }
 "ui.selection.primary" = { bg = "#540099" }
-# TODO: namespace ui.cursor as ui.selection.cursor?
 "ui.cursor.select" = { bg = "delta" }
 "ui.cursor.insert" = { bg = "white" }
 "ui.cursor.primary.select" = { bg = "delta" }
@@ -87,6 +94,8 @@ tabstop = { modifiers = ["italic"], bg = "bossanova" }
 "ui.menu.selected" = { fg = "revolver", bg = "white" }
 "ui.menu.scroll" = { fg = "lavender", bg = "comet" }
 
+# ---- DIAGNOSTIC ----
+
 "diagnostic.hint" = { underline = { color = "silver", style = "curl" } }
 "diagnostic.info" = { underline = { color = "delta", style = "curl" } }
 "diagnostic.warning" = { underline = { color = "lightning", style = "curl" } }
@@ -98,6 +107,8 @@ warning = "lightning"
 error = "apricot"
 info = "delta"
 hint = "silver"
+
+# ---- PALETTE ----
 
 [palette]
 white = "#ffffff"

@@ -1,9 +1,4 @@
-# theme = "trans_theme"
-# theme = "vesper"
-# theme = "ashokai_urple"
-# theme = "evergarden_fall"
 theme = "default_but_better"
-
 
 [keys.normal]
 "X" = "extend_line_above"
@@ -13,11 +8,17 @@ theme = "default_but_better"
     ":pipe peek %{language} %{selection}",
     "collapse_selection",
 ]
-# # Typewritter mode
-# "j" = ["move_line_down", "align_view_center"]
-# "down" = ["move_visual_line_down", "align_view_center"]
-# "k" = ["move_line_up", "align_view_center"]
-# "up" = ["move_visual_line_up", "align_view_center"]
+"tab" = "jump_forward"
+"S-tab" = "jump_backward"
+
+[keys.normal.space]
+l = ":sh git blame -L %{cursor_line},+1 %{buffer_name}"
+# B = ":sh git log -L %{cursor_line},+1:%{buffer_name}"
+B = ":sh git blame -L %{selection_line_start},%{selection_line_end} %{buffer_name}"
+L = [
+    ":pipe-to sh -c 'commit_hash=$(git blame -L %{cursor_line},+1 --porcelain %{buffer_name} | head -n 1 | awk \"{print \\$1}\"); git show $commit_hash > /tmp/hx-git-show.diff'",
+    ":open /tmp/hx-git-show.diff"
+]
 
 [keys.normal.space.z]
 "z" = "rotate_view"
