@@ -1,0 +1,40 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use JSON::PP;
+
+print "Fetching your open PRs...\n";
+my $json_output = `gh search prs --author "\@me" --state open --json repository,number,title,createdAt`;
+
+my $prs = decode_json($json_output);
+
+my $choices = "";
+for (my $i = 0; $i < @$prs; $i++) {
+    my $pr    = $prs->[$i];
+    my $repo  = $pr->{repository}->{nameWithOwner};
+    my $pr_id = $pr->{number};
+    my $title = $pr->{title};
+    my $date  = $pr->{createdAt};
+
+    $choices .= sprintf("%2d :: %-19s #%-8s %s\n", $i, $repo, $pr_id, $title);
+}
+
+print $choices;
+print "Enter a valid PR id: ";
+
+my $user_input = <STDIN>;
+chomp($user_input);
+
+if ($user_input =~ /^\d+$/ && $user_input >= 0 && $user_input < @$prs) {
+    my $selected_pr_number = $prs->[$user_input]->{number};
+    my $selected_repo      = $prs->[$user_input]->{repository}->{nameWithOwner};
+    my $selected_pr        = $prs->[$user_input]->{title};
+
+    print "\n#$selected_pr_number\t$selected_pr\n\n";
+    system("gh", "pr", "checks", $selected_pr_number, "--repo", $selected_repo, "--watch");
+} else {
+    die "Not a valid number, sorry >.<";
+}
+
+
+
