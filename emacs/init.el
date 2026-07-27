@@ -1,0 +1,306 @@
+;; -*- lexical-binding: t; -*-
+
+;; =====================================================================
+;;                                Setup
+;; =====================================================================
+
+;; --- load gnu and melpa (for meow) ---
+
+(require 'package)
+(setq package-archives
+      '(("gnu"    . "https://elpa.gnu.org/packages/")
+        ("melpa"  . "https://melpa.org/packages/")))
+(package-initialize)
+
+(unless package-archive-contents
+  (package-refresh-contents))
+
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t) ;; auto-install packages if missing
+
+(global-unset-key (kbd "C-z")) ; For avy + replace-regexp
+
+;; =====================================================================
+;;                                Keymaps
+;; =====================================================================
+
+(global-set-key (kbd "C-=") #'text-scale-increase)
+(global-set-key (kbd "C--") #'text-scale-decrease)
+(global-set-key (kbd "C-0") #'text-scale-adjust) ;; resets to default
+
+(global-set-key (kbd "C-z r") #'replace-regexp)
+
+(global-set-key (kbd "C-z C-z C-z") #'eval-buffer)
+
+;; =====================================================================
+;;                                 Theme
+;; =====================================================================
+
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+; (menu-bar-mode -1)
+
+(setq doom-theme 'doom-gruvbox)
+(use-package doom-themes
+  :config (load-theme doom-theme t))
+
+(set-face-attribute 'default nil :font "Maple Mono NF" :height 100)
+(set-face-attribute 'fixed-pitch nil :font "Maple Mono NF")
+(set-face-attribute 'font-lock-comment-face nil :slant 'italic)
+
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+
+;; =====================================================================
+;;                                Custom
+;; =====================================================================
+
+; -------- Indent Helpers --------
+
+(defun my/indent-region-or-line (n)
+  (if (use-region-p)
+      (indent-rigidly (region-beginning) (region-end) n)
+    (indent-rigidly (line-beginning-position) (line-end-position) n)))
+
+(defun my/indent-right ()
+  "Indent 'tab-size' to the right."
+  (interactive)
+  (my/indent-region-or-line tab-width))
+(defun my/indent-left ()
+  "Indent 'tab-size' to the left."
+  (interactive)
+  (my/indent-region-or-line (- tab-width)))
+
+; -------- Surround chars --------
+; Asks for the chars to surround a selection with. The matching brackets 
+; are found in 'insert-pair-alist' and it prompt the user with the
+; 'minibuffer'.
+
+(defun my/get-matching-bracket (char-string)
+  (let* ((ch (string-to-char char-string))
+	 (pair (assq ch insert-pair-alist)))
+    (if pair
+	(char-to-string (cadr pair))
+      char-string)))
+
+(defun my/reverse-chars (chars)
+  (mapconcat
+   (lambda (x)
+     (let ((s (char-to-string x)))
+	 (or (my/get-rmatching-bracket s) s)))
+   (reverse (string-to-list chars))
+   ""))
+
+(defun my/surround-with (&optional arg)
+  "Surround a selection with the given characters."
+  (interactive "P")
+  (let* ((chars (read-from-minibuffer "Enter char to surround with: "))
+	 (rchars (my/reverse-chars chars)))
+    (insert-pair arg chars rchars)))
+
+;; =====================================================================
+;;                                Packages
+;; =====================================================================
+
+(use-package rust-mode)
+(use-package envrc
+  :config (envrc-global-mode))
+
+(use-package avy :ensure t)
+(global-set-key (kbd "C-z z") 'avy-goto-char)
+(global-set-key (kbd "C-z d") 'avy-goto-line)
+(global-set-key (kbd "C-z a") 'avy-goto-word-1)
+
+(use-package marginalia
+  :bind (:map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+  :init (marginalia-mode))
+
+(use-package vertico
+  :config (vertico-mode 1))
+
+(use-package consult
+  :bind (("C-c s" . consult-ripgrep)
+	 ("C-c p" . consult-fd)))
+
+(use-package indent-bars
+  :custom
+  (indent-bars-no-descend-lists 'skip) ; prevent extra bars in nested lists + skip intermediate bars
+  (indent-bars-treesit-support t)
+  (indent-bars-treesit-ignore-blank-lines-types '("module"))
+  ;; Add other languages as needed; check the wiki
+  (indent-bars-treesit-scope '((python function_definition class_definition for_statement
+	  if_statement with_statement while_statement)))
+  :hook ((python-base-mode yaml-mode) . indent-bars-mode))
+
+
+;; =====================================================================
+;;                                 Magit
+;; =====================================================================
+
+(use-package magit
+  :ensure t
+  :bind (("C-c f B" . magit-blame)
+         ("C-c f b" . magit-blame-addition)
+         ("C-c f r" . magit-blame-removal)
+         ("C-c f f" . magit-blame-reverse)
+         ("C-c f e" . magit-blame-echo)
+	 ("C-c f q" . magit-blame-quit)))
+(setq magit-blame-styles
+      '((headline
+         (heading-format . "%-20a %C %s\n"))
+        (margin
+         (margin-format " %s%f" " %C %a" " %h")
+         (margin-width . 42)
+         (margin-face . magit-blame-margin)
+         (margin-body-face (magit-blame-dimmed)))))
+
+
+(global-set-key (kbd "C-x à") #'delete-window)         ;; instead of C-x 0
+(global-set-key (kbd "C-x &") #'delete-other-windows)  ;; instead of C-x 1
+(global-set-key (kbd "C-x é") #'split-window-below)    ;; instead of C-x 2
+(global-set-key (kbd "C-x \"") #'split-window-right)   ;; instead of C-x 3
+
+;; =====================================================================
+;;                             Meow mrreow :3
+;; =====================================================================
+
+(use-package meow
+  :config
+  (defun meow-setup ()
+    (meow-motion-overwrite-define-key
+     '("j" . meow-next)
+     '("k" . meow-prev)
+     '("<escape>" . ignore))
+    (meow-leader-define-key
+     '("1" . meow-digit-argument)
+     '("2" . meow-digit-argument)
+     '("3" . meow-digit-argument)
+     '("4" . meow-digit-argument)
+     '("5" . meow-digit-argument)
+     '("6" . meow-digit-argument)
+     '("7" . meow-digit-argument)
+     '("8" . meow-digit-argument)
+     '("9" . meow-digit-argument)
+     '("0" . meow-digit-argument)
+     '("/" . meow-keypad-describe-key)
+     '("?" . meow-cheatsheet))
+    (meow-normal-define-key
+     '("0" . meow-expand-0)
+     '("1" . meow-expand-1)
+     '("2" . meow-expand-2)
+     '("3" . meow-expand-3)
+     '("4" . meow-expand-4)
+     '("5" . meow-expand-5)
+     '("6" . meow-expand-6)
+     '("7" . meow-expand-7)
+     '("8" . meow-expand-8)
+     '("9" . meow-expand-9)
+     '("-" . negative-argument)
+     '(";" . meow-reverse)
+     '("," . meow-inner-of-thing)
+     '("." . meow-bounds-of-thing)
+     '("[" . meow-beginning-of-thing)
+     '("]" . meow-end-of-thing)
+     '("a" . meow-append)
+     '("A" . meow-open-below)
+     '("b" . meow-back-word)
+     '("B" . meow-back-symbol)
+     '("c" . meow-change)
+     '("d" . meow-delete)
+     '("D" . meow-backward-delete)
+     '("e" . meow-next-word)
+     '("E" . meow-next-symbol)
+     '("f" . meow-find)
+     '("g" . meow-cancel-selection)
+     '("G" . meow-grab)
+     '("h" . meow-left)
+     '("H" . meow-left-expand)
+     '("i" . meow-insert)
+     '("I" . meow-open-above)
+     '("j" . meow-next)
+     '("J" . meow-next-expand)
+     '("k" . meow-prev)
+     '("K" . meow-prev-expand)
+     '("l" . meow-right)
+     '("L" . meow-right-expand)
+     '("m" . meow-join)
+     '("n" . meow-search)
+     '("o" . meow-block)
+     '("O" . meow-to-block)
+     '("p" . meow-yank)
+     '("q" . meow-quit)
+     '("Q" . meow-goto-line)
+     '("r" . meow-replace)
+     '("R" . meow-swap-grab)
+     '("s" . meow-kill)
+     '("t" . meow-till)
+     '("u" . meow-undo)
+     '("U" . meow-undo-in-selection)
+     '("v" . meow-visit)
+     '("w" . meow-mark-word)
+     '("W" . meow-mark-symbol)
+     '("x" . meow-line)
+     '("X" . meow-goto-line)
+     '("y" . meow-save)
+     '("Y" . meow-sync-grab)
+     '("z" . meow-pop-selection)
+     '("'" . repeat)
+     '("<escape>" . ignore)
+     ; ---- custom ----
+     '(">" . my/indent-right)
+     '("<" . my/indent-left)))
+  (meow-setup)
+  ; ---- azerty angry noise ----
+  (defvar my/azerty-digit-row '(("&" . 1) ("é" . 2) ("\"" . 3) ("'" . 4)
+				("(" . 5) ("§" . 6) ("è" . 7) ("!" . 8)
+				("ç" . 9) ("à" . 0)))
+  (dolist (pair my/azerty-digit-row)
+    (let ((key (car pair))
+	  (digit (cdr pair)))
+      (meow-normal-define-key
+       (cons key
+	     (lambda ()
+	       (interactive)
+	       (universal-argument--mode)
+	       (setq prefix-arg
+		     (cond ((intergerp prefix-arg)
+			    (+ (* prefix-arg 10)
+			       (if (< prefix-arg 0) (- digit) digit)))
+			   ((eq prefix-arg '-)
+			    (if (zerop digit) '- (- digit)))
+			   (t digit))))))))
+  (meow-global-mode 1))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(avy consult doom-themes envrc highlight-indent-guides indent-bars
+	 magit marginalia meow rust-mode undo-fu vertico)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; =====================================================================
+;;                         Needs to run after Meow
+;; =====================================================================
+
+(use-package undo-fu
+  :config
+  (meow-normal-define-key
+   '("u" . undo-fu-only-undo)
+   '("U" . undo-fu-only-redo)))
+
+
+;; =====================================================================
+;;                                END
+;; =====================================================================
+
+(message "eval-buffer :3")
