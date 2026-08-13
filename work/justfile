@@ -20,7 +20,8 @@ DB_ARGS := "--db_host=localhost --db_user=odoo --db_password=odoo"
 
 # Drop default_db
 dropdd DB='$(dbs)':
-    dropdb -h localhost -U odoo {{DB}}
+    # dropdb -h localhost -U odoo {{DB}}
+    iter "dropdb -h localhost -U odoo {}" {{DB}} -d
 
 # List all databases
 list-db:
@@ -36,6 +37,14 @@ addext_pgvector DB='$(dbs)':
     # - install pgvector: `yay -S pgvector`
     # - install pgvector in env: `uv pip install pgvector`
     psql {{DB}} -U postgres -c "CREATE EXTENSION IF NOT EXISTS vector;"
+
+# Print selected modules
+echo-selected:
+    @echo {{SELECTED_MODULES}}
+
+# Print random modules
+echo-random:
+    @echo {{RANDOM_MODULES}}
 
 # -------- ODOO Recipes -------- #
 
@@ -68,8 +77,12 @@ shell DB=DB:
     uv run {{BIN}} shell --addons-path={{ENTERPRISE_ADDONS}} -d {{DB}} {{DB_ARGS}}
 
 # Run tests for a specific module (e.g., `just test /account`, `just test :TestApiDoc`)
-test module DB=DB:
+test module DB='$(dbs)':
     uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} -d {{DB}} --test-tags {{module}} {{DB_ARGS}} --stop-after-init
+
+# Run tests for a specific module (e.g., `just test /account`, `just test :TestApiDoc`)
+test_porcelain module DB='$(dbs)':
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} -d {{DB}} --test-tags {{module}} {{DB_ARGS}} --stop-after-init --log-level warn
 
 
 # -------- QUICK Recipes -------- #
@@ -93,13 +106,45 @@ random-demo:
 
 # -------- TASK Recipes -------- #
 
+# owl3 migration
+o-owl3-migrate:
+    uv run {{BIN}} upgrade_code --script owl3-migration.py --addons-path={{ENTERPRISE_ADDONS}}
+
 # My Subscription Task quick setup
-mysubscription:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}}  -d mysub_db -i mysubscription,crm,hr,contacts,sale_management,mass_mailing,mail,contacts,mass_mailing_sms,hr_skills --with-demo --stop-after-init
+o-mysubscription:
+    just demo crm,sale_manegement,hr,contacts,mysubscription mysub_demo_db
     just run-e
 
-# Setup to bisect api_doc
-api-doc-bisect:
-    just dropdd api_bisect_db
-    just install api_doc api_bisect_db
-    just drun api_bisect_db
+# Studio reorder quick setup
+o-studio-reorder:
+    just install web_studio,hr studio_reorder_db
+    just drun-e studio_reorder_db
+
+# Studio reorder quick setup whole test suite
+o-test-studio-reorder:
+    just install web_studio,hr studio_reorder_db
+    just test_porcelain /web_studio studio_reorder_db
+
+# Add followers subtype
+o-mail-stuff:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
+        -d default_db \
+        -i mail,base_automation,sale_management,test_mail \
+        -u mail,base_automation,sale_management,test_mail \
+        --with-demo
+
+# Revert count in grouped list
+o-list-count:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
+        -d list_group_db \
+        -i hr,planning,contacts,project \
+        -u hr,planning,contacts,project \
+        --with-demo
+
+# Try out Accountant empty group impl
+o-empty-group:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
+        -d empty_group_db \
+        -i accountant,project,planning \
+        -u accountant,project,planning \
+        --with-demo
