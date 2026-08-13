@@ -10,8 +10,13 @@ my $helper = "
 F-SWITCH :: help
   fswitch is a simple wrapper around git fetch and git switch.
 
-> fswitch <remote> <branch>         :: fetch and switch to a remote branch.
-> fswitch <remote> <remote:branch>  :: strips the prefix from the branch if included.
+> fswitch <remote> <branch>       :: fetch and switch to a remote branch.
+> fswitch <remote> <repo:branch>  :: strips the prefix from the branch if included.
+
+Examples:
+
+> fswitch origin my-fork:feat-my-branch
+> fswitch codeberg fix-typo
 
 ~ made by Perl ~
 ";
@@ -34,6 +39,14 @@ my $branch = ($gbranch =~ /\S+:(\S+)/)
     ? $1
     : $gbranch;
 
-system "git fetch $remote $branch";
-system "git switch $branch";
+my $fetch_cmd = "git fetch $remote $branch";
+printf "> $fetch_cmd\n";
+system $fetch_cmd;
+
+printf "\n";
+
+my $switch_cmd = "git switch $branch";
+printf "> $switch_cmd\n";
+system $switch_cmd;
+
 print "\nfetch+switch to $remote/$branch\n";
