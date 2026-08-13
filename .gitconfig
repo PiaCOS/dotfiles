@@ -10,6 +10,8 @@
 
 	peek = diff HEAD~1 HEAD
 
+	minishow = show --pretty="format:" --name-only
+
 	# git branch --show-current should also work
 	pwd = rev-parse --abbrev-ref HEAD
 

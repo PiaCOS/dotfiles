@@ -47,6 +47,7 @@ if status is-interactive
     abbr br "git switch (branch)"
     abbr drop "dropdb -h localhost -U odoo (dbs)"
     abbr ff "fg %(jobs | fgf)"
+    abbr opendiff "hx (git diff --name-only HEAD~)"
 
     # used to sudo last command
     abbr !! --position anywhere --function last_history_item
