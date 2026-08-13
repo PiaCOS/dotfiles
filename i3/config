@@ -480,6 +480,7 @@ bindsym $mod+t exec --no-startup-id rofi -show window
 
 # Screen blanck (=Idle): 10min | turn off display: 15min
 exec --no-startup-id xset s 600 dpms 900 900 900
+# exec --no-startup-id xset s 6000 dpms 9000 9000 9000
 
 # Lock screen after 10 minutes of idle
 exec --no-startup-id xss-lock \
