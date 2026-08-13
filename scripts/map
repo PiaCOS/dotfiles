@@ -1,0 +1,24 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my $cmd = $ARGV[0];
+$cmd =~ s/^\s+|\s+$//g;
+
+my @cmd = split(/\{\}/, $cmd, -1);
+die 'Invalid command: please format it as such "my command with {}"' unless @cmd == 2;
+
+my @args = @ARGV[1..$#ARGV];
+my @commands = map { $cmd[0] . $_ . $cmd[1] } @args;
+print "> $_\n" for @commands;
+
+printf "\nDo you want to proceed ? [Y/n]\n";
+my $answer = <STDIN>;
+if ($answer =~ /y/i || $answer =~ /^\s*$/) {
+	foreach(@commands) {
+		system($_);
+	}
+} else {
+	printf "Aborting... \n";
+}
