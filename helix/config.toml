@@ -11,15 +11,6 @@ theme = "default_but_better"
 "tab" = "jump_forward"
 "S-tab" = "jump_backward"
 
-[keys.normal.space]
-l = ":sh git blame -L %{cursor_line},+1 %{buffer_name}"
-# B = ":sh git log -L %{cursor_line},+1:%{buffer_name}"
-B = ":sh git blame -L %{selection_line_start},%{selection_line_end} %{buffer_name}"
-L = [
-    ":pipe-to sh -c 'commit_hash=$(git blame -L %{cursor_line},+1 --porcelain %{buffer_name} | head -n 1 | awk \"{print \\$1}\"); git show $commit_hash > /tmp/hx-git-show.diff'",
-    ":open /tmp/hx-git-show.diff"
-]
-
 [keys.normal.space.z]
 "z" = "rotate_view"
 "v" = "vsplit"
@@ -29,7 +20,6 @@ L = [
 "right" = "jump_view_right"
 "left" = "jump_view_left"
 
-
 [keys.normal.g]
 "g" = "goto_word"
 "G" = "goto_file_start"
@@ -38,9 +28,16 @@ L = [
 "g" = "goto_word"
 "G" = "goto_file_start"
 
-
 [keys.insert]
 "j" = { "j" = "normal_mode" }
+
+[keys.normal.space.B]
+l = ":sh git blame -L %{cursor_line},+1 %{buffer_name}"
+b = ":sh git blame -L %{selection_line_start},%{selection_line_end} %{buffer_name}"
+L = [
+    ":pipe-to sh -c 'commit_hash=$(git blame -L %{cursor_line},+1 --porcelain %{buffer_name} | head -n 1 | awk \"{print \\$1}\"); git show $commit_hash > /tmp/hx-git-show.diff'",
+    ":open /tmp/hx-git-show.diff"
+]
 
 
 [editor]
@@ -81,7 +78,7 @@ mode.select = "SELECT"
 '[' = ']'
 '"' = '"'
 "'" = "'"
-'`' = '`'
+# '`' = '`'
 '<' = '>'
 
 
@@ -103,16 +100,6 @@ wrap-indicator = ""
 [editor.smart-tab]
 enable = true
 supersede-menu = true # :3
-
-
-
-# [editor.whitespace.characters]
-# space = "·"
-# nbsp = "⍽"
-# nnbsp = "␣"
-# tab = "→"
-# newline = "⏎"
-# tabpad = "·"
 
 
 [editor.indent-guides]
