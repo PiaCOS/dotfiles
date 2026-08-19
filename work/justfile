@@ -10,7 +10,7 @@ DEV := "xml,qweb"
 COMMUNITY_ADDONS := "community/addons"
 ENTERPRISE_ADDONS := "community/addons,enterprise"
 
-SELECTED_MODULES := "project,web_studio,contact,api_doc,hr,crm,mysubscription"
+SELECTED_MODULES := "project,web_studio,contact,api_doc,hr,crm"
 RANDOM_MODULES := "project,web_studio,contact,api_doc,hr,crm,sale_management,stock,purchase,accountant,point_of_sale,mrp,mass_mailing,documents,calendar,mysubscription"
 
 # -------- DB Config -------- #
@@ -18,10 +18,26 @@ DB_ARGS := "--db_host=localhost --db_user=odoo --db_password=odoo"
 
 # -------- PSQL Recipes -------- #
 
-# Drop default_db
-dropdd DB='$(dbs)':
-    # dropdb -h localhost -U odoo {{DB}}
-    iter "dropdb -h localhost -U odoo {}" {{DB}} -d
+# Echo all dbs name
+dbs:
+    @psql -U postgres -c "\l" \
+        | rg -o "^\s(\S+)\s*\|" -r '$1' \
+        | rg -v "^(template\d|postgres)$"
+
+# Pipe all dbs name into fzf
+fzf-dbs:
+    @psql -U postgres -c "\l" \
+        | rg -o "^\s(\S+)\s*\|" -r '$1' \
+        | rg -v "^(template\d|postgres)$" \
+        | fzf -m --header ":: Choose a database ::"
+
+# Drop selected dbs
+dropdd:
+    @psql -U postgres -c "\l" \
+        | rg -o "^\s(\S+)\s*\|" -r '$1' \
+        | rg -v "^(template\d|postgres)$" \
+        | fzf -m --header ":: Choose a database ::" \
+        | iter "dropdb -h localhost -U odoo {}" -d
 
 # List all databases
 list-db:
@@ -32,7 +48,7 @@ list-user:
     psql -U postgres -c "\du"
 
 # Add pg_vector to a db (for AI stuff)
-addext_pgvector DB='$(dbs)':
+addext_pgvector DB='$(just fzf-dbs)':
     # Might be necessary to:
     # - install pgvector: `yay -S pgvector`
     # - install pgvector in env: `uv pip install pgvector`
@@ -46,62 +62,102 @@ echo-selected:
 echo-random:
     @echo {{RANDOM_MODULES}}
 
-# -------- ODOO Recipes -------- #
+
+# -------- ODOO Recipes :: Runners -------- #
 
 # Run community Odoo
 run:
-    uv run {{BIN}} --addons-path={{COMMUNITY_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}}
+    uv run {{BIN}} --addons-path={{COMMUNITY_ADDONS}} --dev={{DEV}} {{DB_ARGS}} \
+        --http-port={{PORT}}
 
 # Run enterprise Odoo
 run-e:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}}
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} {{DB_ARGS}} \
+        --http-port={{PORT}}
 
 # Run community Odoo with -d DB
-drun DB=DB:
-    uv run {{BIN}} --addons-path={{COMMUNITY_ADDONS}} --dev={{DEV}} --http-port={{PORT}} -d {{DB}} {{DB_ARGS}}
+drun DB='$(just fzf-dbs)':
+    uv run {{BIN}} --addons-path={{COMMUNITY_ADDONS}} --dev={{DEV}} {{DB_ARGS}} \
+        --http-port={{PORT}} \
+        -d {{DB}}
 
 # Run enterprise Odoo with -d DB
-drun-e DB=DB:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} -d {{DB}} {{DB_ARGS}}
+drun-e DB='$(just fzf-dbs)':
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} {{DB_ARGS}} \
+        --http-port={{PORT}} \
+        -d {{DB}}
+
+
+# -------- ODOO Recipes :: Installers -------- #
 
 # Install specific modules (eg: `just install project,crm`)
 install modules DB=DB:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} -d {{DB}} -i {{modules}} {{DB_ARGS}} --stop-after-init
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+        -d {{DB}} \
+        -i {{modules}} \
+        --stop-after-init
 
 # Initialize a db with demo data and specific modules (eg: `just demo project,crm`)
-demo modules DB=DB:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} -d {{DB}} -i {{modules}} --with-demo {{DB_ARGS}} --stop-after-init
+install-demo modules DB=DB:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+        -d {{DB}} \
+        -i {{modules}} \
+        --with-demo \
+        --stop-after-init
+
+# Install modules from SELECTED
+install-selected modules DB=DB:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+        -d {{DB}} \
+        -i {{SELECTED_MODULES}} \
+        --stop-after-init
+
+# Install modules from SELECTED with demo data
+install-selected-demo modules DB=DB:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+        -d {{DB}} \
+        -i {{SELECTED_MODULES}} \
+        --with-demo \
+        --stop-after-init
+
+# Install modules from RANDOM
+install-random modules DB=DB:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+        -d {{DB}} \
+        -i {{RANDOM_MODULES}} \
+        --stop-after-init
+
+# Install modules from RANDOM with demo data
+install-random-demo modules DB=DB:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+        -d {{DB}} \
+        -i {{RANDOM_MODULES}} \
+        --with-demo \
+        --stop-after-init
+
+
+# -------- ODOO Recipes :: Specials -------- #
 
 # Open Odoo shell
-shell DB=DB:
+shell DB='$(just fzf-dbs)':
     uv run {{BIN}} shell --addons-path={{ENTERPRISE_ADDONS}} -d {{DB}} {{DB_ARGS}}
 
 # Run tests for a specific module (e.g., `just test /account`, `just test :TestApiDoc`)
-test module DB='$(dbs)':
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} -d {{DB}} --test-tags {{module}} {{DB_ARGS}} --stop-after-init
+test modules_to_install test_tags DB='$(just fzf-dbs)':
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+        -d {{DB}} \
+        -i {{modules_to_install}} -u {{modules_to_install}} \
+        --test-tags {{test_tags}} \
+        --stop-after-init
 
 # Run tests for a specific module (e.g., `just test /account`, `just test :TestApiDoc`)
-test_porcelain module DB='$(dbs)':
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} -d {{DB}} --test-tags {{module}} {{DB_ARGS}} --stop-after-init --log-level warn
-
-
-# -------- QUICK Recipes -------- #
-
-# Run a quick db with modules in enterprise
-select:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} -d {{DB}} {{DB_ARGS}} -i {{SELECTED_MODULES}}
-
-# Run a quick db with modules in enterprise with demo data
-select-demo:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} -d {{DB}} {{DB_ARGS}} -i {{SELECTED_MODULES}} --with-demo
-
-# Run a quick db with LOTS of modules in enterprise
-random:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} -d {{DB}} {{DB_ARGS}} -i {{RANDOM_MODULES}}
-
-# Run a quick db with LOTS of modules in enterprise with demo data
-random-demo:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} -d {{DB}} {{DB_ARGS}} -i {{RANDOM_MODULES}} --with-demo
+test_porcelain modules_to_install test_tags DB='$(just fzf-dbs)':
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+        -d {{DB}} \
+        -i {{modules_to_install}} -u {{modules_to_install}} \
+        --test-tags {{test_tags}} \
+        --stop-after-init \
+        --log-level warn
 
 
 # -------- TASK Recipes -------- #
