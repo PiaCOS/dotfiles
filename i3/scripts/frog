@@ -1,0 +1,96 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use Time::HiRes qw(gettimeofday usleep);
+
+my @frog_loop = (
+    ".                                [:",
+    ".*                               [:",
+    " .*                              [:",
+    "  .*                             [:",
+    "   .*                            [:",
+    "    .*                           [:",
+    "     .*                          [:",
+    "      .*                         [:",
+    "       .*                        [:",
+    "        .*                       [:",
+    "         .*                      ε:",
+    "	       .*                     ε:",
+    "	        .*                    ε:",
+    "            *                   ~[:",
+    "            *                  ~~[:",
+    "            *                 ~~~[:",
+    "            *                ~~~~[:",
+    "            *               ~~~~~[:",
+    "            *              ~~~~~~[:",
+    "            *             ~~~~~~~[:",
+    "            *            ~~~~~~~~[:",
+    "            *           ~~~~~~~~~[:",
+    "            *          ~~~~~~~~~~[:",
+    "            *         ~~~~~~~~~~~[:",
+    "	         *        ~~~~~~~~~~~~[:",
+    "	         *       ~~~~~~~~~~~~~[:",
+    "	         *      ~~~~~~~~~~~~~~[:",
+    "	         *     ~~~~~~~~~~~~~~~[:",
+    "	         *    ~~~~~~~~~~~~~~~~[:",
+    "	         *   ~~~~~~~~~~~~~~~~~[:",
+    "	         *  ~~~~~~~~~~~~~~~~~~[:",
+    "	         * ~~~~~~~~~~~~~~~~~~~[:",
+    "	         *~~~~~~~~~~~~~~~~~~~~[:",
+    "	          *~~~~~~~~~~~~~~~~~~~[:",
+    "	           *~~~~~~~~~~~~~~~~~~[:",
+    "	            *~~~~~~~~~~~~~~~~~[:",
+    "	             *~~~~~~~~~~~~~~~~[:",
+    "	              *~~~~~~~~~~~~~~~[:",
+    "	               *~~~~~~~~~~~~~~[:",
+    "	                *~~~~~~~~~~~~~[:",
+    "	                 *~~~~~~~~~~~~[:",
+    "	                  *~~~~~~~~~~~[:",
+    "	                   *~~~~~~~~~~[:",
+    "	                    *~~~~~~~~~[:",
+    "	                     *~~~~~~~~[:",
+    "	                      *~~~~~~~[:",
+    "	                       *~~~~~~[:",
+    "	                        *~~~~~[:",
+    "	                         *~~~~[:",
+    "	                          *~~~[:",
+    "	                           *~~[:",
+    "	                            *~[:",
+    "	                             *O:",
+    "	                              |:",
+    "	                              O:",
+    "	                              [:",
+);
+
+sub get_frame {
+    my $frame_index = shift;
+
+    my $num_frames = scalar @frog_loop;
+    if ($frame_index >= $num_frames) {
+        return $frog_loop[$num_frames-1];
+    } else {
+        return $frog_loop[$frame_index];
+    }
+}
+
+$| = 1;  # autoflush
+
+my $num_frames = scalar @frog_loop;
+my $quarters_per_minute = 240;  # 60 sec * 4 quarters/sec
+use POSIX qw(strftime);
+while (1) {
+    my ($sec, $usec) = gettimeofday();
+
+    my $quarter = int($usec / 250000);
+    my $seconds = (localtime($sec))[0];
+    my $current_quarter = $seconds * 4 + $quarter;  # 0-239
+
+    my $frame = get_frame($current_quarter);
+
+    print "<span>$frame</span>\n";
+    print "$frame\n";
+
+    my $sleep_usec = 250000 - ($usec % 250000);
+    usleep($sleep_usec);
+}
