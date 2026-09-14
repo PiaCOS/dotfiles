@@ -5,7 +5,7 @@ theme = "default_but_better"
 "`" = ["move_char_right", "move_prev_word_start", "move_next_word_start", "search_selection"]
 "C-m" = [":pipe scry", "collapse_selection"]
 "C-p" = [
-    ":pipe peek %{language} %{selection}",
+    ":pipe peek %{language}",
     "collapse_selection",
 ]
 "tab" = "jump_forward"

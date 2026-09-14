@@ -8,12 +8,24 @@ use feature 'switch';
 # * `($language, $buffer) -> $string`
 sub get_dbg_keyword {
     my ($language, $buffer) = @_;
-    given($language) {
-        when("javascript") { return "console.log('$buffer: ', $buffer); // PEEK";}
-        when("python")     { return "print('$buffer: ', $buffer) # PEEK";}
-        when("perl")       { return "print '$buffer' # PEEK";}
-        when("rust")       { return "dbg!($buffer); // PEEK";}
-        default            { return "";}
+    if ($buffer =~ /^\"/) {
+        given($language) {
+            when("javascript") { return "console.log($buffer); // PEEK";}
+            when("python")     { return "print($buffer) # PEEK";}
+            when("perl")       { return "print '$buffer' # PEEK";}
+            when("rust")       { return "dbg!($buffer); // PEEK";}
+            default            { return "";}
+        }
+
+    }
+    else {
+        given($language) {
+            when("javascript") { return "console.log('$buffer: ', $buffer); // PEEK";}
+            when("python")     { return "print('$buffer: ', $buffer) # PEEK";}
+            when("perl")       { return "print '$buffer' # PEEK";}
+            when("rust")       { return "dbg!($buffer); // PEEK";}
+            default            { return "";}
+        }
     }
 }
 
@@ -21,7 +33,6 @@ sub get_dbg_keyword {
 # * `($buffer) -> ($indentation, $rest_of_line)`
 sub extract_indentation {
     my $buffer = shift;
-    # if ($buffer =~ /^(\s*)(.*)\n$/s) {
     if ($buffer =~ /^(\s*)(.*)$/) {
         return ($1, $2);
     }
@@ -32,7 +43,7 @@ my $line = <STDIN>;
 
 exit 0 unless defined $line;
 
-my ($language, $u) = @ARGV;
+my ($language) = @ARGV;
 my ($ind, $buffer) = extract_indentation($line);
 my $dbg = get_dbg_keyword($language, $buffer);
 print "$ind$dbg\n";
