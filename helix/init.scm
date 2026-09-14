@@ -1,19 +1,33 @@
 (require (prefix-in helix. "helix/commands.scm"))
 (require (prefix-in helix.static. "helix/static.scm"))
-(require "helix/static.scm")
-(require "helix/editor.scm")
+(require (prefix-in helix.editor. "helix/editor.scm"))
+(require (prefix-in helix.misc. "helix/misc.scm"))
 (require "helix/keymaps.scm")
-(require "helix/misc.scm")
 (require (only-in "helix/ext.scm" evalp eval-buffer))
+(require-builtin "steel/process" as process.)
+(require (prefix-in result. "steel/result"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Helper ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define (current-file)
-  (cx->current-file))
+  (helix.static.cx->current-file))
 
 (define (cursor-line)
-  (+ 1 (get-current-line-number)))
+  (+ 1 (helix.static.get-current-line-number)))
 
+(define (shell-capture cmd args)
+  (~> (process.command cmd args)
+      (process.with-stdout-piped)
+      (process.with-stderr-piped)
+      (process.spawn-process)
+      (result.unwrap-ok)
+      (process.wait->stdout)
+      (result.unwrap-ok)))
+
+;;@doc
+;; Whether the current working directory is inside a git repository
+(define (in-git-repo?)
+  (equal? (trim (shell-capture "git" (list "rev-parse" "--is-inside-work-tree"))) "true"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Assemblages ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -34,7 +48,10 @@
 ;;@doc
 ;; `:pipe peek <current buffer language>`
 (define (peek-pipe)
-  (define lang (editor-document->language (editor->doc-id (editor-focus))))
+  (define lang
+    (helix.editor.editor-document->language
+      (helix.editor.editor->doc-id
+        (helix.editor.editor-focus))))
   (helix.pipe "peek" (if (string? lang) lang ""))
   (helix.static.collapse_selection))
 
@@ -44,51 +61,68 @@
 ;;@doc
 ;; git blame the line under the cursor
 (define (blame-line)
-  (helix.run-shell-command
-   (string-join (list "git" "blame" "-L" (string-append (number->string (cursor-line)) ",+1")
-                       (current-file))
-                " ")))
+  (cond [(not (in-git-repo?))
+         (helix.misc.set-error! "blame-line: not inside a git repository")]
+        [else
+         (helix.run-shell-command
+          (string-join (list "git"
+                             "blame"
+                             "-L"
+                             (string-append (number->string (cursor-line)) ",+1")
+                             (current-file))
+           " "))]))
 
 ;;@doc
 ;; git blame the current line and open the commit in a scratch buffer.
 (define (show-commit-for-line)
-  (define file (current-file))
-  (define line (cursor-line))
-  (define out-file "/tmp/hx-git-show.diff")
-  (helix.run-shell-command
-   (string-append "commit_hash=$(git blame -L "
-                  (number->string line)
-                  ",+1 --porcelain "
-                  file
-                  " | head -n 1 | awk '{print $1}'); git show \"$commit_hash\" > "
-                  out-file))
-  (helix.open out-file))
+  (cond [(not (in-git-repo?))
+         (helix.misc.set-error! "show-commit-for-line: not inside a git repository")]
+        [else
+         (let* ([file (current-file)]
+                [line (cursor-line)]
+                [line-delimiter (string-append (number->string line) ",+1")]
+                [args (list "blame" "-L" line-delimiter "--porcelain" file)]
+                [blame (shell-capture "git" args)]
+                [commit-hash (substring blame 0 40)]
+                [diff (shell-capture "git" (list "show" "--no-color" commit-hash))])
+           (helix.new)
+           (helix.editor.set-scratch-buffer-name!
+            (string-append "*git show " commit-hash "*"))
+           (helix.static.insert_string diff)
+           (helix.write (string-append "/tmp/blame_" commit-hash ".diff"))
+           (helix.static.goto_file_start))]))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Keybindings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (keymap
- (global)
- (normal
-  (X "extend_line_above")
-  ("`" ":search-word-under-cursor")
-  (C-m ":scry-pipe")
-  (C-p ":peek-pipe")
-  (tab "jump_forward")
-  (S-tab "jump_backward")
-  (space
-   (z (z "rotate_view")
-      (v "vsplit")
-      (s "hsplit")
-      (up "jump_view_up")
-      (down "jump_view_down")
-      (right "jump_view_right")
-      (left "jump_view_left"))
-   (B
-     (l ":blame-line")
-     (L ":show-commit-for-line")
-     ))
-  (g (g "goto_word") (G "goto_file_start")))
- (select
-  (g (g "goto_word") (G "goto_file_start")))
- (insert
-  (j (j "normal_mode"))))
+  (global)
+  (normal
+    (X "extend_line_above")
+    ("`" ":search-word-under-cursor")
+    (C-m ":scry-pipe")
+    (C-p ":peek-pipe")
+    (tab "jump_forward")
+    (S-tab "jump_backward")
+    (space
+      (z
+        (z "rotate_view")
+        (v "vsplit")
+        (s "hsplit")
+        (up "jump_view_up")
+        (down "jump_view_down")
+        (right "jump_view_right")
+        (left "jump_view_left"))
+      (B
+        (l ":blame-line")
+        (L ":show-commit-for-line")))
+    (g
+      (g "goto_word")
+      (G "goto_file_start")))
+  (select
+    (g
+      (g "goto_word")
+      (G "goto_file_start")))
+  (insert
+    (j
+      (j "normal_mode"))))
