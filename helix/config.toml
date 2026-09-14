@@ -1,44 +1,7 @@
 theme = "default_but_better"
 
-[keys.normal]
-"X" = "extend_line_above"
-"`" = ["move_char_right", "move_prev_word_start", "move_next_word_start", "search_selection"]
-"C-m" = [":pipe scry", "collapse_selection"]
-"C-p" = [
-    ":pipe peek %{language}",
-    "collapse_selection",
-]
-"tab" = "jump_forward"
-"S-tab" = "jump_backward"
-
-[keys.normal.space.z]
-"z" = "rotate_view"
-"v" = "vsplit"
-"s" = "hsplit"
-"up" = "jump_view_up"
-"down" = "jump_view_down"
-"right" = "jump_view_right"
-"left" = "jump_view_left"
-
-[keys.normal.g]
-"g" = "goto_word"
-"G" = "goto_file_start"
-
-[keys.select.g]
-"g" = "goto_word"
-"G" = "goto_file_start"
-
-[keys.insert]
-"j" = { "j" = "normal_mode" }
-
-[keys.normal.space.B]
-l = ":sh git blame -L %{cursor_line},+1 %{buffer_name}"
-b = ":sh git blame -L %{selection_line_start},%{selection_line_end} %{buffer_name}"
-L = [
-    ":pipe-to sh -c 'commit_hash=$(git blame -L %{cursor_line},+1 --porcelain %{buffer_name} | head -n 1 | awk \"{print \\$1}\"); git show $commit_hash > /tmp/hx-git-show.diff'",
-    ":open /tmp/hx-git-show.diff"
-]
-
+# Keybindings live in `init.scm` on this branch (steel plugin system port, see
+# helix-editor/helix#8675 / mattwparas/helix `steel-event-system`).
 
 [editor]
 line-number = "relative"
