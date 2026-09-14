@@ -95,6 +95,7 @@ install modules DB=DB:
     uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{modules}} \
+        -u {{modules}} \
         --stop-after-init
 
 # Initialize a db with demo data and specific modules (eg: `just demo project,crm`)
@@ -102,36 +103,41 @@ install-demo modules DB=DB:
     uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{modules}} \
+        -u {{modules}} \
         --with-demo \
         --stop-after-init
 
 # Install modules from SELECTED
-install-selected modules DB=DB:
+install-selected DB=DB:
     uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{SELECTED_MODULES}} \
+        -u {{SELECTED_MODULES}} \
         --stop-after-init
 
 # Install modules from SELECTED with demo data
-install-selected-demo modules DB=DB:
+install-selected-demo DB=DB:
     uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{SELECTED_MODULES}} \
+        -u {{SELECTED_MODULES}} \
         --with-demo \
         --stop-after-init
 
 # Install modules from RANDOM
-install-random modules DB=DB:
+install-random DB=DB:
     uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{RANDOM_MODULES}} \
+        -u {{RANDOM_MODULES}} \
         --stop-after-init
 
 # Install modules from RANDOM with demo data
-install-random-demo modules DB=DB:
+install-random-demo DB=DB:
     uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{RANDOM_MODULES}} \
+        -u {{RANDOM_MODULES}} \
         --with-demo \
         --stop-after-init
 
@@ -151,7 +157,7 @@ test modules_to_install test_tags DB='$(just fzf-dbs)':
         --stop-after-init
 
 # Run tests for a specific module (e.g., `just test /account`, `just test :TestApiDoc`)
-test_porcelain modules_to_install test_tags DB='$(just fzf-dbs)':
+test-porcelain modules_to_install test_tags DB='$(just fzf-dbs)':
     uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{modules_to_install}} -u {{modules_to_install}} \
@@ -168,39 +174,45 @@ o-owl3-migrate:
 
 # My Subscription Task quick setup
 o-mysubscription:
-    just demo crm,sale_manegement,hr,contacts,mysubscription mysub_demo_db
-    just run-e
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
+        -d mysubscription_db \
+        -i crm,sale_management,hr,contacts,mysubscription \
+        -u crm,sale_management,hr,contacts,mysubscription \
+        --with-demo
+
+# My Subscription Task quick setup
+o-mysubscription-max:
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
+        -d mysubscription_max_db \
+        -i crm,sale_management,hr,contacts,mysubscription,ai,purchase,crm \
+        -u crm,sale_management,hr,contacts,mysubscription,ai,purchase,crm \
+        --with-demo
+
+# My Subscription Task quick setup 2
+o-mysubscription-community:
+    uv run {{BIN}} --addons-path={{COMMUNITY_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
+        -d mysubscription_community_db \
 
 # Studio reorder quick setup
 o-studio-reorder:
-    just install web_studio,hr studio_reorder_db
-    just drun-e studio_reorder_db
-
-# Studio reorder quick setup whole test suite
-o-test-studio-reorder:
-    just install web_studio,hr studio_reorder_db
-    just test_porcelain /web_studio studio_reorder_db
-
-# Add followers subtype
-o-mail-stuff:
     uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
-        -d default_db \
-        -i mail,base_automation,sale_management,test_mail \
-        -u mail,base_automation,sale_management,test_mail \
-        --with-demo
+        -d studio_reorder_db \
+        -i web_studio,hr \
+        -u web_studio,hr
 
-# Revert count in grouped list
-o-list-count:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
-        -d list_group_db \
-        -i hr,planning,contacts,project \
-        -u hr,planning,contacts,project \
-        --with-demo
+# launch all studio tests
+o-studio-tests log_level="info":
+    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+        -d web_studio_test_db \
+        -i web_studio -u web_studio \
+        --test-tags /web_studio \
+        --stop-after-init \
+        --log-level {{log_level}}
 
 # Try out Accountant empty group impl
 o-empty-group:
     uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
         -d empty_group_db \
-        -i accountant,project,planning \
-        -u accountant,project,planning \
+        -i accountant,project,planning,crm \
+        -u accountant,project,planning,crm \
         --with-demo
