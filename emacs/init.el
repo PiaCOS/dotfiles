@@ -43,9 +43,11 @@
 (scroll-bar-mode -1)
 ; (menu-bar-mode -1)
 
-(setq doom-theme 'doom-gruvbox)
-(use-package doom-themes
-  :config (load-theme doom-theme t))
+; (setq doom-theme 'doom-gruvbox)
+; (use-package doom-themes
+;   :config (load-theme doom-theme t))
+(add-to-list 'custom-theme-load-path (expand-file-name "~/.config/emacs/themes/"))
+(load-theme 'helix-custom t)
 
 (set-face-attribute 'default nil :font "Maple Mono NF" :height 100)
 (set-face-attribute 'fixed-pitch nil :font "Maple Mono NF")
@@ -74,7 +76,7 @@
   (my/indent-region-or-line (- tab-width)))
 
 ; -------- Surround chars --------
-; Asks for the chars to surround a selection with. The matching brackets 
+; Asks for the chars to surround a selection with. The matching brackets
 ; are found in 'insert-pair-alist' and it prompt the user with the
 ; 'minibuffer'.
 
