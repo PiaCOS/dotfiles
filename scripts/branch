@@ -12,5 +12,5 @@ chomp $path;
 
 (my $input = $branches) =~ s/^[\* ] //gm;
 
-open(my $pipe, '|-', "fzf --header=':: You are currently on $path > $current ::'");
+open(my $pipe, '|-', "fzf --height 16 --header=':: You are currently on $path > $current ::'");
 print $pipe $input;
