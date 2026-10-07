@@ -1,0 +1,44 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+my ($odoo_path, $buffer_name, $cursor_line) = @ARGV;
+
+exit 0 unless defined $buffer_name and defined $cursor_line;
+
+my $cwd = `pwd`;
+chomp $cwd;
+
+my $file_path = "$buffer_name";
+my $line = `sed '$cursor_line!d' $file_path`;
+
+# XML -> JS
+if ($line =~ /t-name\=[\"\'](\S+)[\"\']/) {
+    my $template = $1;
+    my $rg = `rg -n --type js -e 'static\\s+template\\s*=\\s*.${template}[^\\w.]' ${odoo_path}`;
+
+    if ($rg =~ /^([^:\n]+\.js):(\d+)/) {
+        print "$1:$2";
+    } else {
+        exit 0;
+    }
+# JS -> XML
+} elsif ($line =~ /static\s+template\s*\=\s*[\"\'](\S+)[\"\']/) {
+    my $template = $1;
+    my $rg = `rg -n --type xml -e 't-name=.${template}[^\\w.]' ${odoo_path}`;
+
+    if ($rg =~ /^([^:\n]+\.xml)\:(\d+)/) {
+        print "$1:$2";
+    } else {
+        exit 0;
+    }
+}
+
+exit 0;
+# t-name="web.DocModel"
+# static template = "web.DocModel";
+
+# ! ./owl-peeker %{buffer_name} %{cursor_line}
+
+# :open %sh{owl-peeker %{buffer_name} %{cursor_line}}

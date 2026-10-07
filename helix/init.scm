@@ -55,6 +55,81 @@
   (helix.pipe "peek" (if (string? lang) lang ""))
   (helix.static.collapse_selection))
 
+;;@doc
+;; Jump cwd to the nearest git worktree root
+(define (goto-repo-root)
+  (helix.change-current-directory (find-workspace)))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Odoo ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;@doc
+;; Jump cwd to a bookmarked directory: `:go <name>`
+(define (go . args)
+  (define name (if (null? args) "" (car args)))
+  (define bookmarks
+    (hash "community" "/home/elco/Dev/odoo/community"
+          "web" "/home/elco/Dev/odoo/community/addons/web"
+          "api_doc" "/home/elco/Dev/odoo/community/addons/api_doc"
+          "mysubscription" "/home/elco/Dev/odoo/community/addons/mysubscription"
+          "enterprise" "/home/elco/Dev/odoo/enterprise"
+          "web_studio" "/home/elco/Dev/odoo/enterprise/web_studio"
+          "odoo" "/home/elco/Dev/odoo"
+          "dotfiles" "/home/elco/Dev/dotfiles"))
+  (cond [(not (hash-contains? bookmarks name))
+         (helix.misc.set-error! (string-append "go: unknown bookmark '" name "'"))]
+        [else
+         (helix.change-current-directory (hash-get bookmarks name))]))
+
+
+;; Forced to do this in order to have a `doc` element :/
+
+;;@doc
+;; Change CWD to 'api_doc/'
+(define (go-api-doc) (go "api_doc"))
+
+;;@doc
+;; Change CWD to 'mysubscription/'
+(define (go-mysubscription) (go "mysubscription"))
+
+;;@doc
+;; Change CWD to 'community/'
+(define (go-community) (go "community"))
+
+;;@doc
+;; Change CWD to 'enterprise/'
+(define (go-enterprise) (go "enterprise"))
+
+;;@doc
+;; Change CWD to 'odoo/'
+(define (go-odoo) (go "odoo"))
+
+;;@doc
+;; Change CWD to 'web_studio/'
+(define (go-web_studio) (go "web_studio"))
+
+;;@doc
+;; Change CWD to 'web/'
+(define (go-web) (go "web"))
+
+;;@doc
+;; Change CWD to 'dotfiles/'
+(define (go-dotfiles) (go "dotfiles"))
+
+;;@doc
+;; Jump between an owl component and its template (via `owl-peeker`)
+(define (owl-peek)
+  (define target
+    (trim (shell-capture "owl-peeker"
+                         (list
+                          "/home/elco/Dev/odoo"
+                          (current-file)
+                          (number->string (cursor-line))))))
+  (if (equal? target "")
+      (helix.misc.set-error! "owl-peek: no matching component/template")
+      (helix.open target)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Git Blame ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -115,7 +190,22 @@
         (left "jump_view_left"))
       (B
         (l ":blame-line")
-        (L ":show-commit-for-line")))
+        (L ":show-commit-for-line"))
+      (c
+        (c ":cd -- -")
+        (p ":cd ..")
+        (r ":goto-repo-root"))
+      (C
+        (o ":go-odoo")
+        (c ":go-community")
+        (e ":go-enterprise")
+        (s ":go-web_studio")
+        (w ":go-web")
+        (a ":go-api-doc")
+        (m ":go-mysubscription"))
+      (o
+        (t ":owl-peek"))
+      (d ":go-dotfiles"))
     (g
       (g "goto_word")
       (G "goto_file_start")))
