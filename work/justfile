@@ -9,9 +9,10 @@ DEV := "xml,qweb"
 
 COMMUNITY_ADDONS := "community/addons"
 ENTERPRISE_ADDONS := "community/addons,enterprise"
+ALL_ADDONS := "community/addons,enterprise,piaddons"
 
-SELECTED_MODULES := "project,web_studio,contact,api_doc,hr,crm"
-RANDOM_MODULES := "project,web_studio,contact,api_doc,hr,crm,sale_management,stock,purchase,accountant,point_of_sale,mrp,mass_mailing,documents,calendar,mysubscription"
+SELECTED_MODULES := "project,web_studio,contact,api_doc,hr,crm,logger,piajs"
+RANDOM_MODULES := "project,web_studio,contact,api_doc,hr,crm,sale_management,stock,purchase,accountant,point_of_sale,mrp,mass_mailing,documents,calendar,mysubscription,logger,piajs"
 
 # -------- DB Config -------- #
 DB_ARGS := "--db_host=localhost --db_user=odoo --db_password=odoo"
@@ -29,14 +30,14 @@ fzf-dbs:
     @psql -U postgres -c "\l" \
         | rg -o "^\s(\S+)\s*\|" -r '$1' \
         | rg -v "^(template\d|postgres)$" \
-        | fzf -m --header ":: Choose a database ::"
+        | fzf -m --height 16 --header ":: Choose a database ::"
 
 # Drop selected dbs
 dropdd:
     @psql -U postgres -c "\l" \
         | rg -o "^\s(\S+)\s*\|" -r '$1' \
         | rg -v "^(template\d|postgres)$" \
-        | fzf -m --header ":: Choose a database ::" \
+        | fzf -m --height 16 --header ":: Choose a database ::" \
         | iter "dropdb -h localhost -U odoo {}" -d
 
 # List all databases
@@ -72,7 +73,7 @@ run:
 
 # Run enterprise Odoo
 run-e:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} {{DB_ARGS}} \
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} --dev={{DEV}} {{DB_ARGS}} \
         --http-port={{PORT}}
 
 # Run community Odoo with -d DB
@@ -83,7 +84,7 @@ drun DB='$(just fzf-dbs)':
 
 # Run enterprise Odoo with -d DB
 drun-e DB='$(just fzf-dbs)':
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} {{DB_ARGS}} \
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} --dev={{DEV}} {{DB_ARGS}} \
         --http-port={{PORT}} \
         -d {{DB}}
 
@@ -92,7 +93,15 @@ drun-e DB='$(just fzf-dbs)':
 
 # Install specific modules (eg: `just install project,crm`)
 install modules DB=DB:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} {{DB_ARGS}} \
+        -d {{DB}} \
+        -i {{modules}} \
+        -u {{modules}} \
+        --stop-after-init
+
+# Install specific modules in community only (eg: `just install project,crm`)
+install-community modules DB=DB:
+    uv run {{BIN}} --addons-path={{COMMUNITY_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{modules}} \
         -u {{modules}} \
@@ -100,7 +109,7 @@ install modules DB=DB:
 
 # Initialize a db with demo data and specific modules (eg: `just demo project,crm`)
 install-demo modules DB=DB:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{modules}} \
         -u {{modules}} \
@@ -109,7 +118,7 @@ install-demo modules DB=DB:
 
 # Install modules from SELECTED
 install-selected DB=DB:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{SELECTED_MODULES}} \
         -u {{SELECTED_MODULES}} \
@@ -117,7 +126,7 @@ install-selected DB=DB:
 
 # Install modules from SELECTED with demo data
 install-selected-demo DB=DB:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{SELECTED_MODULES}} \
         -u {{SELECTED_MODULES}} \
@@ -126,7 +135,7 @@ install-selected-demo DB=DB:
 
 # Install modules from RANDOM
 install-random DB=DB:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{RANDOM_MODULES}} \
         -u {{RANDOM_MODULES}} \
@@ -134,7 +143,7 @@ install-random DB=DB:
 
 # Install modules from RANDOM with demo data
 install-random-demo DB=DB:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{RANDOM_MODULES}} \
         -u {{RANDOM_MODULES}} \
@@ -146,11 +155,11 @@ install-random-demo DB=DB:
 
 # Open Odoo shell
 shell DB='$(just fzf-dbs)':
-    uv run {{BIN}} shell --addons-path={{ENTERPRISE_ADDONS}} -d {{DB}} {{DB_ARGS}}
+    uv run {{BIN}} shell --addons-path={{ALL_ADDONS}} -d {{DB}} {{DB_ARGS}}
 
 # Run tests for a specific module (e.g., `just test /account`, `just test :TestApiDoc`)
 test modules_to_install test_tags DB='$(just fzf-dbs)':
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{modules_to_install}} -u {{modules_to_install}} \
         --test-tags {{test_tags}} \
@@ -158,7 +167,7 @@ test modules_to_install test_tags DB='$(just fzf-dbs)':
 
 # Run tests for a specific module (e.g., `just test /account`, `just test :TestApiDoc`)
 test-porcelain modules_to_install test_tags DB='$(just fzf-dbs)':
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} {{DB_ARGS}} \
         -d {{DB}} \
         -i {{modules_to_install}} -u {{modules_to_install}} \
         --test-tags {{test_tags}} \
@@ -170,11 +179,11 @@ test-porcelain modules_to_install test_tags DB='$(just fzf-dbs)':
 
 # owl3 migration
 o-owl3-migrate:
-    uv run {{BIN}} upgrade_code --script owl3-migration.py --addons-path={{ENTERPRISE_ADDONS}}
+    uv run {{BIN}} upgrade_code --script owl3-migration.py --addons-path={{ALL_ADDONS}}
 
 # My Subscription Task quick setup
 o-mysubscription:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
         -d mysubscription_db \
         -i crm,sale_management,hr,contacts,mysubscription \
         -u crm,sale_management,hr,contacts,mysubscription \
@@ -182,7 +191,7 @@ o-mysubscription:
 
 # My Subscription Task quick setup
 o-mysubscription-max:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
         -d mysubscription_max_db \
         -i crm,sale_management,hr,contacts,mysubscription,ai,purchase,crm \
         -u crm,sale_management,hr,contacts,mysubscription,ai,purchase,crm \
@@ -195,24 +204,23 @@ o-mysubscription-community:
 
 # Studio reorder quick setup
 o-studio-reorder:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
         -d studio_reorder_db \
-        -i web_studio,hr \
-        -u web_studio,hr
+        -i web_studio,hr,logger \
+        -u web_studio,hr,logger
 
 # launch all studio tests
 o-studio-tests log_level="info":
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} {{DB_ARGS}} \
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} {{DB_ARGS}} \
         -d web_studio_test_db \
         -i web_studio -u web_studio \
         --test-tags /web_studio \
         --stop-after-init \
         --log-level {{log_level}}
 
-# Try out Accountant empty group impl
-o-empty-group:
-    uv run {{BIN}} --addons-path={{ENTERPRISE_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
-        -d empty_group_db \
-        -i accountant,project,planning,crm \
-        -u accountant,project,planning,crm \
-        --with-demo
+# piaddons
+o-piaddons:
+    uv run {{BIN}} --addons-path={{ALL_ADDONS}} --dev={{DEV}} --http-port={{PORT}} {{DB_ARGS}} \
+        -d piaddons_db \
+        -i web_studio,hr,logger,piajs \
+        -u web_studio,hr,logger,piajs
